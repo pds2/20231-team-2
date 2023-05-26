@@ -1,9 +1,5 @@
 # SemNomeAinda
 
-<p align="center">
-  <img src="https://lh3.googleusercontent.com/kMRnTGAFOFRDQV8UFbE-c1cwYeWrWNXIfi7-ToVOYB3FQQvc1kCmBa5-DOL9zxhMrFeaPcx3hIVMo3_9MX1brBTuH2mhd6Js9MNiosWugg" alt="Imagem do SemNomeAinda" width="200">
-</p>
-
 SemNomeAinda é uma aplicação em terminal que permite aos usuários realizar pedidos de comida de forma prática e rápida.
 
 ## Desenvolvedores:
