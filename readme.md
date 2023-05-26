@@ -10,7 +10,7 @@ SemNomeAinda é uma aplicação em terminal que permite aos usuários realizar p
 
 ## Histórias de Usuário:
 
-1) Eu como administrador quero conseguir cadastrar novos produtos e edita-los quando necessário,incluindo descontos esporádicos para que os clientes possam comprar.
+1) Eu como restaurante quero conseguir cadastrar novos produtos e edita-los quando necessário,incluindo descontos esporádicos para que os clientes possam comprar.
 
 2) Eu como usuário quero ter uma espécie de carteira virtual para realizar transações.
 
@@ -18,13 +18,11 @@ SemNomeAinda é uma aplicação em terminal que permite aos usuários realizar p
 
 4) Eu como usuário quero comprar mais de uma refeição por vez.
 
-5) Eu como administrador quero proibir ações inadequadas, como saldo negativo ou compras sem saldo suficiente.
+5) Eu como usuário quero receber recompensas pelas minhas compras para utilizar no futuro.
 
-6) Eu como usuário quero receber recompensas pelas minhas compras para utilizar no futuro.
+6) Eu como usuário quero adicionar várias comidas a um carrinho que exibirá todas as refeições a serem pedidas e o valor total da compra.
 
-7) Eu como usuário quero adicionar várias comidas a um carrinho que exibirá todas as refeições a serem pedidas e o valor total da compra.
-
-8) Eu como usuário quero ter um catálogo de comidas para selecionar e adicionar ao carrinho de compras.
+7) Eu como usuário quero ter um catálogo de comidas para selecionar e adicionar ao carrinho de compras.
 
 9) (Opcional, se houver tempo) Eu como usuário quero poder ter uma estimativa do tempo de espera para a entrega da comida, considerando a localização da loja e do pedido.
 
