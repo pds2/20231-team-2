@@ -10,7 +10,7 @@ SemNomeAinda é uma aplicação em terminal que permite aos usuários realizar p
 
 ## Histórias de Usuário:
 
-1) Eu como administrador quero conseguir cadastrar novos produtor e edita-los quando necessário,incluindo descontos esporádicos para que os clientes possam comprar.
+1) Eu como administrador quero conseguir cadastrar novos produtos e edita-los quando necessário,incluindo descontos esporádicos para que os clientes possam comprar.
 
 2) Eu como usuário quero ter uma espécie de carteira virtual para realizar transações.
 
