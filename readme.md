@@ -14,7 +14,7 @@ SemNomeAinda é uma aplicação em terminal que permite aos usuários realizar p
 
 ## Histórias de Usuário:
 
-1) Eu como administrador quero conseguir cadastrar as reduções para que os clientes possam comprar.
+1) Eu como administrador quero conseguir cadastrar novos produtor e edita-los quando necessário,incluindo descontos esporádicos para que os clientes possam comprar.
 
 2) Eu como usuário quero ter uma espécie de carteira virtual para realizar transações.
 
@@ -36,4 +36,4 @@ SemNomeAinda é uma aplicação em terminal que permite aos usuários realizar p
 
 1. Clone este repositório em sua máquina local.
 2. Execute o comando `make` para compilar o código.
-3. Siga as instruções fornecidas na interface de linha de comando para interagir com o Ifood.
+3. Siga as instruções fornecidas na interface de linha de comando para interagir com o SemNomeAinda.
