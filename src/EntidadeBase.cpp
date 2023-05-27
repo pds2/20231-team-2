@@ -1,7 +1,7 @@
 #include <ctime>
 #include <string>
 
-#include "include/EntidadeBase.hpp"
+#include "../include/EntidadeBase.hpp"
 
 std::string GetDataAtual()
 {
