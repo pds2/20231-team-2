@@ -1,16 +1,18 @@
 #pragma once
 
+#include "EntidadeBase.hpp"
 #ifndef USUARIO_HPP
 #define USUARIO_HPP
 
 #include <string>
 
+#include "EntidadeBase.hpp"
+
 /*
  *  Essa classe é responsável por armazenar e inicializar as informações básicas
  * comuns às entidades de Usuário, como cliente e restaurante. 
  */
-class Usuario
-{
+class Usuario : public EntidadeBase{
     private:
         std::string _login;
         std::string _senha;
