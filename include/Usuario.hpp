@@ -14,13 +14,14 @@
  */
 class Usuario : public EntidadeBase{
     private:
+        std:: string _nome;
         std::string _login;
         std::string _senha;
     public:
         /*
          * @brief Instância de um novo usuário.
          */
-        Usuario(std::string login, std::string senha);
+        Usuario(std::string nome, std::string login, std::string senha);
 
         /*
          * @brief Retorna o login de um usuário.
@@ -31,6 +32,11 @@ class Usuario : public EntidadeBase{
          * @brief Retorna a senha de um usário.
          */
         std::string GetSenha();
+
+        /*
+         * @brief Retorna o nome de um usário.
+         */
+        std::string GetNome();
 };
 
 #endif
