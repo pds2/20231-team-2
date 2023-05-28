@@ -1,6 +1,5 @@
 #pragma once
 
-#include "EntidadeBase.hpp"
 #ifndef USUARIO_HPP
 #define USUARIO_HPP
 
@@ -14,7 +13,7 @@
  */
 class Usuario : public EntidadeBase{
     protected:
-        std:: string _nome;
+        std::string _nome;
         std::string _login;
         std::string _senha;
     public:
