@@ -85,7 +85,7 @@ class Item
         /**
          * @brief Remove o desconto aplicado a esse item, caso exista.
         */
-    void RemoverDescontoAtual();
+        void RemoverDescontoAtual();
 };
 
 #endif
