@@ -39,7 +39,7 @@ double Item::GetPrecoAtual()
     return (_descontoAplicado) ? _precoComDesconto : _precoBase;
 }
 
-bool Item::ExiteUmDescontoAplicado()
+bool Item::ExisteUmDescontoAplicado()
 {
     return _descontoAplicado;
 }

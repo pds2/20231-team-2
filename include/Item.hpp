@@ -74,7 +74,7 @@ class Item
         /*
         * @brief Retorna verdadeiro caso exista um desconto aplicado a esse item.
         */
-        bool ExiteUmDescontoAplicado();
+        bool ExisteUmDescontoAplicado();
 
         /**
          * @brief Aplica um desconto sobre o preço base.
