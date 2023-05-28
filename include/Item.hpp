@@ -41,52 +41,51 @@ class Item
         bool _descontoAplicado;
     
     public:
+        /*
+        * @brief Intância um novo item(produto).
+        */
+        Item(std::string nome, std::string descricao, ItemType tipo, double precoBase);
 
-    /*
-    * @brief Intância um novo item(produto).
-    */
-    Item(std::string nome, std::string descricao, ItemType tipo, double precoBase);
+        /*
+        * @brief Retorna o nome desse item.
+        */
+        std::string GetNome();
 
-    /*
-    * @brief Retorna o nome desse item.
-    */
-    std::string GetNome();
+        /*
+        * @brief Retorna a descrição desse item.
+        */
+        std::string GetDescricao();
 
-    /*
-    * @brief Retorna a descrição desse item.
-    */
-    std::string GetDescricao();
+        /*
+        * @brief Retorna o tipo desse item.
+        */
+        ItemType GetTipo();
 
-    /*
-    * @brief Retorna o tipo desse item.
-    */
-    ItemType GetTipo();
+        /*
+        * @brief Retorna o preço base desse item.
+        */
+        double GetPrecoBase();
 
-    /*
-    * @brief Retorna o preço base desse item.
-    */
-    double GetPrecoBase();
+        /*
+        * @brief Retorna o preço atual desse item. Esse método considera possíveis descontos aplicados.
+        */
+        double GetPrecoAtual();
 
-    /*
-    * @brief Retorna o preço atual desse item. Esse método considera possíveis descontos aplicados.
-    */
-    double GetPrecoAtual();
+        /*
+        * @brief Retorna verdadeiro caso exista um desconto aplicado a esse item.
+        */
+        bool ExiteUmDescontoAplicado();
 
-    /*
-    * @brief Retorna verdadeiro caso exista um desconto aplicado a esse item.
-    */
-    bool ExiteUmDescontoAplicado();
+        /**
+         * @brief Aplica um desconto sobre o preço base.
+         * @param percentualDesconto Pode variar de 1 a 100.
+         */
+        void AplicarDesconto(int percentualDesconto);
 
-    /**
-     * @brief Aplica um desconto sobre o preço base.
-     * @param percentualDesconto Pode variar de 1 a 100.
-     */
-    void AplicarDesconto(int percentualDesconto);
-
-    /**
-     * @brief Remove o desconto aplicado a esse item, caso exista.
-    */
-   void RemoverDescontoAtual();
+        /**
+         * @brief Remove o desconto aplicado a esse item, caso exista.
+        */
+    void RemoverDescontoAtual();
 };
 
 #endif
