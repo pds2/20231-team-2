@@ -14,7 +14,6 @@
 class Cliente : public Usuario {
     private:
         std::string _CPF;
-        //um cliente deve possuir uma carteira(olhar com Gabriel)
     public:
         /*
          * @brief Instância de um novo cliente.
@@ -22,7 +21,7 @@ class Cliente : public Usuario {
         Cliente(std::string CPF);
 
         /*
-         * @brief Retorna o CPF de um usuário.
+         * @brief Retorna o CPF de um cliente.
          */
        std::string GetCPF();
 };
