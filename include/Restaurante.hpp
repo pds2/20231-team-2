@@ -18,7 +18,7 @@ class Restaurante : public Usuario {
         /*
          * @brief Instância de um novo restaurante.
          */
-        Restaurante(std::string CNPJ);
+        Restaurante(std::string nome, std::string login, std::string senha,std::string CNPJ);
 
         /*
          * @brief Retorna o CNPJ de um restaurante.
