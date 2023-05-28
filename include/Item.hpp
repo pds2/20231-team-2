@@ -8,7 +8,7 @@
 
 /**
  * @enum ItemType
- * Um enumerador representando os tipodes de itens disponíveis.
+ * Um enumerador representando os tipos de de itens disponíveis.
  */
 enum class ItemType
 {
@@ -27,7 +27,7 @@ class desconto_invalido_e {};
 
 /*
  *  Essa classe é responsável por armazenar e inicializar as informações básicas
- *              dos itens(representação genérica de um produto)
+ *              dos itens(representação genérica de um produto).
  */
 class Item 
     : public EntidadeBase
