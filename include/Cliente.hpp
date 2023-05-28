@@ -18,7 +18,7 @@ class Cliente : public Usuario {
         /*
          * @brief Instância de um novo cliente.
          */
-        Cliente(std::string CPF);
+        Cliente(std::string nome, std::string login, std::string senha, std::string CPF);
 
         /*
          * @brief Retorna o CPF de um cliente.

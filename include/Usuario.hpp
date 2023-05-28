@@ -13,7 +13,7 @@
  * comuns às entidades de Usuário, como cliente e restaurante. 
  */
 class Usuario : public EntidadeBase{
-    private:
+    protected:
         std:: string _nome;
         std::string _login;
         std::string _senha;
