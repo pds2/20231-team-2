@@ -4,19 +4,19 @@
 #include <string>
 
 /*
- * @brief Essa classe representa uma exceção que será leançada quando
+ * @brief Essa classe representa uma exceção que será lançada quando
  * um saldo negativo ou igual a zero tentar ser adicionado.
  */
 class impossivel_adicionar_saldo_negativo_ou_igual_a_zero_e {};
 
 /*
- * @brief Essa classe representa uma exceção que será leançada quando
+ * @brief Essa classe representa uma exceção que será lançada quando
  * um saldo negativo ou igual a zero tentar ser removido.
  */
 class impossivel_remover_saldo_negativo_ou_igual_a_zero_e {};
 
 /*
- * @brief Essa classe representa uma exceção que será leançada quando
+ * @brief Essa classe representa uma exceção que será lançada quando
  * um saldo maior que o saldo do cliente tentar ser removido.
  */
 class saldo_insuficiente_para_remocao_e {};
@@ -48,7 +48,7 @@ class Carteira{
   double get_saldo();
 
   /*
-   * @brief Adiciona um determinado saldo da carteira
+   * @brief Adiciona um determinado saldo da carteira.
    */
   void adicionar_saldo(double saldo);
 

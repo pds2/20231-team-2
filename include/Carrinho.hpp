@@ -6,10 +6,16 @@
 #include "Item.hpp"
 
 /*
- * @brief Essa classe representa uma exceção que será leançada quando um item 
+ * @brief Essa classe representa uma exceção que será lançada quando um item 
  * que não está no carrinho de compras tentar ser retirado dele.
  */
 class item_nao_existe_no_carrinho_e {};
+
+/*
+ * @brief Essa classe representa uma exceção que será lançada quando um item
+ * tentar ser removido de um carrinho vazio(que não tem itens).
+ */
+class carrinho_vazio_e {};
 
 /*
  * @brief Essa classe representa um carrinho de compras que poderá ser usado
@@ -28,6 +34,10 @@ class Carrinho{
    */
   Carrinho();
 
+  /*
+   * @brief Retorna o valor total do carrinho de compras.
+   */
+  double get_valorTotal();
 
   /*
    * @brief Retorna o vetor contendo todas as compras adicionadas
@@ -36,22 +46,19 @@ class Carrinho{
   std::vector get_carrinho();
 
   /*
-   * @brief Retorna o valor total do carrinho de compras.
-   */
-  double get_valorTotal();
-
-  /*
    * @brief Adiciona um Item ao carrinho.
    */
-  void adicionarItem(std::string item);
+  void adicionarItem(Item &item);
 
   /*
    * @brief Remove um Item do carrinho.
    */
-  void removerItem();
+  void removerItem(Item &item);
 
-
-  
+  /*
+   * @brief Remove todos os itens do carrinho.
+   */
+  void limparCarrinho();  
 };
 
 #endif

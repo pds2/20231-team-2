@@ -10,7 +10,7 @@ std::string Carteira::get_nome(){
 }
 
 double Carteira::get_saldo(){
-  return get_saldo
+  return _saldo;
 }
 
 void Carteira::adicionar_saldo(double saldo){
