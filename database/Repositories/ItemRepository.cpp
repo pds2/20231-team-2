@@ -19,11 +19,6 @@ ItemRepository::~ItemRepository()
     }
 }
 
-std::vector<Item*> ItemRepository::GetAll()
-{
-    return std::vector<Item*>();
-}
-
 Item* ConvertToEntity(sqlite3_stmt* stmt)
 {    
     int id = sqlite3_column_int(stmt, 0);
@@ -42,6 +37,24 @@ Item* ConvertToEntity(sqlite3_stmt* stmt)
     return entity;
 }
 
+std::vector<Item*> ItemRepository::GetAll()
+{
+    std::vector<Item*> items;
+
+    std::string query = "SELECT * FROM Item;";
+    sqlite3_stmt* stmt = Select(query);
+
+    while (sqlite3_step(stmt) == SQLITE_ROW)
+    {
+        Item* entity = ConvertToEntity(stmt);
+        items.push_back(entity);
+    }
+
+    sqlite3_finalize(stmt);
+
+    return items;
+}
+
 Item* ItemRepository::GetById(int id)
 {
     for(Item* item : _entities)
@@ -53,7 +66,9 @@ Item* ItemRepository::GetById(int id)
     std::string query = "SELECT * FROM Item WHERE id = '" + std::to_string(id) + "';";
     
     sqlite3_stmt* stmt = Select(query);
+    sqlite3_step(stmt);
     Item* entity = ConvertToEntity(stmt);
+    sqlite3_finalize(stmt);
 
     _entities.push_back(entity);
     return entity;
@@ -61,7 +76,7 @@ Item* ItemRepository::GetById(int id)
 
 void ItemRepository::Insert(Item* entity)
 {
-    std::string query = "INSERT INTO Item (id, nome, descricao, tipo, precoBase, precoComDesconto, dataDeCriacao, dataUltimaAtualizacao) VALUES (0, '{0}', '{1}', {2}, {3}, {4}, '{5}', '{6}');";
+    std::string query = "INSERT INTO Item (nome, descricao, tipo, precoBase, precoComDesconto, dataDeCriacao, dataUltimaAtualizacao) VALUES ('{0}', '{1}', {2}, {3}, {4}, '{5}', '{6}');";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
         { "{0}", entity->GetNome() },
