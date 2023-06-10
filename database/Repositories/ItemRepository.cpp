@@ -4,7 +4,6 @@
 
 #include <vector>
 #include <map>
-#include <iostream>
 #include <variant>
 
 ItemRepository::ItemRepository()
@@ -26,7 +25,7 @@ std::vector<Item*> ItemRepository::GetAll()
 }
 
 Item* ConvertToEntity(sqlite3_stmt* stmt)
-{
+{    
     int id = sqlite3_column_int(stmt, 0);
     std::string nome(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
     std::string descricao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2)));
@@ -35,7 +34,6 @@ Item* ConvertToEntity(sqlite3_stmt* stmt)
     double precoComDesconto = sqlite3_column_double(stmt, 5);
     std::string criacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 6)));
     std::string atualizacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 7)));
-
 
     Item* entity = new Item(nome, descricao, static_cast<ItemType>(tipo), precoBase);
     entity->SetPrecoComDesconto(precoComDesconto);
@@ -52,19 +50,18 @@ Item* ItemRepository::GetById(int id)
             return item;
     }
 
-    std::string query = "SELECT (id, nome, descricao, tipo, precoBase, precoComDesconto, descontoAplicado, dataDeCriacao, dataUltimaAtualizacao) " 
-                        "FROM Item WHERE id = " + std::to_string(id) + ";";
+    std::string query = "SELECT * FROM Item WHERE id = '" + std::to_string(id) + "';";
     
     sqlite3_stmt* stmt = Select(query);
-
     Item* entity = ConvertToEntity(stmt);
+
     _entities.push_back(entity);
     return entity;
 }
 
 void ItemRepository::Insert(Item* entity)
 {
-    std::string query = "INSERT INTO Item (id, nome, descricao, tipo, precoBase, precoComDesconto, descontoAplicado, dataDeCriacao, dataUltimaAtualizacao) VALUES (0, '{0}', '{1}', {2}, {3}, {4}, {5}, '{6}', '{7}');";
+    std::string query = "INSERT INTO Item (id, nome, descricao, tipo, precoBase, precoComDesconto, dataDeCriacao, dataUltimaAtualizacao) VALUES (0, '{0}', '{1}', {2}, {3}, {4}, '{5}', '{6}');";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
         { "{0}", entity->GetNome() },
@@ -72,9 +69,8 @@ void ItemRepository::Insert(Item* entity)
         { "{2}", static_cast<int>(entity->GetTipo()) },
         { "{3}", entity->GetPrecoBase() },
         { "{4}", entity->GetPrecoAtual() },
-        { "{5}", entity->ExisteUmDescontoAplicado() },
-        { "{6}", entity->GetDataDeCriacao() },
-        { "{7}", entity->GetDataUltimaAtualizacao() },
+        { "{5}", entity->GetDataDeCriacao() },
+        { "{6}", entity->GetDataUltimaAtualizacao() },
     };        
 
     ExecuteSQLReplace(query, values);
@@ -85,7 +81,7 @@ void ItemRepository::Update(Item* entity)
 {
     entity->AtualizarAgora();
 
-    std::string query = "UPDATE Item SET nome = '{0}', descricao = '{1}', tipo = {2}, precoBase = {3}, precoComDesconto = {4}, descontoAplicado = {5}, dataDeCriacao = '{6}', dataUltimaAtualizacao = '{7}' WHERE id = {8};";
+    std::string query = "UPDATE Item SET nome = '{0}', descricao = '{1}', tipo = {2}, precoBase = {3}, precoComDesconto = {4}, dataDeCriacao = '{5}', dataUltimaAtualizacao = '{6}' WHERE id = {7};";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
         { "{0}", entity->GetNome() },
@@ -93,10 +89,9 @@ void ItemRepository::Update(Item* entity)
         { "{2}", static_cast<int>(entity->GetTipo()) },
         { "{3}", entity->GetPrecoBase() },
         { "{4}", entity->GetPrecoAtual() },
-        { "{5}", entity->ExisteUmDescontoAplicado() },
-        { "{6}", entity->GetDataDeCriacao() },
-        { "{7}", entity->GetDataUltimaAtualizacao() },
-        { "{8}", entity->GetId() }
+        { "{5}", entity->GetDataDeCriacao() },
+        { "{6}", entity->GetDataUltimaAtualizacao() },
+        { "{7}", entity->GetId() }
     };        
 
     ExecuteSQLReplace(query, values);
@@ -128,7 +123,6 @@ void ItemRepository::CreateTable()
                         "tipo INTEGER,"
                         "precoBase REAL,"
                         "precoComDesconto REAL,"
-                        "descontoAplicado INTEGER,"
                         "dataDeCriacao TEXT,"
                         "dataUltimaAtualizacao TEXT);";
 
