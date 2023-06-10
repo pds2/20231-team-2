@@ -72,7 +72,6 @@ sqlite3_stmt* GenericRepository::Select(std::string sql)
     sqlite3_stmt * stmt;
 
     sqlite3_prepare_v2(_database, sqlPointer, -1, &stmt, 0);
-    sqlite3_step(stmt);
 
     return stmt;
 }
