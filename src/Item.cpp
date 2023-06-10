@@ -2,7 +2,6 @@
 #include "../include/Item.hpp"
 
 Item::Item(std::string nome, std::string descricao, ItemType tipo, double precoBase)
-    : EntidadeBase(0)
 {
     _nome = nome;
     _descricao = descricao;

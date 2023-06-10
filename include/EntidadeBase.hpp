@@ -19,7 +19,7 @@ class EntidadeBase
         /**
          * @brief Instância de uma nova entidade.
          */
-        EntidadeBase(int id);
+        EntidadeBase();
 
         /**
          * @brief Retorna o identificador da entidade.

@@ -19,9 +19,8 @@ std::string GetDataAtual()
     return std::string(buffer);
 }
 
-EntidadeBase::EntidadeBase(int id)
+EntidadeBase::EntidadeBase()
 {
-    _id = id;
     _dataDeCriacao = GetDataAtual();
     _dataUltimaAtualizacao = "00:00 01/01/0001";
 }
