@@ -20,7 +20,7 @@ bool GenericRepository::ExecuteSQL(std::string sql)
     char* err;
     const char* sqlPointer = sql.c_str();
     int rc = sqlite3_exec(_database, sqlPointer, nullptr, nullptr, &err);
-
+    
     return rc == SQLITE_OK;
 }
 
