@@ -12,34 +12,39 @@
 class EntidadeBase
 {
     private:
-        unsigned int _id;
+        int _id;
         std::string _dataDeCriacao;
         std::string _dataUltimaAtualizacao;
     public:
-        /*
+        /**
          * @brief Instância de uma nova entidade.
          */
-        EntidadeBase(unsigned int id);
+        EntidadeBase(int id);
 
-        /*
+        /**
          * @brief Retorna o identificador da entidade.
          */
-        unsigned int GetId();
+        int GetId();
 
-        /*
+        /**
          * @brief Retorna a data de criação da entidade.
          */
         std::string GetDataDeCriacao();
         
-        /*
+        /**
          * @brief Retorna a data da útlima alteração da entidade.
          */
         std::string GetDataUltimaAtualizacao();    
 
-        /*
+        /**
          * @brief Atualiza a data da última alteração da entidade para a data atual.
          */
         void AtualizarAgora();
+
+        /**
+         * @brief Atualiza todos os dados da entidade.
+         */
+        void SetarDadosBase(std::string dataCriacao, std::string dataAtualizacao, int id);
 };
 
 #endif
