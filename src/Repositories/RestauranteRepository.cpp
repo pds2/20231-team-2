@@ -2,9 +2,9 @@
 #include <map>
 #include <variant>
 
-#include "../libs/sqllite/sqlite3.h"
-#include "../include/Repositories/RestauranteRepository.hpp"
-#include "../include/Restaurante.hpp"
+#include "../../libs/sqllite/sqlite3.h"
+#include "../../include/Repositories/RestauranteRepository.hpp"
+#include "../../include/Restaurante.hpp"
 
 RestauranteRepository::RestauranteRepository()
 {
@@ -19,7 +19,7 @@ RestauranteRepository::~RestauranteRepository()
     }
 }
 
-Restaurante* ConvertToEntity(sqlite3_stmt* stmt)
+Restaurante* RestauranteRepository::ConvertToEntity(sqlite3_stmt* stmt)
 {    
     int id = sqlite3_column_int(stmt, 0);
     std::string criacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
