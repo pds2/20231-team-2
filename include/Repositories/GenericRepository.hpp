@@ -6,13 +6,14 @@
 #include <map>
 #include <vector>
 #include <variant>
+
 #include "../EntidadeBase.hpp"
 #include "../../libs/sqllite/sqlite3.h"
 
 class GenericRepository 
 {    
     protected:
-        std::string _databaseOPath = "./database/sqlitedata.db";
+        std::string _databaseOPath = "database.db";
         sqlite3* _database;
 
         /**
