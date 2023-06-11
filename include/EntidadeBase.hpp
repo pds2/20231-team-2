@@ -27,6 +27,11 @@ class EntidadeBase
         int GetId();
 
         /**
+         * @brief Atualiza o id dessa entidade.
+        */
+        void SetId(int id);
+
+        /**
          * @brief Retorna a data de criação da entidade.
          */
         std::string GetDataDeCriacao();

@@ -30,6 +30,11 @@ int EntidadeBase::GetId()
     return _id;
 }
 
+void EntidadeBase::SetId(int id)
+{
+    _id = id;
+}
+
 std::string EntidadeBase::GetDataDeCriacao()
 {
     return _dataDeCriacao;
