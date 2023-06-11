@@ -15,6 +15,7 @@ class RepositorioBase
     protected:
         std::string _diretorioDatabase = "database.db";
         sqlite3* _database;
+        std::map<int, EntidadeBase*> _entidades;
 
         /**
          * @brief Executa um comando sql no banco de dados.
@@ -39,6 +40,34 @@ class RepositorioBase
          * @returns string com o placeholder substituido pelo valor.
          */
         std::string Replace(std::string str, std::string placeholder, std::variant<int, double, std::string> replacement);
+
+        /**
+         * @brief Converte um objeto retornado pelo banco de dados em um ponteiro.
+         * @returns ponteiro pro objeto definitivo.
+        */
+        virtual EntidadeBase* ConverterParaEntidade(sqlite3_stmt* stmt) = 0;
+
+        /**
+         * @brief Lista os objetos salvos no banco de dados.
+         * @param tabela nome da tabela no banco de dados.
+         * @returns Uma lista de ponteiros para o objetos armazenados.
+         */
+        void CarregarTodosOsDadosNaMemoria(std::string tabela);
+
+        /**
+         * @brief Busca um objeto no banco de dados.
+         * @param tabela nome da tabela no banco de dados.
+         * @param id Id do objeto buscado.
+         * @returns Um ponteiro para o objeto buscado.
+         */
+        EntidadeBase* BuscaPorId(std::string tabela, int id);
+
+        /**
+         * @brief Deleta um objeto do banco de dados.
+         * @param tabela nome da tabela no banco de dados.
+         * @param id Id do objeto alvo.
+         */
+        void Deletar(std::string tabela, EntidadeBase * entidade);
     public:
         /**
          * @brief Instância uma nova comunicação de uma entidade com o banco de dados.

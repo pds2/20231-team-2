@@ -12,6 +12,12 @@ RepositorioBase::RepositorioBase()
 
 RepositorioBase::~RepositorioBase() 
 {
+    for(auto pair : _entidades)
+    {
+        auto entidade = pair.second;
+        delete entidade;
+    }
+
     sqlite3_close(_database);
 }
 
@@ -74,4 +80,62 @@ sqlite3_stmt* RepositorioBase::Select(std::string sql)
     sqlite3_prepare_v2(_database, sqlPointer, -1, &stmt, 0);
 
     return stmt;
+}
+void RepositorioBase::CarregarTodosOsDadosNaMemoria(std::string tabela)
+{
+    std::string query = "SELECT * FROM "+ tabela + ";";
+    sqlite3_stmt* stmt = Select(query);
+
+    while (sqlite3_step(stmt) == SQLITE_ROW)
+    {
+        EntidadeBase* entidade = ConverterParaEntidade(stmt);
+
+        int entitadeId = entidade->GetId();
+        if (_entidades.count(entitadeId) > 0)
+        {
+            delete entidade;
+        }
+        else
+        {
+            _entidades[entitadeId] = entidade;
+        }
+    }
+
+    sqlite3_finalize(stmt);
+}
+
+EntidadeBase* RepositorioBase::BuscaPorId(std::string tabela, int id)
+{
+    for(auto pair : _entidades)
+    {
+        EntidadeBase* entidade = pair.second;
+        if (entidade->GetId() == id)
+            return entidade;
+    }
+
+    std::string idString = std::to_string(id);
+    std::string query = "SELECT * FROM " + tabela + " WHERE id = '" + idString + "';";
+    
+    sqlite3_stmt* stmt = Select(query);
+    
+    sqlite3_step(stmt);
+    EntidadeBase* entidade = ConverterParaEntidade(stmt);
+    sqlite3_finalize(stmt);
+
+    _entidades[id] = entidade;
+
+    return entidade;
+}
+
+void RepositorioBase::Deletar(std::string tabela, EntidadeBase * entidade)
+{
+    int id = entidade->GetId();
+
+    std::string idString = std::to_string(id);
+    std::string query = "DELETE FROM " + tabela + " WHERE id = " + idString + ";";
+
+    ExecuteSQL(query);
+
+    _entidades.erase(id);
+    delete entidade;
 }
