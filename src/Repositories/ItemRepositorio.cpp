@@ -76,7 +76,7 @@ void ItemRepositorio::Atualizar(Item* entidade)
 {
     entidade->AtualizarAgora();
 
-    std::string query = "UPDATE " + _tabela + " SET nome = '{0}', descricao = '{1}', tipo = {2}, precoBase = {3}, precoComDesconto = {4}, dataDeCriacao = '{5}', dataUltimaAtualizacao = '{6}' WHERE id = {7};";
+    std::string query = "UPDATE " + _tabela + " SET nome = '{0}', descricao = '{1}', tipo = {2}, precoBase = {3}, precoComDesconto = {4}, dataUltimaAtualizacao = '{5}' WHERE id = {6};";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
         { "{0}", entidade->GetNome() },
@@ -84,9 +84,8 @@ void ItemRepositorio::Atualizar(Item* entidade)
         { "{2}", static_cast<int>(entidade->GetTipo()) },
         { "{3}", entidade->GetPrecoBase() },
         { "{4}", entidade->GetPrecoAtual() },
-        { "{5}", entidade->GetDataDeCriacao() },
-        { "{6}", entidade->GetDataUltimaAtualizacao() },
-        { "{7}", entidade->GetId() }
+        { "{5}", entidade->GetDataUltimaAtualizacao() },
+        { "{6}", entidade->GetId() }
     };        
 
     ExecuteSQLReplace(query, values);
