@@ -3,11 +3,13 @@
 
 #include <string>
 
+#include "EntidadeBase.hpp"
+
 /*
  *@brief Essa classe representa um cupom que poderá ser usado
  *para que o cliente tenha desconto nas compras.
  */
-class Cupom{
+class Cupom: public EntidadeBase{
   private:
   std::string _codigo;
   double _desconto;
