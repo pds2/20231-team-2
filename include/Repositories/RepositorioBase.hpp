@@ -12,6 +12,13 @@
 
 class RepositorioBase 
 {    
+    private:
+        /**
+         * @brief Busca o último identificador inserido no banco de dados.
+         * @returns id do objeto inserido.
+         */
+        int GetUltimoIdInserido();
+
     protected:
         std::string _diretorioDatabase = "database.db";
         sqlite3* _database;
@@ -68,6 +75,12 @@ class RepositorioBase
          * @param id Id do objeto alvo.
          */
         void Deletar(std::string tabela, EntidadeBase * entidade);
+
+        /**
+         * @brief Insere um item na lista de entidades, buscando seu Id novo no banco.
+         * @param entidade Um ponteiro pra entidade.
+        */
+       void InserirNovoRegistro(EntidadeBase* entidade);
     public:
         /**
          * @brief Instância uma nova comunicação de uma entidade com o banco de dados.

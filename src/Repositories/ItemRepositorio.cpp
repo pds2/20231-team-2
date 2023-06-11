@@ -69,8 +69,7 @@ void ItemRepositorio::Inserir(Item* entidade)
     };        
 
     ExecuteSQLReplace(query, values);
-
-    _entidades[entidade->GetId()] = entidade;
+    InserirNovoRegistro(entidade);
 }
 
 void ItemRepositorio::Atualizar(Item* entidade)

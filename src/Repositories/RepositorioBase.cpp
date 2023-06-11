@@ -6,8 +6,8 @@
 
 RepositorioBase::RepositorioBase() 
 {
-    const char* databaseOPath = _diretorioDatabase.c_str();
-    sqlite3_open(databaseOPath, &_database);
+    const char* diretorio = _diretorioDatabase.c_str();
+    sqlite3_open(diretorio, &_database);
 }
 
 RepositorioBase::~RepositorioBase() 
@@ -81,6 +81,7 @@ sqlite3_stmt* RepositorioBase::Select(std::string sql)
 
     return stmt;
 }
+
 void RepositorioBase::CarregarTodosOsDadosNaMemoria(std::string tabela)
 {
     std::string query = "SELECT * FROM "+ tabela + ";";
@@ -138,4 +139,24 @@ void RepositorioBase::Deletar(std::string tabela, EntidadeBase * entidade)
 
     _entidades.erase(id);
     delete entidade;
+}
+
+int RepositorioBase::GetUltimoIdInserido()
+{
+    std::string queryId = "SELECT last_insert_rowid();";
+    sqlite3_stmt* stmt = Select(queryId);
+    
+    sqlite3_step(stmt);
+    int id = sqlite3_column_int(stmt, 0);
+    sqlite3_finalize(stmt);
+
+    return id;
+}
+
+void RepositorioBase::InserirNovoRegistro(EntidadeBase* entidade)
+{
+    int id = GetUltimoIdInserido();
+    entidade->SetId(id);
+
+    _entidades[id] = entidade;
 }
