@@ -119,11 +119,10 @@ void ItemRepository::Delete(Item* entity)
 
     for (auto it = _entities.begin(); it != _entities.end(); ++it)
     {
-        Item* item = static_cast<Item*>(*it);
-        if (item->GetId() == entity->GetId())
+        if ((*it)->GetId() == entity->GetId())
         {
             _entities.erase(it);
-            delete item;
+            delete (*it);
             break;
         }
     }
