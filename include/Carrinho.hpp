@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "Item.hpp"
+#include "EntidadeBase.hpp"
 
 /*
  * @brief Essa classe representa uma exceção que será lançada quando um item 
@@ -21,9 +22,9 @@ class carrinho_vazio_e {};
  * @brief Essa classe representa um carrinho de compras que poderá ser usado
  * pelos clientes para adicionar seus Itens.
  */
-class Carrinho{
+class Carrinho: public EntidadeBase{
   private:
-  std::vector<Item> _compras;
+  std::vector<Item*> _compras;
   double _valorTotal;
 
   public:
@@ -43,17 +44,17 @@ class Carrinho{
    * @brief Retorna o vetor contendo todas as compras adicionadas
    * nele.
    */
-  std::vector get_carrinho();
+  std::vector<Item*> get_carrinho();
 
   /*
    * @brief Adiciona um Item ao carrinho.
    */
-  void adicionarItem(Item &item);
+  void adicionarItem(Item *item);
 
   /*
    * @brief Remove um Item do carrinho.
    */
-  void removerItem(Item &item);
+  void removerItem(Item *item);
 
   /*
    * @brief Remove todos os itens do carrinho.

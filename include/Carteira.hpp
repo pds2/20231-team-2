@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "EntidadeBase.hpp"
+
 /*
  * @brief Essa classe representa uma exceção que será lançada quando
  * um saldo negativo ou igual a zero tentar ser adicionado.
@@ -25,7 +27,7 @@ class saldo_insuficiente_para_remocao_e {};
  * @brief Essa classe representa uma carteira que armazenará um saldo. É por ela
  * que o cliente terá o dinheiro para fazer compras.
  */
-class Carteira{
+class Carteira: public EntidadeBase{
   private:
   std::string _nomeDoCliente;
   double _saldo;
@@ -56,5 +58,6 @@ class Carteira{
    * @brief Remove um determinado saldo da carteira.
    */
   void remover_saldo(double saldo);
-}
+};
+
 #endif

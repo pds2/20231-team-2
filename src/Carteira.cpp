@@ -1,8 +1,8 @@
 #include "../include/Carteira.hpp"
 
-Carteira::Carteira(std::string nomeDoCliente){
+Carteira::Carteira(std::string nomeDoCliente): EntidadeBase(0){
   _nomeDoCliente = nomeDoCliente;
-  _saldo = 0.0
+  _saldo = 0.0;
 }
 
 std::string Carteira::get_nome(){

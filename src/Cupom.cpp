@@ -2,7 +2,7 @@
 
 #include "../include/cupom.hpp"
 
-Cupom::Cupom(std::string codigo, double desconto){
+Cupom::Cupom(std::string codigo, double desconto): EntidadeBase(0){
   _codigo = codigo;
   _desconto = desconto;
   _valido = true;
