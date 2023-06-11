@@ -56,7 +56,7 @@ Item* ItemRepositorio::BuscaPorId(int id)
 
 void ItemRepositorio::Inserir(Item* entidade)
 {
-    std::string query = "INSERT INTO +" + _tabela + " (nome, descricao, tipo, precoBase, precoComDesconto, dataDeCriacao, dataUltimaAtualizacao) VALUES ('{0}', '{1}', {2}, {3}, {4}, '{5}', '{6}');";
+    std::string query = "INSERT INTO " + _tabela + " (nome, descricao, tipo, precoBase, precoComDesconto, dataDeCriacao, dataUltimaAtualizacao) VALUES ('{0}', '{1}', {2}, {3}, {4}, '{5}', '{6}');";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
         { "{0}", entidade->GetNome() },
@@ -77,7 +77,7 @@ void ItemRepositorio::Atualizar(Item* entidade)
 {
     entidade->AtualizarAgora();
 
-    std::string query = "UPDATE +" + _tabela + " SET nome = '{0}', descricao = '{1}', tipo = {2}, precoBase = {3}, precoComDesconto = {4}, dataDeCriacao = '{5}', dataUltimaAtualizacao = '{6}' WHERE id = {7};";
+    std::string query = "UPDATE " + _tabela + " SET nome = '{0}', descricao = '{1}', tipo = {2}, precoBase = {3}, precoComDesconto = {4}, dataDeCriacao = '{5}', dataUltimaAtualizacao = '{6}' WHERE id = {7};";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
         { "{0}", entidade->GetNome() },
@@ -100,7 +100,7 @@ void ItemRepositorio::Deletar(Item* entidade)
 
 void ItemRepositorio::CreateTable()
 {
-    std::string query = "CREATE TABLE IF NOT EXISTS +" + _tabela + " ("
+    std::string query = "CREATE TABLE IF NOT EXISTS " + _tabela + " ("
                         "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                         "nome TEXT,"
                         "descricao TEXT,"
