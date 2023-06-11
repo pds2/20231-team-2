@@ -75,7 +75,7 @@ Restaurante* RestauranteRepository::GetById(int id)
 
 void RestauranteRepository::Insert(Restaurante* entity)
 {
-    std::string query = "INSERT INTO Restaurante (nome, dataDeCriacao, dataUltimaAtualizacao, cnpj, nome, login, senha) VALUES ('{0}', '{1}', {2}, {3}, {4}, '{5}', '{6}');";
+    std::string query = "INSERT INTO Restaurante (nome, dataDeCriacao, dataUltimaAtualizacao, cnpj, nome, login, senha) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}');";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
         { "{0}", entity->GetNome() },
@@ -93,6 +93,8 @@ void RestauranteRepository::Insert(Restaurante* entity)
 
 void RestauranteRepository::Update(Restaurante* entity)
 {
+    entity->AtualizarAgora();
+    
     std::string query = "UPDATE Restaurante SET nome = '{0}', dataUltimaAtualizacao = '{1}', cnpj = '{2}', login = '{3}', senha = '{4}' WHERE id = {5};";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
@@ -132,7 +134,7 @@ void RestauranteRepository::CreateTable()
                         "cnpj TEXT,"
                         "nome TEXT,"
                         "login TEXT,"
-                        "senha TEXT,"
+                        "senha TEXT"
                         ");";
 
     ExecuteSQL(query);
