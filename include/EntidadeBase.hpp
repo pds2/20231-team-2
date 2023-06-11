@@ -39,7 +39,7 @@ class EntidadeBase
         /**
          * @brief Atualiza a data da última alteração da entidade para a data atual.
          */
-        void AtualizarAgora();
+        virtual void AtualizarAgora();
 
         /**
          * @brief Atualiza todos os dados da entidade.
