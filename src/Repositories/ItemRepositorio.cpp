@@ -11,15 +11,7 @@ ItemRepositorio::ItemRepositorio()
     CreateTable();
 }
 
-ItemRepositorio::~ItemRepositorio()
-{
-    for (auto entity : _entidades)
-    {
-        delete entity;
-    }
-}
-
-Item* ItemRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
+EntidadeBase* ItemRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    
     int id = sqlite3_column_int(stmt, 0);
     std::string nome(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
@@ -37,100 +29,78 @@ Item* ItemRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
     return entity;
 }
 
+Item* ItemRepositorio::Cast(EntidadeBase* entidadeBase)
+{
+    return dynamic_cast<Item*>(entidadeBase);
+}
+
 std::vector<Item*> ItemRepositorio::ListarTodos()
 {
-    std::vector<Item*> items;
+    RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela);
 
-    std::string query = "SELECT * FROM Item;";
-    sqlite3_stmt* stmt = Select(query);
+    std::vector<Item*> itens;
 
-    while (sqlite3_step(stmt) == SQLITE_ROW)
+    for(auto pair : _entidades)
     {
-        Item* entity = ConverterParaEntidade(stmt);
-        items.push_back(entity);
+        itens.push_back(Cast(pair.second));
     }
 
-    sqlite3_finalize(stmt);
-
-    return items;
+    return itens;
 }
 
 Item* ItemRepositorio::BuscaPorId(int id)
 {
-    for(Item* item : _entidades)
-    {
-        if (item->GetId() == id)
-            return item;
-    }
-
-    std::string query = "SELECT * FROM Item WHERE id = '" + std::to_string(id) + "';";
-    
-    sqlite3_stmt* stmt = Select(query);
-    sqlite3_step(stmt);
-    Item* entity = ConverterParaEntidade(stmt);
-    sqlite3_finalize(stmt);
-
-    _entidades.push_back(entity);
-    return entity;
+    EntidadeBase* baseComum = RepositorioBase::BuscaPorId(_tabela, id);
+    return Cast(baseComum);
 }
 
-void ItemRepositorio::Inserir(Item* entity)
+void ItemRepositorio::Inserir(Item* entidade)
 {
-    std::string query = "INSERT INTO Item (nome, descricao, tipo, precoBase, precoComDesconto, dataDeCriacao, dataUltimaAtualizacao) VALUES ('{0}', '{1}', {2}, {3}, {4}, '{5}', '{6}');";
+    std::string query = "INSERT INTO +" + _tabela + " (nome, descricao, tipo, precoBase, precoComDesconto, dataDeCriacao, dataUltimaAtualizacao) VALUES ('{0}', '{1}', {2}, {3}, {4}, '{5}', '{6}');";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
-        { "{0}", entity->GetNome() },
-        { "{1}", entity->GetDescricao() },
-        { "{2}", static_cast<int>(entity->GetTipo()) },
-        { "{3}", entity->GetPrecoBase() },
-        { "{4}", entity->GetPrecoAtual() },
-        { "{5}", entity->GetDataDeCriacao() },
-        { "{6}", entity->GetDataUltimaAtualizacao() },
+        { "{0}", entidade->GetNome() },
+        { "{1}", entidade->GetDescricao() },
+        { "{2}", static_cast<int>(entidade->GetTipo()) },
+        { "{3}", entidade->GetPrecoBase() },
+        { "{4}", entidade->GetPrecoAtual() },
+        { "{5}", entidade->GetDataDeCriacao() },
+        { "{6}", entidade->GetDataUltimaAtualizacao() },
     };        
 
     ExecuteSQLReplace(query, values);
-    _entidades.push_back(entity);
+
+    _entidades[entidade->GetId()] = entidade;
 }
 
-void ItemRepositorio::Atualizar(Item* entity)
+void ItemRepositorio::Atualizar(Item* entidade)
 {
-    entity->AtualizarAgora();
+    entidade->AtualizarAgora();
 
-    std::string query = "UPDATE Item SET nome = '{0}', descricao = '{1}', tipo = {2}, precoBase = {3}, precoComDesconto = {4}, dataDeCriacao = '{5}', dataUltimaAtualizacao = '{6}' WHERE id = {7};";
+    std::string query = "UPDATE +" + _tabela + " SET nome = '{0}', descricao = '{1}', tipo = {2}, precoBase = {3}, precoComDesconto = {4}, dataDeCriacao = '{5}', dataUltimaAtualizacao = '{6}' WHERE id = {7};";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
-        { "{0}", entity->GetNome() },
-        { "{1}", entity->GetDescricao() },
-        { "{2}", static_cast<int>(entity->GetTipo()) },
-        { "{3}", entity->GetPrecoBase() },
-        { "{4}", entity->GetPrecoAtual() },
-        { "{5}", entity->GetDataDeCriacao() },
-        { "{6}", entity->GetDataUltimaAtualizacao() },
-        { "{7}", entity->GetId() }
+        { "{0}", entidade->GetNome() },
+        { "{1}", entidade->GetDescricao() },
+        { "{2}", static_cast<int>(entidade->GetTipo()) },
+        { "{3}", entidade->GetPrecoBase() },
+        { "{4}", entidade->GetPrecoAtual() },
+        { "{5}", entidade->GetDataDeCriacao() },
+        { "{6}", entidade->GetDataUltimaAtualizacao() },
+        { "{7}", entidade->GetId() }
     };        
 
     ExecuteSQLReplace(query, values);
 }
 
-void ItemRepositorio::Deletar(Item* entity)
+void ItemRepositorio::Deletar(Item* entidade)
 {
-    std::string query = "DELETE FROM Item WHERE id = " + std::to_string(entity->GetId()) + ";";
-    ExecuteSQL(query);
-
-    for (auto it = _entidades.begin(); it != _entidades.end(); ++it)
-    {
-        if ((*it)->GetId() == entity->GetId())
-        {
-            _entidades.erase(it);
-            delete (*it);
-            break;
-        }
-    }
+    RepositorioBase::Deletar(_tabela, entidade);
 }
 
 void ItemRepositorio::CreateTable()
 {
-    std::string query = "CREATE TABLE IF NOT EXISTS Item ("
+    std::string query = "CREATE TABLE IF NOT EXISTS +" + _tabela + " ("
                         "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                         "nome TEXT,"
                         "descricao TEXT,"
