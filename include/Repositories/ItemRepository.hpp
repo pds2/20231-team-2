@@ -28,6 +28,12 @@ class ItemRepository
         ~ItemRepository();
 
         /**
+         * @brief Converte um objeto retornado pelo banco de dados em um ponteiro.
+         * @returns ponteiro pro objeto definitivo.
+        */
+        Item* ConvertToEntity(sqlite3_stmt* stmt);
+
+        /**
          * @brief Lista os objetos salvos no banco de dados.
          * @returns Uma lista de ponteiros para o objetos armazenados.
          */
