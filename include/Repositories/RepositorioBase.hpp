@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef GENERICREPOSITORY_HPP
-#define GENERICREPOSITORY_HPP
+#ifndef REPOSITORIOBASE_HPP
+#define REPOSITORIOBASE_HPP
 
 #include <map>
 #include <vector>
@@ -10,10 +10,10 @@
 #include "../EntidadeBase.hpp"
 #include "../../libs/sqllite/sqlite3.h"
 
-class GenericRepository 
+class RepositorioBase 
 {    
     protected:
-        std::string _databaseOPath = "database.db";
+        std::string _diretorioDatabase = "database.db";
         sqlite3* _database;
 
         /**
@@ -43,12 +43,12 @@ class GenericRepository
         /**
          * @brief Instância uma nova comunicação de uma entidade com o banco de dados.
          */
-        GenericRepository();
+        RepositorioBase();
 
         /**
          * @brief Limpa os ponteiros gerenciados por esse repositório.
          */
-        ~GenericRepository();
+        ~RepositorioBase();
 };
 
 #endif

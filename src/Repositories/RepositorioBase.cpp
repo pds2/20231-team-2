@@ -1,21 +1,21 @@
 #include <string>
 #include <variant>
 
-#include "../../include/Repositories/GenericRepository.hpp"
+#include "../../include/Repositories/RepositorioBase.hpp"
 #include "../../libs/sqllite/sqlite3.h"
 
-GenericRepository::GenericRepository() 
+RepositorioBase::RepositorioBase() 
 {
-    const char* databaseOPath = _databaseOPath.c_str();
+    const char* databaseOPath = _diretorioDatabase.c_str();
     sqlite3_open(databaseOPath, &_database);
 }
 
-GenericRepository::~GenericRepository() 
+RepositorioBase::~RepositorioBase() 
 {
     sqlite3_close(_database);
 }
 
-bool GenericRepository::ExecuteSQL(std::string sql)
+bool RepositorioBase::ExecuteSQL(std::string sql)
 {
     char* err;
     const char* sqlPointer = sql.c_str();
@@ -24,7 +24,7 @@ bool GenericRepository::ExecuteSQL(std::string sql)
     return rc == SQLITE_OK;
 }
 
-bool GenericRepository::ExecuteSQLReplace(std::string sql, std::map<std::string, std::variant<int, double, std::string>> valuesToReplace)
+bool RepositorioBase::ExecuteSQLReplace(std::string sql, std::map<std::string, std::variant<int, double, std::string>> valuesToReplace)
 {
     std::string sqlReplaced = sql;
 
@@ -36,7 +36,7 @@ bool GenericRepository::ExecuteSQLReplace(std::string sql, std::map<std::string,
     return ExecuteSQL(sqlReplaced);
 }
 
-std::string GenericRepository::Replace(std::string str, std::string placeholder, std::variant<int, double, std::string> replacement)
+std::string RepositorioBase::Replace(std::string str, std::string placeholder, std::variant<int, double, std::string> replacement)
 {
     std::string result = str;
     size_t pos = result.find(placeholder);
@@ -65,7 +65,7 @@ std::string GenericRepository::Replace(std::string str, std::string placeholder,
     return result;
 }
 
-sqlite3_stmt* GenericRepository::Select(std::string sql)
+sqlite3_stmt* RepositorioBase::Select(std::string sql)
 {
     const char* sqlPointer = sql.c_str();
 
