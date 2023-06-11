@@ -11,15 +11,7 @@ RestauranteRepositorio::RestauranteRepositorio()
     CreateTable();
 }
 
-RestauranteRepositorio::~RestauranteRepositorio()
-{
-    for (auto entity : _entidades)
-    {
-        delete entity;
-    }
-}
-
-Restaurante* RestauranteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
+EntidadeBase* RestauranteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    
     int id = sqlite3_column_int(stmt, 0);
     std::string criacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
@@ -36,98 +28,75 @@ Restaurante* RestauranteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
     return entity;
 }
 
+Restaurante* RestauranteRepositorio::Cast(EntidadeBase* entidadeBase)
+{
+    return dynamic_cast<Restaurante*>(entidadeBase);
+}
+
 std::vector<Restaurante*> RestauranteRepositorio::ListarTodos()
 {
-    std::vector<Restaurante*> entities;
+    RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela);
 
-    std::string query = "SELECT * FROM Restaurante;";
-    sqlite3_stmt* stmt = Select(query);
+    std::vector<Restaurante*> itens;
 
-    while (sqlite3_step(stmt) == SQLITE_ROW)
+    for(auto pair : _entidades)
     {
-        Restaurante* entity = ConverterParaEntidade(stmt);
-        entities.push_back(entity);
+        itens.push_back(Cast(pair.second));
     }
 
-    sqlite3_finalize(stmt);
-
-    return entities;
+    return itens;
 }
 
 Restaurante* RestauranteRepositorio::BuscaPorId(int id)
 {
-    for(Restaurante* entity : _entidades)
-    {
-        if (entity->GetId() == id)
-            return entity;
-    }
-
-    std::string query = "SELECT * FROM Restaurante WHERE id = '" + std::to_string(id) + "';";
-    
-    sqlite3_stmt* stmt = Select(query);
-    sqlite3_step(stmt);
-    Restaurante* entity = ConverterParaEntidade(stmt);
-    sqlite3_finalize(stmt);
-
-    _entidades.push_back(entity);
-    return entity;
+    EntidadeBase* baseComum = RepositorioBase::BuscaPorId(_tabela, id);
+    return Cast(baseComum);
 }
 
-void RestauranteRepositorio::Inserir(Restaurante* entity)
+void RestauranteRepositorio::Inserir(Restaurante* entidade)
 {
-    std::string query = "INSERT INTO Restaurante (nome, dataDeCriacao, dataUltimaAtualizacao, cnpj, nome, login, senha) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}');";
+    std::string query = "INSERT INTO " + _tabela + " (nome, dataDeCriacao, dataUltimaAtualizacao, cnpj, nome, login, senha) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}');";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
-        { "{0}", entity->GetNome() },
-        { "{1}", entity->GetDataDeCriacao() },
-        { "{2}", entity->GetDataUltimaAtualizacao() },
-        { "{3}", entity->GetCNPJ() },
-        { "{4}", entity->GetNome() },
-        { "{5}", entity->GetLogin() },
-        { "{6}", entity->GetSenha() },
+        { "{0}", entidade->GetNome() },
+        { "{1}", entidade->GetDataDeCriacao() },
+        { "{2}", entidade->GetDataUltimaAtualizacao() },
+        { "{3}", entidade->GetCNPJ() },
+        { "{4}", entidade->GetNome() },
+        { "{5}", entidade->GetLogin() },
+        { "{6}", entidade->GetSenha() },
     };        
 
     ExecuteSQLReplace(query, values);
-    _entidades.push_back(entity);
+    InserirNovoRegistro(entidade);
 }
 
-void RestauranteRepositorio::Atualizar(Restaurante* entity)
+void RestauranteRepositorio::Atualizar(Restaurante* entidade)
 {
-    entity->AtualizarAgora();
+    entidade->AtualizarAgora();
     
-    std::string query = "UPDATE Restaurante SET nome = '{0}', dataUltimaAtualizacao = '{1}', cnpj = '{2}', login = '{3}', senha = '{4}' WHERE id = {5};";
+    std::string query = "UPDATE " + _tabela + " SET nome = '{0}', dataUltimaAtualizacao = '{1}', cnpj = '{2}', login = '{3}', senha = '{4}' WHERE id = {5};";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
-        { "{0}", entity->GetNome() },
-        { "{1}", entity->GetDataUltimaAtualizacao() },
-        { "{2}", entity->GetCNPJ() },
-        { "{3}", entity->GetLogin() },
-        { "{4}", entity->GetSenha() },
-        { "{5}", entity->GetId() },
+        { "{0}", entidade->GetNome() },
+        { "{1}", entidade->GetDataUltimaAtualizacao() },
+        { "{2}", entidade->GetCNPJ() },
+        { "{3}", entidade->GetLogin() },
+        { "{4}", entidade->GetSenha() },
+        { "{5}", entidade->GetId() },
     };
 
     ExecuteSQLReplace(query, values);
 }
 
-void RestauranteRepositorio::Deletar(Restaurante* entity)
+void RestauranteRepositorio::Deletar(Restaurante* entidade)
 {
-    std::string query = "DELETE FROM Restaurante WHERE id = " + std::to_string(entity->GetId()) + ";";
-    ExecuteSQL(query);
-
-    for (auto it = _entidades.begin(); it != _entidades.end(); ++it)
-    {
-        if ((*it)->GetId() == entity->GetId())
-        {
-            _entidades.erase(it);
-            delete (*it);
-            break;
-        }
-    }
+    RepositorioBase::Deletar(_tabela, entidade);
 }
 
 void RestauranteRepositorio::CreateTable()
 {
-    std::string query = "CREATE TABLE IF NOT EXISTS Restaurante ("
+    std::string query = "CREATE TABLE IF NOT EXISTS " + _tabela + " ("
                         "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                         "dataDeCriacao TEXT,"
                         "dataUltimaAtualizacao TEXT,"
