@@ -3,23 +3,23 @@
 #include <variant>
 
 #include "../../libs/sqllite/sqlite3.h"
-#include "../../include/Repositories/RestauranteRepository.hpp"
+#include "../../include/Repositories/RestauranteRepositorio.hpp"
 #include "../../include/Restaurante.hpp"
 
-RestauranteRepository::RestauranteRepository()
+RestauranteRepositorio::RestauranteRepositorio()
 {
     CreateTable();
 }
 
-RestauranteRepository::~RestauranteRepository()
+RestauranteRepositorio::~RestauranteRepositorio()
 {
-    for (auto entity : _entities)
+    for (auto entity : _entidades)
     {
         delete entity;
     }
 }
 
-Restaurante* RestauranteRepository::ConvertToEntity(sqlite3_stmt* stmt)
+Restaurante* RestauranteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    
     int id = sqlite3_column_int(stmt, 0);
     std::string criacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
@@ -36,7 +36,7 @@ Restaurante* RestauranteRepository::ConvertToEntity(sqlite3_stmt* stmt)
     return entity;
 }
 
-std::vector<Restaurante*> RestauranteRepository::GetAll()
+std::vector<Restaurante*> RestauranteRepositorio::ListarTodos()
 {
     std::vector<Restaurante*> entities;
 
@@ -45,7 +45,7 @@ std::vector<Restaurante*> RestauranteRepository::GetAll()
 
     while (sqlite3_step(stmt) == SQLITE_ROW)
     {
-        Restaurante* entity = ConvertToEntity(stmt);
+        Restaurante* entity = ConverterParaEntidade(stmt);
         entities.push_back(entity);
     }
 
@@ -54,9 +54,9 @@ std::vector<Restaurante*> RestauranteRepository::GetAll()
     return entities;
 }
 
-Restaurante* RestauranteRepository::GetById(int id)
+Restaurante* RestauranteRepositorio::BuscaPorId(int id)
 {
-    for(Restaurante* entity : _entities)
+    for(Restaurante* entity : _entidades)
     {
         if (entity->GetId() == id)
             return entity;
@@ -66,14 +66,14 @@ Restaurante* RestauranteRepository::GetById(int id)
     
     sqlite3_stmt* stmt = Select(query);
     sqlite3_step(stmt);
-    Restaurante* entity = ConvertToEntity(stmt);
+    Restaurante* entity = ConverterParaEntidade(stmt);
     sqlite3_finalize(stmt);
 
-    _entities.push_back(entity);
+    _entidades.push_back(entity);
     return entity;
 }
 
-void RestauranteRepository::Insert(Restaurante* entity)
+void RestauranteRepositorio::Inserir(Restaurante* entity)
 {
     std::string query = "INSERT INTO Restaurante (nome, dataDeCriacao, dataUltimaAtualizacao, cnpj, nome, login, senha) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}');";
     std::map<std::string, std::variant<int, double, std::string>> values = 
@@ -88,10 +88,10 @@ void RestauranteRepository::Insert(Restaurante* entity)
     };        
 
     ExecuteSQLReplace(query, values);
-    _entities.push_back(entity);
+    _entidades.push_back(entity);
 }
 
-void RestauranteRepository::Update(Restaurante* entity)
+void RestauranteRepositorio::Atualizar(Restaurante* entity)
 {
     entity->AtualizarAgora();
     
@@ -109,23 +109,23 @@ void RestauranteRepository::Update(Restaurante* entity)
     ExecuteSQLReplace(query, values);
 }
 
-void RestauranteRepository::Delete(Restaurante* entity)
+void RestauranteRepositorio::Deletar(Restaurante* entity)
 {
     std::string query = "DELETE FROM Restaurante WHERE id = " + std::to_string(entity->GetId()) + ";";
     ExecuteSQL(query);
 
-    for (auto it = _entities.begin(); it != _entities.end(); ++it)
+    for (auto it = _entidades.begin(); it != _entidades.end(); ++it)
     {
         if ((*it)->GetId() == entity->GetId())
         {
-            _entities.erase(it);
+            _entidades.erase(it);
             delete (*it);
             break;
         }
     }
 }
 
-void RestauranteRepository::CreateTable()
+void RestauranteRepositorio::CreateTable()
 {
     std::string query = "CREATE TABLE IF NOT EXISTS Restaurante ("
                         "id INTEGER PRIMARY KEY AUTOINCREMENT,"
