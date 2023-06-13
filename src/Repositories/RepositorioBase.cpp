@@ -82,9 +82,9 @@ sqlite3_stmt* RepositorioBase::Select(std::string sql)
     return stmt;
 }
 
-void RepositorioBase::CarregarTodosOsDadosNaMemoria(std::string tabela)
+void RepositorioBase::CarregarTodosOsDadosNaMemoria(std::string tabela, std::string where = "")
 {
-    std::string query = "SELECT * FROM "+ tabela + ";";
+    std::string query = "SELECT * FROM "+ tabela + " " + where + ";";
     sqlite3_stmt* stmt = Select(query);
 
     while (sqlite3_step(stmt) == SQLITE_ROW)
