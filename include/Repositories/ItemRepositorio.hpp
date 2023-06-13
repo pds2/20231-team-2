@@ -40,10 +40,9 @@ class ItemRepositorio
         ItemRepositorio();
 
         /**
-         * @brief Lista os objetos salvos no banco de dados.
-         * @returns Uma lista de ponteiros para o objetos armazenados.
+         * @brief Carrega os itens de um restaurante na memória.
          */
-        std::vector<Item*> ListarTodos();
+        void CarregarItensNoRestaurante(Restaurante* restaurante);
 
         /**
          * @brief Busca um objeto no banco de dados.

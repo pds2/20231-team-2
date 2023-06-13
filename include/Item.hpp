@@ -38,12 +38,13 @@ class Item
         ItemType _tipo;
         double _precoBase;
         double _precoComDesconto;
+        int _idRestaurante;
     
     public:
         /**
          * @brief Intância um novo item(produto).
          */
-        Item(std::string nome, std::string descricao, ItemType tipo, double precoBase);
+        Item(std::string nome, std::string descricao, ItemType tipo, double precoBase, int idRestaurante);
 
         /**
          * @brief Retorna o nome desse item.
@@ -90,6 +91,11 @@ class Item
          * @brief Remove o desconto aplicado a esse item, caso exista.
         */
         void RemoverDescontoAtual();
+
+        /**
+         * @brief Retorna o id do restaurante.
+        */
+        int GetIdRestaurante();
 };
 
 #endif

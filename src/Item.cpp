@@ -1,7 +1,7 @@
 #include <string>
 #include "../include/Item.hpp"
 
-Item::Item(std::string nome, std::string descricao, ItemType tipo, double precoBase)
+Item::Item(std::string nome, std::string descricao, ItemType tipo, double precoBase, int idRestaurante)
 {
     _nome = nome;
     _descricao = descricao;
@@ -9,6 +9,8 @@ Item::Item(std::string nome, std::string descricao, ItemType tipo, double precoB
     
     _precoBase = precoBase;
     _precoComDesconto = precoBase;
+
+    _idRestaurante = idRestaurante;
 }
 
 std::string Item::GetNome()
@@ -60,4 +62,9 @@ void Item::RemoverDescontoAtual()
 void Item::SetPrecoComDesconto(double precoComDesconto)
 {
     _precoComDesconto = precoComDesconto;
+}
+
+int Item::GetIdRestaurante()
+{
+    return _idRestaurante;
 }

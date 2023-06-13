@@ -4,6 +4,7 @@
 
 #include "../../include/Item.hpp"
 #include "../../libs/sqllite/sqlite3.h"
+#include "../../include/Restaurante.hpp"
 #include "../../include/Repositories/ItemRepositorio.hpp"
 
 ItemRepositorio::ItemRepositorio()
@@ -15,14 +16,15 @@ EntidadeBase* ItemRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    
     int id = sqlite3_column_int(stmt, 0);
     std::string nome(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
-    std::string descricao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2)));
-    int tipo = sqlite3_column_int(stmt, 3);
-    double precoBase = sqlite3_column_double(stmt, 4);
-    double precoComDesconto = sqlite3_column_double(stmt, 5);
-    std::string criacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 6)));
-    std::string atualizacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 7)));
+    int idRestaurante = sqlite3_column_int(stmt, 2);
+    std::string descricao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3)));
+    int tipo = sqlite3_column_int(stmt, 4);
+    double precoBase = sqlite3_column_double(stmt, 5);
+    double precoComDesconto = sqlite3_column_double(stmt, 6);
+    std::string criacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 7)));
+    std::string atualizacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 8)));
 
-    Item* entity = new Item(nome, descricao, static_cast<ItemType>(tipo), precoBase);
+    Item* entity = new Item(nome, descricao, static_cast<ItemType>(tipo), precoBase, idRestaurante);
     entity->SetPrecoComDesconto(precoComDesconto);
     entity->SetarDadosBase(criacao, atualizacao, id);
 
@@ -34,18 +36,22 @@ Item* ItemRepositorio::Cast(EntidadeBase* entidadeBase)
     return dynamic_cast<Item*>(entidadeBase);
 }
 
-std::vector<Item*> ItemRepositorio::ListarTodos()
+void ItemRepositorio::CarregarItensNoRestaurante(Restaurante* restaurante)
 {
+    std::string idRestaurante = std::to_string(restaurante->GetId());
+    std::string where = "WHERE idRestaurante = " + idRestaurante;
     RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela);
 
     std::vector<Item*> itens;
 
     for(auto pair : _entidades)
     {
-        itens.push_back(Cast(pair.second));
+        Item* atual = Cast(pair.second);
+        if (atual->GetIdRestaurante() == restaurante->GetId())
+        {
+            restaurante->AdicionarItem(atual);
+        }
     }
-
-    return itens;
 }
 
 Item* ItemRepositorio::BuscaPorId(int id)
@@ -56,16 +62,17 @@ Item* ItemRepositorio::BuscaPorId(int id)
 
 void ItemRepositorio::Inserir(Item* entidade)
 {
-    std::string query = "INSERT INTO " + _tabela + " (nome, descricao, tipo, precoBase, precoComDesconto, dataDeCriacao, dataUltimaAtualizacao) VALUES ('{0}', '{1}', {2}, {3}, {4}, '{5}', '{6}');";
+    std::string query = "INSERT INTO " + _tabela + " (idRestaurante, nome, descricao, tipo, precoBase, precoComDesconto, dataDeCriacao, dataUltimaAtualizacao) VALUES ({0}, '{1}', '{2}', {3}, {4}, {5}, '{6}', '{7}');";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
-        { "{0}", entidade->GetNome() },
-        { "{1}", entidade->GetDescricao() },
-        { "{2}", static_cast<int>(entidade->GetTipo()) },
-        { "{3}", entidade->GetPrecoBase() },
-        { "{4}", entidade->GetPrecoAtual() },
-        { "{5}", entidade->GetDataDeCriacao() },
-        { "{6}", entidade->GetDataUltimaAtualizacao() },
+        { "{1}", entidade->GetIdRestaurante() },
+        { "{1}", entidade->GetNome() },
+        { "{2}", entidade->GetDescricao() },
+        { "{3}", static_cast<int>(entidade->GetTipo()) },
+        { "{4}", entidade->GetPrecoBase() },
+        { "{5}", entidade->GetPrecoAtual() },
+        { "{6}", entidade->GetDataDeCriacao() },
+        { "{7}", entidade->GetDataUltimaAtualizacao() },
     };        
 
     ExecuteSQLReplace(query, values);
@@ -76,16 +83,17 @@ void ItemRepositorio::Atualizar(Item* entidade)
 {
     entidade->AtualizarAgora();
 
-    std::string query = "UPDATE " + _tabela + " SET nome = '{0}', descricao = '{1}', tipo = {2}, precoBase = {3}, precoComDesconto = {4}, dataUltimaAtualizacao = '{5}' WHERE id = {6};";
+    std::string query = "UPDATE " + _tabela + " SET nome = '{0}', idRestaurante = {1}, descricao = '{2}', tipo = {3}, precoBase = {4}, precoComDesconto = {5}, dataUltimaAtualizacao = '{6}' WHERE id = {7};";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
         { "{0}", entidade->GetNome() },
-        { "{1}", entidade->GetDescricao() },
-        { "{2}", static_cast<int>(entidade->GetTipo()) },
-        { "{3}", entidade->GetPrecoBase() },
-        { "{4}", entidade->GetPrecoAtual() },
-        { "{5}", entidade->GetDataUltimaAtualizacao() },
-        { "{6}", entidade->GetId() }
+        { "{1}", entidade->GetIdRestaurante() },
+        { "{2}", entidade->GetDescricao() },
+        { "{3}", static_cast<int>(entidade->GetTipo()) },
+        { "{4}", entidade->GetPrecoBase() },
+        { "{5}", entidade->GetPrecoAtual() },
+        { "{6}", entidade->GetDataUltimaAtualizacao() },
+        { "{7}", entidade->GetId() }
     };        
 
     ExecuteSQLReplace(query, values);
@@ -101,6 +109,7 @@ void ItemRepositorio::CreateTable()
     std::string query = "CREATE TABLE IF NOT EXISTS " + _tabela + " ("
                         "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                         "nome TEXT,"
+                        "idRestaurante INTEGER,"
                         "descricao TEXT,"
                         "tipo INTEGER,"
                         "precoBase REAL,"
