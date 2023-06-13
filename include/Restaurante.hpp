@@ -6,8 +6,8 @@
 #include <string>
 #include <vector>
 
-#include "Usuario.hpp"
 #include "Item.hpp"
+#include "Usuario.hpp"
 
 /*
  *  Essa classe é responsável por armazenar e inicializar as informações básicas

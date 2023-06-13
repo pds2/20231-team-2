@@ -1,10 +1,10 @@
 #pragma once
 
-#ifndef ITEMREPOSITORY_HPP
-#define ITEMREPOSITORY_HPP
+#ifndef RESTAURANTEREPOSITORIO_HPP
+#define RESTAURANTEREPOSITORIO_HPP
 
-#include "RepositorioBase.hpp"
 #include "../Restaurante.hpp"
+#include "RepositorioBase.hpp"
 
 /*
  * Repositório que permite o acesso aos restaurantes armazenados no banco de dados.

@@ -1,10 +1,10 @@
-#include <vector>
 #include <map>
+#include <vector>
 #include <variant>
 
+#include "../../include/Item.hpp"
 #include "../../libs/sqllite/sqlite3.h"
 #include "../../include/Repositories/ItemRepositorio.hpp"
-#include "../../include/Item.hpp"
 
 ItemRepositorio::ItemRepositorio()
 {

@@ -1,8 +1,8 @@
 #include <string>
 #include <variant>
 
-#include "../../include/Repositories/RepositorioBase.hpp"
 #include "../../libs/sqllite/sqlite3.h"
+#include "../../include/Repositories/RepositorioBase.hpp"
 
 RepositorioBase::RepositorioBase() 
 {

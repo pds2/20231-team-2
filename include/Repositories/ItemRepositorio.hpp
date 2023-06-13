@@ -3,8 +3,8 @@
 #ifndef ITEMREPOSITORIO_HPP
 #define ITEMREPOSITORIO_HPP
 
-#include "RepositorioBase.hpp"
 #include "../Item.hpp"
+#include "RepositorioBase.hpp"
 
 /*
  * Repositório que permite o acesso aos itens armazenados no banco de dados.
