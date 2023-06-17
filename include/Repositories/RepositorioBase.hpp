@@ -59,7 +59,15 @@ class RepositorioBase
          * @param tabela nome da tabela no banco de dados.
          * @returns Uma lista de ponteiros para o objetos armazenados.
          */
-        void CarregarTodosOsDadosNaMemoria(std::string tabela, std::string where = "");
+        void CarregarTodosOsDadosNaMemoria(std::string tabela);
+
+        /**
+         * @brief Lista os objetos salvos no banco de dados.
+         * @param tabela nome da tabela no banco de dados.
+         * @param where restrição de listagem.
+         * @returns Uma lista de ponteiros para o objetos armazenados.
+         */
+        void CarregarTodosOsDadosNaMemoria(std::string tabela, std::string where);
 
         /**
          * @brief Busca um objeto no banco de dados.
