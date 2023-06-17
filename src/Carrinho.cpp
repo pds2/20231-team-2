@@ -4,14 +4,14 @@
 
 #include "../include/Carrinho.hpp"
 
-Carrinho::Carrinho(): EntidadeBase(0){
+Carrinho::Carrinho()
+{
   _valorTotal = 0.0;
 }
 
 double Carrinho::get_valorTotal(){
   return _valorTotal;
 }
-
 
 std::vector<Item*> Carrinho::get_carrinho(){
   if(_compras.empty()){
@@ -20,7 +20,6 @@ std::vector<Item*> Carrinho::get_carrinho(){
   return _compras;
 }
 
-    
 void Carrinho::adicionarItem(Item *item){
   //Faltou lançar uma excessão para caso tente adicionar um item que não exista
 

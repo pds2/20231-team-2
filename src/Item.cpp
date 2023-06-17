@@ -1,8 +1,7 @@
 #include <string>
 #include "../include/Item.hpp"
 
-Item::Item(std::string nome, std::string descricao, ItemType tipo, double precoBase)
-    : EntidadeBase(0)
+Item::Item(std::string nome, std::string descricao, ItemType tipo, double precoBase, int idRestaurante)
 {
     _nome = nome;
     _descricao = descricao;
@@ -11,7 +10,7 @@ Item::Item(std::string nome, std::string descricao, ItemType tipo, double precoB
     _precoBase = precoBase;
     _precoComDesconto = precoBase;
 
-    _descontoAplicado = false;
+    _idRestaurante = idRestaurante;
 }
 
 std::string Item::GetNome()
@@ -36,12 +35,12 @@ double Item::GetPrecoBase()
 
 double Item::GetPrecoAtual()
 {
-    return (_descontoAplicado) ? _precoComDesconto : _precoBase;
+    return (ExisteUmDescontoAplicado()) ? _precoComDesconto : _precoBase;
 }
 
 bool Item::ExisteUmDescontoAplicado()
 {
-    return _descontoAplicado;
+    return _precoBase != _precoComDesconto;
 }
 
 void Item::AplicarDesconto(int percentualDesconto)
@@ -49,15 +48,23 @@ void Item::AplicarDesconto(int percentualDesconto)
     if (percentualDesconto <= 0 || percentualDesconto > 100)
         throw desconto_invalido_e();
 
-    _descontoAplicado = true;
     _precoComDesconto = (_precoBase/100) * (100 - percentualDesconto);
 }
 
 void Item::RemoverDescontoAtual()
 {
-    if (!_descontoAplicado)
+    if (!ExisteUmDescontoAplicado())
         return;
 
-    _descontoAplicado = false;
     _precoComDesconto = _precoBase;
+}
+
+void Item::SetPrecoComDesconto(double precoComDesconto)
+{
+    _precoComDesconto = precoComDesconto;
+}
+
+int Item::GetIdRestaurante()
+{
+    return _idRestaurante;
 }
