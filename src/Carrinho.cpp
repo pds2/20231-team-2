@@ -3,24 +3,25 @@
 #include <iostream>
 
 #include "../include/Carrinho.hpp"
+#include "../include/EntidadeBase.hpp"
 
 Carrinho::Carrinho()
 {
   _valorTotal = 0.0;
 }
 
-double Carrinho::get_valorTotal(){
+double Carrinho::GetValorTotal(){
   return _valorTotal;
 }
 
-std::vector<Item*> Carrinho::get_carrinho(){
+std::vector<Item*> Carrinho::GetCarrinho(){
   if(_compras.empty()){
     return _compras;
   }
   return _compras;
 }
-
-void Carrinho::adicionarItem(Item *item){
+    
+void Carrinho::AdicionarItem(Item *item){
   //Faltou lançar uma excessão para caso tente adicionar um item que não exista
 
   _compras.push_back(item);
@@ -28,7 +29,7 @@ void Carrinho::adicionarItem(Item *item){
   _valorTotal += item->GetPrecoAtual();
 }
 
-void Carrinho::removerItem(Item *item){
+void Carrinho::RemoverItem(Item *item){
   //Faltou lançar uma excessão para caso tente remover um item que não exista.
 
   if(_compras.empty()){
@@ -39,7 +40,7 @@ void Carrinho::removerItem(Item *item){
   item de determinado nome.Se for definido outro, como um codigo,
   irei mudar   */
   for(auto it=_compras.begin(); it != _compras.end(); it ++){
-    if((*it)->GetId() == item->GetId()){
+    if((*it)->GetNome() == item->GetNome()){
       _valorTotal -= item->GetPrecoAtual();
       _compras.erase(it);
 
@@ -50,10 +51,11 @@ void Carrinho::removerItem(Item *item){
   throw item_nao_existe_no_carrinho_e();
 }
 
-void Carrinho::limparCarrinho(){
+void Carrinho::LimparCarrinho(){
   if(_compras.empty()){
     throw carrinho_vazio_e();
   }
-
+  
+  _valorTotal = 0.0;
   _compras.clear();
 }

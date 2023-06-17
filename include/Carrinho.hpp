@@ -38,28 +38,28 @@ class Carrinho: public EntidadeBase{
   /*
    * @brief Retorna o valor total do carrinho de compras.
    */
-  double get_valorTotal();
+  double GetValorTotal();
 
   /*
    * @brief Retorna o vetor contendo todas as compras adicionadas
    * nele.
    */
-  std::vector<Item*> get_carrinho();
+  std::vector<Item*> GetCarrinho();
 
   /*
    * @brief Adiciona um Item ao carrinho.
    */
-  void adicionarItem(Item *item);
+  void AdicionarItem(Item *item);
 
   /*
    * @brief Remove um Item do carrinho.
    */
-  void removerItem(Item *item);
+  void RemoverItem(Item *item);
 
   /*
    * @brief Remove todos os itens do carrinho.
    */
-  void limparCarrinho();  
+  void LimparCarrinho();  
 };
 
 #endif
