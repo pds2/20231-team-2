@@ -47,9 +47,9 @@ void CupomRepositorio::Inserir(Cupom* entidade)
     
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
-        { "{0}", entidade->get_codigo() },
-        { "{1}", entidade->get_valor() },
-        { "{2}", entidade->get_dataExpiracao() },
+        { "{0}", entidade->GetCodigo() },
+        { "{1}", entidade->GetValor() },
+        { "{2}", entidade->GetDataDeExpiracao() },
         { "{3}", entidade->GetDataDeCriacao() },
         { "{4}", entidade->GetDataUltimaAtualizacao() }
     };
@@ -65,9 +65,9 @@ void CupomRepositorio::Atualizar(Cupom* entidade)
     std::string query = "UPDATE " + _tabela + " SET codigo = '{0}', desconto = {1}, expiracao = '{2}', dataUltimaAtualizacao = '{3}' WHERE id = {4};";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
-        { "{0}", entidade->get_codigo() },
-        { "{1}", entidade->get_valor() },
-        { "{2}", entidade->get_dataExpiracao() },
+        { "{0}", entidade->GetCodigo() },
+        { "{1}", entidade->GetValor() },
+        { "{2}", entidade->GetDataDeExpiracao() },
         { "{3}", entidade->GetDataUltimaAtualizacao() },
         { "{4}", entidade->GetId() }
     };
