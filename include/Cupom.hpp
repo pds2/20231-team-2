@@ -26,20 +26,20 @@ class Cupom: public EntidadeBase{
   /*
    * @brief Retorna o código do cupom de desconto 
    */
-  std::string get_codigo();
+  std::string GetCodigo();
 
   /*
    * @brief Retorna o valor do cupom de desconto 
    */
-  double get_valor();
+  double GetValor();
 
-  std::string get_dataExpiracao();
+  std::string GetDataDeExpiracao();
   
   /*
    * @brief Verifica se o código está dentro da 
    * data de expiração 
    */
-  bool estaValido();
+  bool EstaValido();
 
 };
 

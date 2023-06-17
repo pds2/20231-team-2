@@ -9,23 +9,23 @@ Cupom::Cupom(std::string codigo, double desconto)
   _valido = true;
 }
     
-std::string Cupom::get_codigo()
+std::string Cupom::GetCodigo()
 {
   return _codigo;
 }
 
-double Cupom::get_valor()
+double Cupom::GetValor()
 {
   return _desconto;
 }
 
-std::string Cupom::get_dataExpiracao()
+std::string Cupom::GetDataDeExpiracao()
 {
   return _dataExpiracao;
 }
       
     
-bool Cupom::estaValido(){
+bool Cupom::EstaValido(){
   //verificar se a data não é posterior a dataExpiração
 
   return _valido;
