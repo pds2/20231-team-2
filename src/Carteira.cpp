@@ -1,6 +1,7 @@
 #include "../include/Carteira.hpp"
 
-Carteira::Carteira(std::string nomeDoCliente): EntidadeBase(0){
+Carteira::Carteira(std::string nomeDoCliente)
+{
   _nomeDoCliente = nomeDoCliente;
   _saldo = 0.0;
 }

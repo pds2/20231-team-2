@@ -4,7 +4,6 @@
 #define USUARIO_HPP
 
 #include <string>
-
 #include "EntidadeBase.hpp"
 
 /*
@@ -17,22 +16,22 @@ class Usuario : public EntidadeBase{
         std::string _login;
         std::string _senha;
     public:
-        /*
+        /**
          * @brief Instância de um novo usuário.
          */
         Usuario(std::string nome, std::string login, std::string senha);
 
-        /*
+        /**
          * @brief Retorna o login de um usuário.
          */
        std::string GetLogin();
 
-        /*
+        /**
          * @brief Retorna a senha de um usário.
          */
         std::string GetSenha();
 
-        /*
+        /**
          * @brief Retorna o nome de um usário.
          */
         std::string GetNome();

@@ -19,16 +19,20 @@ std::string GetDataAtual()
     return std::string(buffer);
 }
 
-EntidadeBase::EntidadeBase(unsigned int id)
+EntidadeBase::EntidadeBase()
 {
-    _id = id;
     _dataDeCriacao = GetDataAtual();
     _dataUltimaAtualizacao = "00:00 01/01/0001";
 }
 
-unsigned int EntidadeBase::GetId()
+int EntidadeBase::GetId()
 {
     return _id;
+}
+
+void EntidadeBase::SetId(int id)
+{
+    _id = id;
 }
 
 std::string EntidadeBase::GetDataDeCriacao()
@@ -44,4 +48,11 @@ std::string EntidadeBase::GetDataUltimaAtualizacao()
 void EntidadeBase::AtualizarAgora()
 {
     _dataUltimaAtualizacao = GetDataAtual();
+}
+
+void EntidadeBase::SetarDadosBase(std::string dataCriacao, std::string dataAtualizacao, int id)
+{
+    _id = id;
+    _dataDeCriacao = dataCriacao;
+    _dataUltimaAtualizacao = dataAtualizacao;
 }

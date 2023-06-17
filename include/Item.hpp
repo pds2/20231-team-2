@@ -19,13 +19,13 @@ enum class ItemType
     DOCES,              /**< Doces */
 };
 
-/*
+/**
  *          Essa classe representa uma exceção que será levantada quando o percetual
  * de desconto for inválido, ou seja, o percentual ser menor ou igual a zero ou superior a 100.
  */
 class desconto_invalido_e {};
 
-/*
+/**
  *  Essa classe é responsável por armazenar e inicializar as informações básicas
  *              dos itens(representação genérica de um produto).
  */
@@ -38,42 +38,47 @@ class Item
         ItemType _tipo;
         double _precoBase;
         double _precoComDesconto;
-        bool _descontoAplicado;
+        int _idRestaurante;
     
     public:
-        /*
-        * @brief Intância um novo item(produto).
-        */
-        Item(std::string nome, std::string descricao, ItemType tipo, double precoBase);
+        /**
+         * @brief Intância um novo item(produto).
+         */
+        Item(std::string nome, std::string descricao, ItemType tipo, double precoBase, int idRestaurante);
 
-        /*
-        * @brief Retorna o nome desse item.
-        */
+        /**
+         * @brief Retorna o nome desse item.
+         */
         std::string GetNome();
 
-        /*
-        * @brief Retorna a descrição desse item.
-        */
+        /**
+         * @brief Retorna a descrição desse item.
+         */
         std::string GetDescricao();
 
-        /*
-        * @brief Retorna o tipo desse item.
-        */
+        /**
+         * @brief Retorna o tipo desse item.
+         */
         ItemType GetTipo();
 
-        /*
-        * @brief Retorna o preço base desse item.
-        */
+        /**
+         * @brief Retorna o preço base desse item.
+         */
         double GetPrecoBase();
 
-        /*
-        * @brief Retorna o preço atual desse item. Esse método considera possíveis descontos aplicados.
-        */
+        /**
+         * @brief Retorna o preço atual desse item. Esse método considera possíveis descontos aplicados.
+         */
         double GetPrecoAtual();
 
-        /*
-        * @brief Retorna verdadeiro caso exista um desconto aplicado a esse item.
-        */
+        /**
+         * @brief Seta o preço com desconto desse produto.
+         */
+        void SetPrecoComDesconto(double precoComDesconto);
+
+        /**
+         * @brief Retorna verdadeiro caso exista um desconto aplicado a esse item.
+         */
         bool ExisteUmDescontoAplicado();
 
         /**
@@ -86,6 +91,11 @@ class Item
          * @brief Remove o desconto aplicado a esse item, caso exista.
         */
         void RemoverDescontoAtual();
+
+        /**
+         * @brief Retorna o id do restaurante.
+        */
+        int GetIdRestaurante();
 };
 
 #endif
