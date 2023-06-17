@@ -84,7 +84,7 @@ sqlite3_stmt* RepositorioBase::Select(std::string sql)
 
 void RepositorioBase::CarregarTodosOsDadosNaMemoria(std::string tabela)
 {
-    CarregarTodosOsDadosNaMemoria(tabela);
+    CarregarTodosOsDadosNaMemoria(tabela, "");
 }
 
 void RepositorioBase::CarregarTodosOsDadosNaMemoria(std::string tabela, std::string where)
