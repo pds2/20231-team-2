@@ -24,6 +24,12 @@ class impossivel_remover_saldo_negativo_ou_igual_a_zero_e {};
 class saldo_insuficiente_para_remocao_e {};
 
 /*
+ * @brief Essa classe representa uma exceção que será lançada quando
+ * o cliente tentar remover saldo com saldo igual a 0.
+ */
+class sem_saldo_e {};
+
+/*
  * @brief Essa classe representa uma carteira que armazenará um saldo. É por ela
  * que o cliente terá o dinheiro para fazer compras.
  */
@@ -42,22 +48,22 @@ class Carteira: public EntidadeBase{
   /*
    * @brief Retorna o Nome do Cliente.
    */
-  std::string get_nome();
+  std::string GetNome();
 
   /*
    * @brief Retorna o saldo do Cliente.
    */
-  double get_saldo();
+  double GetSaldo();
 
   /*
    * @brief Adiciona um determinado saldo da carteira.
    */
-  void adicionar_saldo(double saldo);
+  void AdicionarSaldo(double saldo);
 
   /*
    * @brief Remove um determinado saldo da carteira.
    */
-  void remover_saldo(double saldo);
+  void RemoverSaldo(double saldo);
 };
 
 #endif

@@ -6,15 +6,15 @@ Carteira::Carteira(std::string nomeDoCliente)
   _saldo = 0.0;
 }
 
-std::string Carteira::get_nome(){
+std::string Carteira::GetNome(){
   return _nomeDoCliente;
 }
 
-double Carteira::get_saldo(){
+double Carteira::GetSaldo(){
   return _saldo;
 }
 
-void Carteira::adicionar_saldo(double saldo){
+void Carteira::AdicionarSaldo(double saldo){
   if(saldo <= 0){
     throw impossivel_adicionar_saldo_negativo_ou_igual_a_zero_e();
   }
@@ -22,7 +22,11 @@ void Carteira::adicionar_saldo(double saldo){
   _saldo += saldo;
 }
 
-void Carteira::remover_saldo(double saldo){
+void Carteira::RemoverSaldo(double saldo){
+  if(saldo == 0){
+    throw sem_saldo_e();
+  }
+
  if(saldo <= 0){
     throw impossivel_remover_saldo_negativo_ou_igual_a_zero_e();
   }
