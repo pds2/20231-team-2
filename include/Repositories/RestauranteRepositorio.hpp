@@ -10,7 +10,7 @@
  * Repositório que permite o acesso aos restaurantes armazenados no banco de dados.
  */
 class RestauranteRepositorio 
-    : public RepositorioBase
+    : RepositorioBase<Restaurante>
 {
     private:
         std::string _tabela = "Restaurante";
@@ -19,19 +19,12 @@ class RestauranteRepositorio
          * @brief Executa o comando para criar a tabela desse repositório no banco de dados.
         */
         void CreateTable();
-
-        /**
-         * @brief Converte um ponteiro para entidade base para um ponteiro da entidade desse repositório.
-         * @param entidadeBase Ponteiro pra entidade origem.
-         * @returns Um ponteiro para o objeto convertido.
-        */
-        Restaurante* Cast(EntidadeBase* entidadeBase);
         
         /**
          * @brief Converte um objeto retornado pelo banco de dados em um ponteiro.
          * @returns Um ponteiro pro objeto definitivo.
         */
-        EntidadeBase* ConverterParaEntidade(sqlite3_stmt* stmt);
+        Restaurante* ConverterParaEntidade(sqlite3_stmt* stmt);
 
     public:    
         /**

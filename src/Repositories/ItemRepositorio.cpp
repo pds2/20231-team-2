@@ -12,7 +12,7 @@ ItemRepositorio::ItemRepositorio()
     CreateTable();
 }
 
-EntidadeBase* ItemRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
+Item* ItemRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    
     int id = sqlite3_column_int(stmt, 0);
     std::string nome(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
@@ -31,11 +31,6 @@ EntidadeBase* ItemRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
     return entity;
 }
 
-Item* ItemRepositorio::Cast(EntidadeBase* entidadeBase)
-{
-    return dynamic_cast<Item*>(entidadeBase);
-}
-
 void ItemRepositorio::CarregarItensNoRestaurante(Restaurante* restaurante)
 {
     std::string idRestaurante = std::to_string(restaurante->GetId());
@@ -46,7 +41,7 @@ void ItemRepositorio::CarregarItensNoRestaurante(Restaurante* restaurante)
 
     for(auto pair : _entidades)
     {
-        Item* atual = Cast(pair.second);
+        Item* atual = pair.second;
         if (atual->GetIdRestaurante() == restaurante->GetId())
         {
             restaurante->AdicionarItem(atual);
@@ -56,8 +51,7 @@ void ItemRepositorio::CarregarItensNoRestaurante(Restaurante* restaurante)
 
 Item* ItemRepositorio::BuscaPorId(int id)
 {
-    EntidadeBase* baseComum = RepositorioBase::BuscaPorId(_tabela, id);
-    return Cast(baseComum);
+    return RepositorioBase::BuscaPorId(_tabela, id);
 }
 
 void ItemRepositorio::Inserir(Item* entidade)

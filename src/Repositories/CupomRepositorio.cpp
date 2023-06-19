@@ -11,14 +11,9 @@ CupomRepositorio::CupomRepositorio()
     CreateTable();
 }
 
-EntidadeBase* CupomRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
+Cupom* CupomRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    
     return nullptr;
-}
-
-Cupom* CupomRepositorio::Cast(EntidadeBase* entidadeBase)
-{
-    return dynamic_cast<Cupom*>(entidadeBase);
 }
 
 std::vector<Cupom*> CupomRepositorio::ListarTodos()
@@ -29,7 +24,7 @@ std::vector<Cupom*> CupomRepositorio::ListarTodos()
 
     for(auto pair : _entidades)
     {
-        itens.push_back(Cast(pair.second));
+        itens.push_back(pair.second);
     }
 
     return itens;
@@ -37,8 +32,7 @@ std::vector<Cupom*> CupomRepositorio::ListarTodos()
 
 Cupom* CupomRepositorio::BuscaPorId(int id)
 {
-    EntidadeBase* baseComum = RepositorioBase::BuscaPorId(_tabela, id);
-    return Cast(baseComum);
+    return RepositorioBase::BuscaPorId(_tabela, id);
 }
 
 void CupomRepositorio::Inserir(Cupom* entidade)

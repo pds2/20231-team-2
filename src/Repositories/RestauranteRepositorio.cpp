@@ -11,7 +11,7 @@ RestauranteRepositorio::RestauranteRepositorio()
     CreateTable();
 }
 
-EntidadeBase* RestauranteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
+Restaurante* RestauranteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    
     int id = sqlite3_column_int(stmt, 0);
     std::string criacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
@@ -28,11 +28,6 @@ EntidadeBase* RestauranteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
     return entity;
 }
 
-Restaurante* RestauranteRepositorio::Cast(EntidadeBase* entidadeBase)
-{
-    return dynamic_cast<Restaurante*>(entidadeBase);
-}
-
 std::vector<Restaurante*> RestauranteRepositorio::ListarTodos()
 {
     RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela);
@@ -41,7 +36,7 @@ std::vector<Restaurante*> RestauranteRepositorio::ListarTodos()
 
     for(auto pair : _entidades)
     {
-        itens.push_back(Cast(pair.second));
+        itens.push_back(pair.second);
     }
 
     return itens;
@@ -49,8 +44,7 @@ std::vector<Restaurante*> RestauranteRepositorio::ListarTodos()
 
 Restaurante* RestauranteRepositorio::BuscaPorId(int id)
 {
-    EntidadeBase* baseComum = RepositorioBase::BuscaPorId(_tabela, id);
-    return Cast(baseComum);
+    return RepositorioBase::BuscaPorId(_tabela, id);
 }
 
 void RestauranteRepositorio::Inserir(Restaurante* entidade)

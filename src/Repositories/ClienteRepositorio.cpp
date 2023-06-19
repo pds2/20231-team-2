@@ -11,7 +11,7 @@ ClienteRepositorio::ClienteRepositorio()
     CreateTable();
 }
 
-EntidadeBase* ClienteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
+Cliente* ClienteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    
     int id = sqlite3_column_int(stmt, 0);
     std::string criacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
@@ -29,11 +29,6 @@ EntidadeBase* ClienteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 
 }
 
-Cliente* ClienteRepositorio::Cast(EntidadeBase* entidadeBase)
-{
-    return dynamic_cast<Cliente*>(entidadeBase);
-}
-
 std::vector<Cliente*> ClienteRepositorio::ListarTodos()
 {
     RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela);
@@ -42,7 +37,7 @@ std::vector<Cliente*> ClienteRepositorio::ListarTodos()
 
     for(auto pair : _entidades)
     {
-        itens.push_back(Cast(pair.second));
+        itens.push_back(pair.second);
     }
 
     return itens;
@@ -50,8 +45,7 @@ std::vector<Cliente*> ClienteRepositorio::ListarTodos()
 
 Cliente* ClienteRepositorio::BuscaPorId(int id)
 {
-    EntidadeBase* baseComum = RepositorioBase::BuscaPorId(_tabela, id);
-    return Cast(baseComum);
+    return RepositorioBase::BuscaPorId(_tabela, id);
 }
 
 void ClienteRepositorio::Inserir(Cliente* entidade)
