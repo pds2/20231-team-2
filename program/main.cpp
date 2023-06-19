@@ -12,7 +12,7 @@ int main()
 
     int opcao;
 
-    while (true) {
+    while (opcao != 3) {
         std::cout << "Bem-vindo(a) ao Menu principal" << std::endl;
         std::cout << "Selecione uma opção:" << std::endl;
         std::cout << "1. Fazer login como cliente." << std::endl;
