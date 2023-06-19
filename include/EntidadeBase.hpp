@@ -22,6 +22,11 @@ class EntidadeBase
         EntidadeBase();
 
         /**
+         * @brief Destrutor de uma entidade.
+         */
+        virtual ~EntidadeBase();
+
+        /**
          * @brief Retorna o identificador da entidade.
          */
         int GetId();

@@ -25,6 +25,9 @@ EntidadeBase::EntidadeBase()
     _dataUltimaAtualizacao = "00:00 01/01/0001";
 }
 
+EntidadeBase::~EntidadeBase()
+{}
+
 int EntidadeBase::GetId()
 {
     return _id;
