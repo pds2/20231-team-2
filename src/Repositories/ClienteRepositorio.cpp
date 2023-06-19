@@ -6,12 +6,14 @@
 #include "../../libs/sqllite/sqlite3.h"
 #include "../../include/Repositories/ClienteRepositorio.hpp"
 
-ClienteRepositorio::ClienteRepositorio()
+ClienteRepositorio::ClienteRepositorio(CarteiraRepositorio* carteiraRepositorio)
 {
+    _carteiraRepositorio = carteiraRepositorio;
+
     CreateTable();
 }
 
-EntidadeBase* ClienteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
+Cliente* ClienteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    
     int id = sqlite3_column_int(stmt, 0);
     std::string criacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
@@ -29,11 +31,6 @@ EntidadeBase* ClienteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 
 }
 
-Cliente* ClienteRepositorio::Cast(EntidadeBase* entidadeBase)
-{
-    return dynamic_cast<Cliente*>(entidadeBase);
-}
-
 std::vector<Cliente*> ClienteRepositorio::ListarTodos()
 {
     RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela);
@@ -42,7 +39,14 @@ std::vector<Cliente*> ClienteRepositorio::ListarTodos()
 
     for(auto pair : _entidades)
     {
-        itens.push_back(Cast(pair.second));
+        Cliente* entidade = pair.second;
+        if (entidade->GetCarteira() == nullptr)
+        {
+            Carteira* carteira = _carteiraRepositorio->BuscaPorIdDoCliente(entidade->GetId());
+            entidade->SetCarteira(carteira);
+        }
+        
+        itens.push_back(entidade);
     }
 
     return itens;
@@ -50,8 +54,15 @@ std::vector<Cliente*> ClienteRepositorio::ListarTodos()
 
 Cliente* ClienteRepositorio::BuscaPorId(int id)
 {
-    EntidadeBase* baseComum = RepositorioBase::BuscaPorId(_tabela, id);
-    return Cast(baseComum);
+    Cliente* entidade = RepositorioBase::BuscaPorId(_tabela, id);
+    
+    if (entidade->GetCarteira() == nullptr)
+    {
+        Carteira* carteira = _carteiraRepositorio->BuscaPorIdDoCliente(entidade->GetId());
+        entidade->SetCarteira(carteira);
+    }
+
+    return entidade;
 }
 
 void ClienteRepositorio::Inserir(Cliente* entidade)
@@ -70,6 +81,10 @@ void ClienteRepositorio::Inserir(Cliente* entidade)
 
     ExecuteSQLReplace(query, values);
     InserirNovoRegistro(entidade);
+
+    Carteira* carteira = entidade->GetCarteira();
+    if (carteira != nullptr)
+        _carteiraRepositorio->Inserir(carteira);
 }
 
 void ClienteRepositorio::Atualizar(Cliente* entidade)
@@ -88,10 +103,18 @@ void ClienteRepositorio::Atualizar(Cliente* entidade)
     };
 
     ExecuteSQLReplace(query, values);
+
+    Carteira* carteira = entidade->GetCarteira();
+    if (carteira != nullptr)
+        _carteiraRepositorio->Atualizar(carteira);
 }
 
 void ClienteRepositorio::Deletar(Cliente* entidade)
 {
+    Carteira* carteira = entidade->GetCarteira();
+    if (carteira != nullptr)
+        _carteiraRepositorio->Deletar(carteira);
+
     RepositorioBase::Deletar(_tabela, entidade);
 }
 

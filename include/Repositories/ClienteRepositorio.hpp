@@ -5,39 +5,35 @@
 
 #include "../Cliente.hpp"
 #include "RepositorioBase.hpp"
+#include "CarteiraRepositorio.hpp"
 
 /*
  * Repositório que permite o acesso aos clientes armazenados no banco de dados.
  */
 class ClienteRepositorio 
-    : public RepositorioBase
+    : public RepositorioBase<Cliente>
 {
     private:
         std::string _tabela = "Cliente";
+        CarteiraRepositorio* _carteiraRepositorio;
 
         /**
          * @brief Executa o comando para criar a tabela desse repositório no banco de dados.
         */
         void CreateTable();
-
-        /**
-         * @brief Converte um ponteiro para entidade base para um ponteiro da entidade desse repositório.
-         * @param entidadeBase Ponteiro pra entidade origem.
-         * @returns Um ponteiro para o objeto convertido.
-        */
-        Cliente* Cast(EntidadeBase* entidadeBase);
         
         /**
          * @brief Converte um objeto retornado pelo banco de dados em um ponteiro.
          * @returns Um ponteiro pro objeto definitivo.
         */
-        EntidadeBase* ConverterParaEntidade(sqlite3_stmt* stmt);
+        Cliente* ConverterParaEntidade(sqlite3_stmt* stmt);
 
     public:    
         /**
          * @brief Instância uma nova comunicação de uma entidade com o banco de dados.
+         * @param carteiraRepositorio Referência para acesso as carteiras.
          */
-        ClienteRepositorio();
+        ClienteRepositorio(CarteiraRepositorio* carteiraRepositorio);
 
         /**
          * @brief Lista os objetos salvos no banco de dados.

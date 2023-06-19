@@ -11,14 +11,21 @@ CupomRepositorio::CupomRepositorio()
     CreateTable();
 }
 
-EntidadeBase* CupomRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
+Cupom* CupomRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    
-    return nullptr;
-}
+    int id = sqlite3_column_int(stmt, 0);
+    std::string criacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 4)));
+    std::string atualizacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 5)));
 
-Cupom* CupomRepositorio::Cast(EntidadeBase* entidadeBase)
-{
-    return dynamic_cast<Cupom*>(entidadeBase);
+    std::string codigo(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 1)));
+    std::string expiracao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3)));
+
+    float desconto = sqlite3_column_double(stmt, 2);
+
+    Cupom* entidade = new Cupom(codigo, desconto);
+    entidade->SetarDadosBase(criacao, atualizacao, id);
+
+    return entidade;
 }
 
 std::vector<Cupom*> CupomRepositorio::ListarTodos()
@@ -29,7 +36,7 @@ std::vector<Cupom*> CupomRepositorio::ListarTodos()
 
     for(auto pair : _entidades)
     {
-        itens.push_back(Cast(pair.second));
+        itens.push_back(pair.second);
     }
 
     return itens;
@@ -37,8 +44,7 @@ std::vector<Cupom*> CupomRepositorio::ListarTodos()
 
 Cupom* CupomRepositorio::BuscaPorId(int id)
 {
-    EntidadeBase* baseComum = RepositorioBase::BuscaPorId(_tabela, id);
-    return Cast(baseComum);
+    return RepositorioBase::BuscaPorId(_tabela, id);
 }
 
 void CupomRepositorio::Inserir(Cupom* entidade)

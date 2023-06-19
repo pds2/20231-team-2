@@ -1,20 +1,19 @@
 #pragma once
 
-#ifndef ITEMREPOSITORIO_HPP
-#define ITEMREPOSITORIO_HPP
+#ifndef CARTEIRAREPOSITORIO_HPP
+#define CARTEIRAREPOSITORIO_HPP
 
-#include "../Item.hpp"
-#include "../Restaurante.hpp"
+#include "../Carteira.hpp"
 #include "RepositorioBase.hpp"
 
 /*
- * Repositório que permite o acesso aos itens armazenados no banco de dados.
+ * Repositório que permite o acesso as carteiras armazenadas no banco de dados.
  */
-class ItemRepositorio 
-    : RepositorioBase<Item>
+class CarteiraRepositorio 
+    : RepositorioBase<Carteira>
 {
     private:
-        std::string _tabela = "Item";
+        std::string _tabela = "Carteira";
 
         /**
          * @brief Executa o comando para criar a tabela desse repositório no banco de dados.
@@ -25,43 +24,45 @@ class ItemRepositorio
          * @brief Converte um objeto retornado pelo banco de dados em um ponteiro.
          * @returns Um ponteiro pro objeto definitivo.
         */
-        Item* ConverterParaEntidade(sqlite3_stmt* stmt);
+        Carteira* ConverterParaEntidade(sqlite3_stmt* stmt);
 
     public:   
         /**
          * @brief Instância uma nova comunicação de uma entidade com o banco de dados.
          */
-        ItemRepositorio();
-
-        /**
-         * @brief Carrega os itens de um restaurante na memória.
-         */
-        void CarregarItensNoRestaurante(Restaurante* restaurante);
+        CarteiraRepositorio();
 
         /**
          * @brief Busca um objeto no banco de dados.
          * @param id Id do objeto buscado.
          * @returns Um ponteiro para o objeto buscado.
          */
-        Item* BuscaPorId(int id);
+        Carteira* BuscaPorId(int id);
+
+        /**
+         * @brief Busca um objeto no banco de dados.
+         * @param id Id do cliente.
+         * @returns Um ponteiro para o objeto buscado.
+         */
+        Carteira* BuscaPorIdDoCliente(int idCliente);
 
         /**
          * @brief Insere um objeto no banco de dados.
          * @param entity Objeto que será inserido.
          */
-        void Inserir(Item* entidade);
+        void Inserir(Carteira* entidade);
 
         /**
          * @brief Atualiza um objeto do banco de dados.
          * @param entity Objeto que será atualizado.
          */
-        void Atualizar(Item* entidade);
+        void Atualizar(Carteira* entidade);
         
         /**
          * @brief Deleta um objeto do banco de dados.
          * @param entity Objeto que será deletado.
          */
-        void Deletar(Item* entidade);
+        void Deletar(Carteira* entidade);
 };
 
 #endif

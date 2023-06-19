@@ -7,3 +7,13 @@ Cliente::Cliente(std::string nome, std::string login, std::string senha, std::st
 std::string Cliente::GetCPF(){
     return _CPF;
 };
+
+Carteira* Cliente::GetCarteira()
+{
+    return _carteira;
+}
+
+void Cliente::SetCarteira(Carteira* carteira)
+{
+    _carteira = carteira;
+}

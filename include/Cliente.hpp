@@ -6,6 +6,7 @@
 #include <string>
 
 #include "Usuario.hpp"
+#include "Carteira.hpp"
 
 /*
  *  Essa classe é responsável por armazenar e inicializar as informações básicas
@@ -14,6 +15,7 @@
 class Cliente : public Usuario {
     private:
         std::string _CPF;
+        Carteira* _carteira;
     public:
         /**
          * @brief Instância de um novo cliente.
@@ -23,7 +25,17 @@ class Cliente : public Usuario {
         /**
          * @brief Retorna o CPF de um cliente.
          */
-       std::string GetCPF();
+        std::string GetCPF();
+
+        /**
+         * @brief Retorna um ponteiro pra carteira desse cliente.
+         */
+        Carteira* GetCarteira();
+
+        /**
+         * @brief Seta o ponteiro pra carteira desse cliente.
+         */
+        void SetCarteira(Carteira* carteira);
 };
 
 #endif
