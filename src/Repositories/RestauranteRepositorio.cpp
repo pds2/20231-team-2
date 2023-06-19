@@ -6,8 +6,10 @@
 #include "../../include/Restaurante.hpp"
 #include "../../include/Repositories/RestauranteRepositorio.hpp"
 
-RestauranteRepositorio::RestauranteRepositorio()
+RestauranteRepositorio::RestauranteRepositorio(ItemRepositorio* itemRepositorio)
 {
+    _itemRepositorio = itemRepositorio;
+
     CreateTable();
 }
 
@@ -36,7 +38,10 @@ std::vector<Restaurante*> RestauranteRepositorio::ListarTodos()
 
     for(auto pair : _entidades)
     {
-        itens.push_back(pair.second);
+        Restaurante* entidade = pair.second;
+        _itemRepositorio->CarregarItensNoRestaurante(entidade);
+
+        itens.push_back(entidade);
     }
 
     return itens;
@@ -44,7 +49,10 @@ std::vector<Restaurante*> RestauranteRepositorio::ListarTodos()
 
 Restaurante* RestauranteRepositorio::BuscaPorId(int id)
 {
-    return RepositorioBase::BuscaPorId(_tabela, id);
+    Restaurante* entidade = RepositorioBase::BuscaPorId(_tabela, id);
+    _itemRepositorio->CarregarItensNoRestaurante(entidade);
+
+    return entidade;
 }
 
 void RestauranteRepositorio::Inserir(Restaurante* entidade)
@@ -63,6 +71,9 @@ void RestauranteRepositorio::Inserir(Restaurante* entidade)
 
     ExecuteSQLReplace(query, values);
     InserirNovoRegistro(entidade);
+
+    for(Item* item : entidade->GetItens())
+        _itemRepositorio->Inserir(item);
 }
 
 void RestauranteRepositorio::Atualizar(Restaurante* entidade)
@@ -85,6 +96,9 @@ void RestauranteRepositorio::Atualizar(Restaurante* entidade)
 
 void RestauranteRepositorio::Deletar(Restaurante* entidade)
 {
+    for(Item* item : entidade->GetItens())
+        _itemRepositorio->Deletar(item);
+
     RepositorioBase::Deletar(_tabela, entidade);
 }
 

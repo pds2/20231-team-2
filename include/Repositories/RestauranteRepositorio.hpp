@@ -5,6 +5,7 @@
 
 #include "../Restaurante.hpp"
 #include "RepositorioBase.hpp"
+#include "ItemRepositorio.hpp"
 
 /*
  * Repositório que permite o acesso aos restaurantes armazenados no banco de dados.
@@ -14,6 +15,7 @@ class RestauranteRepositorio
 {
     private:
         std::string _tabela = "Restaurante";
+        ItemRepositorio* _itemRepositorio;
 
         /**
          * @brief Executa o comando para criar a tabela desse repositório no banco de dados.
@@ -29,8 +31,9 @@ class RestauranteRepositorio
     public:    
         /**
          * @brief Instância uma nova comunicação de uma entidade com o banco de dados.
+         * @param itemRepositorio Referência para acesso aos itens.
          */
-        RestauranteRepositorio();
+        RestauranteRepositorio(ItemRepositorio* itemRepositorio);
 
         /**
          * @brief Lista os objetos salvos no banco de dados.
