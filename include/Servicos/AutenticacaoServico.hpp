@@ -3,8 +3,7 @@
 
 #include "Cliente.hpp"
 #include "Restaurante.hpp"
-#include "../Repositories/ClienteRepositorio.hpp"
-#include "../Repositories/RestauranteRepositorio.hpp"
+#include "../Repositories/DatabaseManager.hpp"
 
 /**
  * Classe responsável por autenticar usuários no sistema.
@@ -41,10 +40,9 @@ class AutenticacaoServico
     public:
         /**
          * Responsável por inicializar essa classe.
-         * @param clienteRepositorio Acesso aos clientes.
-         * @param restauranteRepositorio Acesso aos restaurantes.
+         * @param dbManager Acesso aos repositórios do banco de dados.
         */
-        AutenticacaoServico(ClienteRepositorio* clienteRepositorio, RestauranteRepositorio* restauranteRepositorio);
+        AutenticacaoServico(DatabaseManager * dbManager);
 
         /**
          * Responsável por fazer o procedimento de login de um cliente.

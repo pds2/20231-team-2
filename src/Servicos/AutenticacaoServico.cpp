@@ -3,15 +3,14 @@
 
 #include "Cliente.hpp"
 #include "Restaurante.hpp"
-#include "Repositories/ClienteRepositorio.hpp"
-#include "Repositories/RestauranteRepositorio.hpp"
+#include "Repositories/DatabaseManager.hpp"
 
 #include "Servicos/AutenticacaoServico.hpp"
 
-AutenticacaoServico::AutenticacaoServico(ClienteRepositorio* clienteRepositorio, RestauranteRepositorio* restauranteRepositorio)
+AutenticacaoServico::AutenticacaoServico(DatabaseManager * dbManager)
 {
-    _clienteRepositorio = clienteRepositorio;
-    _restauranteRepositorio = restauranteRepositorio;
+    _clienteRepositorio = dbManager->GetClienteRepositorio();
+    _restauranteRepositorio = dbManager->GetRestauranteRepositorio();
 }
 
 void ImprimirMensagemInicial()
