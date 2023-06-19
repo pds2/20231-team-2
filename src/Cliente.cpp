@@ -12,3 +12,8 @@ Carteira* Cliente::GetCarteira()
 {
     return _carteira;
 }
+
+void Cliente::SetCarteira(Carteira* carteira)
+{
+    _carteira = carteira;
+}
