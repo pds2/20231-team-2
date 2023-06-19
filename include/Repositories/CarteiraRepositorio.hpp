@@ -40,6 +40,13 @@ class CarteiraRepositorio
         Carteira* BuscaPorId(int id);
 
         /**
+         * @brief Busca um objeto no banco de dados.
+         * @param id Id do cliente.
+         * @returns Um ponteiro para o objeto buscado.
+         */
+        Carteira* BuscaPorIdDoCliente(int idCliente);
+
+        /**
          * @brief Insere um objeto no banco de dados.
          * @param entity Objeto que será inserido.
          */

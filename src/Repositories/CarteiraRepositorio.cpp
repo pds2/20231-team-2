@@ -34,6 +34,25 @@ Carteira* CarteiraRepositorio::BuscaPorId(int id)
     return RepositorioBase::BuscaPorId(_tabela, id);
 }
 
+Carteira* CarteiraRepositorio::BuscaPorIdDoCliente(int idCliente)
+{
+    std::string idClienteString = std::to_string(idCliente);
+    std::string where = "WHERE IdCliente = " + idClienteString;
+
+    RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela);
+
+    for(auto pair : _entidades)
+    {
+        Carteira* atual = pair.second;
+        if (atual->GetIdCliente() == idCliente)
+        {
+            return atual;
+        }
+    }   
+
+    return nullptr;
+}
+
 void CarteiraRepositorio::Inserir(Carteira* entidade)
 {
     std::string query = "INSERT INTO " + _tabela + " (idCliente, saldo, dataDeCriacao, dataUltimaAtualizacao) VALUES ({0}, {1}, '{2}', '{3}');";
