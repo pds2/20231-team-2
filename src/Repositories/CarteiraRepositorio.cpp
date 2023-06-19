@@ -39,7 +39,7 @@ Carteira* CarteiraRepositorio::BuscaPorIdDoCliente(int idCliente)
     std::string idClienteString = std::to_string(idCliente);
     std::string where = "WHERE IdCliente = " + idClienteString;
 
-    RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela);
+    RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela, where);
 
     for(auto pair : _entidades)
     {

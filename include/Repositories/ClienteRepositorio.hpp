@@ -5,6 +5,7 @@
 
 #include "../Cliente.hpp"
 #include "RepositorioBase.hpp"
+#include "CarteiraRepositorio.hpp"
 
 /*
  * Repositório que permite o acesso aos clientes armazenados no banco de dados.
@@ -14,6 +15,7 @@ class ClienteRepositorio
 {
     private:
         std::string _tabela = "Cliente";
+        CarteiraRepositorio* _carteiraRepositorio;
 
         /**
          * @brief Executa o comando para criar a tabela desse repositório no banco de dados.
@@ -29,8 +31,9 @@ class ClienteRepositorio
     public:    
         /**
          * @brief Instância uma nova comunicação de uma entidade com o banco de dados.
+         * @param carteiraRepositorio Referência para acesso as carteiras.
          */
-        ClienteRepositorio();
+        ClienteRepositorio(CarteiraRepositorio* carteiraRepositorio);
 
         /**
          * @brief Lista os objetos salvos no banco de dados.
