@@ -1,17 +1,21 @@
 #include "../include/Carteira.hpp"
 
-Carteira::Carteira(std::string nomeDoCliente)
+Carteira::Carteira(int idCliente)
 {
-  _nomeDoCliente = nomeDoCliente;
+  _idCliente = idCliente;
   _saldo = 0.0;
 }
 
-std::string Carteira::GetNome(){
-  return _nomeDoCliente;
+int Carteira::GetIdCliente(){
+  return _idCliente;
 }
 
 double Carteira::GetSaldo(){
   return _saldo;
+}
+
+void Carteira::SetSaldo(double saldo){
+  _saldo = saldo;
 }
 
 void Carteira::AdicionarSaldo(double saldo){
