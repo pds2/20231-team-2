@@ -31,7 +31,6 @@ int main()
                 break;
             case 3:
                 std::cout << "Saindo do programa..." << std::endl;
-                return 0;
             default:
                 std::cout << "Opção inválida! Tente novamente." << std::endl;
         }
