@@ -56,6 +56,9 @@ Cliente* ClienteRepositorio::BuscaPorId(int id)
 {
     Cliente* entidade = RepositorioBase::BuscaPorId(_tabela, id);
     
+    if (entidade == nullptr)
+        throw login_nao_encontrado_e();
+
     if (entidade->GetCarteira() == nullptr)
     {
         Carteira* carteira = _carteiraRepositorio->BuscaPorIdDoCliente(entidade->GetId());
@@ -63,6 +66,20 @@ Cliente* ClienteRepositorio::BuscaPorId(int id)
     }
 
     return entidade;
+}
+
+Cliente* ClienteRepositorio::BuscaPorLogin(std::string login)
+{
+    RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela, "");
+
+    for(auto pair : _entidades)
+    {
+        Cliente* cliente = pair.second;
+        if (cliente->GetLogin() == login)
+            return cliente;
+    }
+
+    throw login_nao_encontrado_e();
 }
 
 void ClienteRepositorio::Inserir(Cliente* entidade)

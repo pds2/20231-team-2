@@ -55,6 +55,20 @@ Restaurante* RestauranteRepositorio::BuscaPorId(int id)
     return entidade;
 }
 
+Restaurante* RestauranteRepositorio::BuscaPorLogin(std::string login)
+{
+    RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela, "");
+
+    for(auto pair : _entidades)
+    {
+        Restaurante* restaurante = pair.second;
+        if (restaurante->GetLogin() == login)
+            return restaurante;
+    }
+
+    throw login_nao_encontrado_e();
+}
+
 void RestauranteRepositorio::Inserir(Restaurante* entidade)
 {
     std::string query = "INSERT INTO " + _tabela + " (nome, dataDeCriacao, dataUltimaAtualizacao, cnpj, nome, login, senha) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}');";
