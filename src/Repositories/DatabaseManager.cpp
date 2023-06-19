@@ -1,9 +1,9 @@
-#include "DatabaseManager.hpp"
-#include "ItemRepositorio.hpp"
-#include "CupomRepositorio.hpp"
-#include "ClienteRepositorio.hpp"
-#include "CarteiraRepositorio.hpp"
-#include "RestauranteRepositorio.hpp"
+#include "Repositories/DatabaseManager.hpp"
+#include "Repositories/ItemRepositorio.hpp"
+#include "Repositories/CupomRepositorio.hpp"
+#include "Repositories/ClienteRepositorio.hpp"
+#include "Repositories/CarteiraRepositorio.hpp"
+#include "Repositories/RestauranteRepositorio.hpp"
 
 DatabaseManager::DatabaseManager()
 {

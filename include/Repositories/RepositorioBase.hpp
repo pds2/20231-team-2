@@ -229,7 +229,7 @@ class RepositorioBase
         /**
          * @brief Limpa os ponteiros gerenciados por esse repositório.
          */
-        ~RepositorioBase()
+        virtual ~RepositorioBase()
         {
             for(auto pair : _entidades)
             {
