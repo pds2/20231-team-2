@@ -99,10 +99,10 @@ void ClienteRepositorio::Inserir(Cliente* entidade)
     ExecuteSQLReplace(query, values);
     InserirNovoRegistro(entidade);
 
-    Carteira* carteira = entidade->GetCarteira();
-    if (carteira != nullptr)
+    Carteira* carteira = entidade->GetCarteira();    
+    if (carteira)
         _carteiraRepositorio->Inserir(carteira);
-}
+}       
 
 void ClienteRepositorio::Atualizar(Cliente* entidade)
 {
