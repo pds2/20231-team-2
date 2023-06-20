@@ -1,5 +1,5 @@
 #include <iostream>
-#include <functional>
+#include <type_traits>
 
 #include "Cliente.hpp"
 #include "Restaurante.hpp"
@@ -39,7 +39,7 @@ Usuario* AutenticacaoServico::BuscaUsuario(std::string login)
     {
         return _restauranteRepositorio->BuscaPorLogin(login);
     }
-    else if (std::is_same<Tipo, Restaurante>::value)
+    else if (std::is_same<Tipo, Cliente>::value)
     {
         return _clienteRepositorio->BuscaPorLogin(login);
     }
@@ -107,9 +107,8 @@ bool AutenticacaoServico::SenhaValida(Usuario* usuario)
         if (senha == usuario->GetSenha())
             return true;
 
-        std::cout << "Senha incorreta. " << tentativas_restantes << " tentativas restantes. \n" << std::endl;
-    
         tentativas_restantes--;
+        std::cout << "Senha incorreta. " << tentativas_restantes << " tentativas restantes. \n" << std::endl;        
     }
 
     return false;
