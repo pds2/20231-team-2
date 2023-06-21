@@ -2,8 +2,8 @@
 
 #include "../include/Usuario.hpp"
 
-Usuario::Usuario(std::string nome, std::string login, std::string senha)
-    : _nome(nome), _login(login), _senha(senha) 
+Usuario::Usuario(std::string nome, std::string login, std::string senha, TipoUsuario tipo)
+    : _nome(nome), _login(login), _senha(senha), _tipo(tipo)
 {   }
 
 std::string Usuario::GetLogin()
@@ -20,3 +20,8 @@ std::string Usuario::GetNome()
 {
     return _nome;
 };
+
+TipoUsuario Usuario::GetTipo()
+{
+    return _tipo;
+}

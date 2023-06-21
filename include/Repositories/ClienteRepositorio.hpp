@@ -49,6 +49,13 @@ class ClienteRepositorio
         Cliente* BuscaPorId(int id);
 
         /**
+         * @brief Busca um objeto no banco de dados.
+         * @param login login do objeto buscado.
+         * @returns Um ponteiro para o objeto buscado.
+         */
+        Cliente* BuscaPorLogin(std::string login);
+
+        /**
          * @brief Insere um objeto no banco de dados.
          * @param entity Objeto que será inserido.
          */
