@@ -2,9 +2,9 @@
 #include <vector>
 #include <variant>
 
-#include "../../include/Cupom.hpp"
-#include "../../libs/sqllite/sqlite3.h"
-#include "../../include/Repositories/CupomRepositorio.hpp"
+#include "Cupom.hpp"
+#include "Sqlite/sqlite3.h"
+#include "Repositories/CupomRepositorio.hpp"
 
 CupomRepositorio::CupomRepositorio()
 {

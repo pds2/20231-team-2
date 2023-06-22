@@ -3,7 +3,7 @@
 #ifndef CUPOMREPOSITORIO_HPP
 #define CUPOMREPOSITORIO_HPP
 
-#include "../Cupom.hpp"
+#include "Cupom.hpp"
 #include "RepositorioBase.hpp"
 
 /*

@@ -1,6 +1,6 @@
 #include "../doctest/doctest.h"
-#include "../include/Carrinho.hpp"
-#include "../include/Item.hpp"
+#include "Carrinho.hpp"
+#include "Item.hpp"
 
 TEST_CASE("Testando Carrinho")
 {

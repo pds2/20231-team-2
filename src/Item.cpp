@@ -1,5 +1,5 @@
 #include <string>
-#include "../include/Item.hpp"
+#include "Item.hpp"
 
 Item::Item(std::string nome, std::string descricao, ItemType tipo, double precoBase, int idRestaurante)
 {

@@ -1,6 +1,6 @@
 #include <string>
 
-#include "../include/cupom.hpp"
+#include "Cupom.hpp"
 
 Cupom::Cupom(std::string codigo, double desconto)
 {

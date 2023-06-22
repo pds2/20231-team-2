@@ -2,10 +2,10 @@
 #include <vector>
 #include <variant>
 
-#include "../../include/Carteira.hpp"
-#include "../../libs/sqllite/sqlite3.h"
-#include "../../include/Cliente.hpp"
-#include "../../include/Repositories/CarteiraRepositorio.hpp"
+#include "Cliente.hpp"
+#include "Carteira.hpp"
+#include "Sqlite/sqlite3.h"
+#include "Repositories/CarteiraRepositorio.hpp"
 
 CarteiraRepositorio::CarteiraRepositorio()
 {

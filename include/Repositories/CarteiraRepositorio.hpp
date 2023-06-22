@@ -3,7 +3,7 @@
 #ifndef CARTEIRAREPOSITORIO_HPP
 #define CARTEIRAREPOSITORIO_HPP
 
-#include "../Carteira.hpp"
+#include "Carteira.hpp"
 #include "RepositorioBase.hpp"
 
 /*

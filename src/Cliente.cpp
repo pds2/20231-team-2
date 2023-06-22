@@ -1,6 +1,6 @@
 #include <string>
 
-#include "../include/Cliente.hpp"
+#include "Cliente.hpp"
 
 Cliente::Cliente(std::string nome, std::string login, std::string senha, std::string CPF)
     :Usuario(nome, login, senha, TipoUsuario::CLIENTE), _CPF(CPF)

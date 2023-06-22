@@ -3,7 +3,7 @@
 #ifndef RESTAURANTEREPOSITORIO_HPP
 #define RESTAURANTEREPOSITORIO_HPP
 
-#include "../Restaurante.hpp"
+#include "Restaurante.hpp"
 #include "RepositorioBase.hpp"
 #include "ItemRepositorio.hpp"
 
