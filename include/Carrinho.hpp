@@ -27,14 +27,16 @@ class Carrinho: public EntidadeBase{
   std::vector<Item*> _compras;
   double _valorTotal;
   bool _pedidoEncerrado;
+  int _idCliente;
 
   public:
 
   /**
    * @brief Instancia um carrinho de compras,
    * inicialmente vazio.
+   * @param idCliente Identificador do cliente no banco.
    */
-  Carrinho();
+  Carrinho(int idCliente);
 
   /**
    * @brief Retorna o valor total do carrinho de compras.
@@ -42,10 +44,20 @@ class Carrinho: public EntidadeBase{
   double GetValorTotal();
 
   /**
+   * @brief Seta o valor total do carrinho.
+  */
+  void SetValorTotal(double valorTotal);
+
+  /**
    * @brief Retorna o vetor contendo todas as compras adicionadas
    * nele.
    */
   std::vector<Item*> GetCarrinho();
+
+  /**
+   * @brief Seta os itens desse carrinho.
+  */
+  void SetItens(std::vector<Item*> itens);
 
   /**
    * @brief Adiciona um Item ao carrinho.
@@ -71,6 +83,16 @@ class Carrinho: public EntidadeBase{
    * @brief Retorna o estado atual do pedido.
   */
   bool EstaEncerrado();
+
+  /**
+   * @brief Seta o status do carrinho.
+  */
+  void SetStatus(bool status);
+
+  /**
+   * @brief Retorna o id do cliente.
+  */
+  int GetIdCliente();
 };
 
 #endif

@@ -5,14 +5,20 @@
 #include "Carrinho.hpp"
 #include "EntidadeBase.hpp"
 
-Carrinho::Carrinho()
+Carrinho::Carrinho(int idCliente)
 {
+  _idCliente = idCliente;
   _pedidoEncerrado = false;
   _valorTotal = 0.0;
 }
 
 double Carrinho::GetValorTotal(){
   return _valorTotal;
+}
+
+void Carrinho::SetValorTotal(double valorTotal)
+{
+  _valorTotal = valorTotal;
 }
 
 std::vector<Item*> Carrinho::GetCarrinho(){
@@ -61,4 +67,19 @@ void Carrinho::Encerrar()
 bool Carrinho::EstaEncerrado()
 {
   return _pedidoEncerrado;
+}
+
+int Carrinho::GetIdCliente()
+{
+  return _idCliente;
+}
+
+void Carrinho::SetItens(std::vector<Item*> itens)
+{
+  _compras = itens;
+}
+
+void Carrinho::SetStatus(bool status)
+{
+  _pedidoEncerrado = status;
 }
