@@ -2,9 +2,9 @@
 #include <vector>
 #include <variant>
 
-#include "../../include/Cliente.hpp"
-#include "../../libs/sqllite/sqlite3.h"
-#include "../../include/Repositories/ClienteRepositorio.hpp"
+#include "Cliente.hpp"
+#include "Sqlite/sqlite3.h"
+#include "Repositories/ClienteRepositorio.hpp"
 
 ClienteRepositorio::ClienteRepositorio(CarteiraRepositorio* carteiraRepositorio)
 {

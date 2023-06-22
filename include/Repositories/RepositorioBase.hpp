@@ -7,8 +7,8 @@
 #include <vector>
 #include <variant>
 
-#include "../EntidadeBase.hpp"
-#include "../../libs/sqllite/sqlite3.h"
+#include "EntidadeBase.hpp"
+#include "Sqlite/sqlite3.h"
 
 template <class Tipo> 
 class RepositorioBase 

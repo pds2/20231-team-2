@@ -1,6 +1,6 @@
 #include <string>
 
-#include "../include/Usuario.hpp"
+#include "Usuario.hpp"
 
 Usuario::Usuario(std::string nome, std::string login, std::string senha, TipoUsuario tipo)
     : _nome(nome), _login(login), _senha(senha), _tipo(tipo)

@@ -3,8 +3,8 @@
 #ifndef ITEMREPOSITORIO_HPP
 #define ITEMREPOSITORIO_HPP
 
-#include "../Item.hpp"
-#include "../Restaurante.hpp"
+#include "Item.hpp"
+#include "Restaurante.hpp"
 #include "RepositorioBase.hpp"
 
 /*

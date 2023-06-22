@@ -1,6 +1,6 @@
 #include <string>
 
-#include "../include/Restaurante.hpp"
+#include "Restaurante.hpp"
 
 Restaurante::Restaurante(std::string nome, std::string login, std::string senha, std::string CNPJ)
     :Usuario(nome, login, senha, TipoUsuario::RESTAURANTE), _CNPJ(CNPJ)

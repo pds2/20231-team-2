@@ -2,8 +2,8 @@
 #include <string>
 #include <iostream>
 
-#include "../include/Carrinho.hpp"
-#include "../include/EntidadeBase.hpp"
+#include "Carrinho.hpp"
+#include "EntidadeBase.hpp"
 
 Carrinho::Carrinho()
 {

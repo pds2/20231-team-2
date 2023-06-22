@@ -2,9 +2,9 @@
 #include <vector>
 #include <variant>
 
-#include "../../libs/sqllite/sqlite3.h"
-#include "../../include/Restaurante.hpp"
-#include "../../include/Repositories/RestauranteRepositorio.hpp"
+#include "Restaurante.hpp"
+#include "Sqlite/sqlite3.h"
+#include "Repositories/RestauranteRepositorio.hpp"
 
 RestauranteRepositorio::RestauranteRepositorio(ItemRepositorio* itemRepositorio)
 {
