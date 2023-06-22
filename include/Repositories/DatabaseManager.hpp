@@ -23,6 +23,7 @@ class DatabaseManager
         CarteiraRepositorio* _carteiraRepositorio;
         CarrinhoRepositorio* _carrinhoRepositorio;
         RestauranteRepositorio* _restauranteRepositorio;
+        ItemCarrinhoRepositorio* _itemCarrinhoRepositorio;
 
     public:    
         /**
