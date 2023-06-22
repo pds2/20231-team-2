@@ -7,8 +7,10 @@
 #include "Sqlite/sqlite3.h"
 #include "Repositories/CarrinhoRepositorio.hpp"
 
-CarrinhoRepositorio::CarrinhoRepositorio()
-{ }
+CarrinhoRepositorio::CarrinhoRepositorio(ItemCarrinhoRepositorio* itemCarrinhoRepositorio)
+{ 
+    _itemCarrinhoRepositorio = itemCarrinhoRepositorio;
+}
 
 Carrinho* CarrinhoRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    
@@ -31,7 +33,12 @@ Carrinho* CarrinhoRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 
 Carrinho* CarrinhoRepositorio::BuscaPorId(int id)
 {
-    return RepositorioBase::BuscaPorId(_tabela, id);
+    Carrinho* entidade = RepositorioBase::BuscaPorId(_tabela, id);
+
+    if (entidade->GetCarrinho().empty())
+        _itemCarrinhoRepositorio->CarregarItensNoCarrinho(entidade);
+
+    return entidade;
 }
 
 std::vector<Carrinho*> CarrinhoRepositorio::BuscaPorIdDoCliente(int idCliente)
@@ -47,6 +54,8 @@ std::vector<Carrinho*> CarrinhoRepositorio::BuscaPorIdDoCliente(int idCliente)
         Carrinho* atual = pair.second;
         if (atual->GetIdCliente() == idCliente)
         {
+            if (atual->GetCarrinho().empty())
+                _itemCarrinhoRepositorio->CarregarItensNoCarrinho(atual);
             carrinhos.push_back(atual);
         }
     }   
@@ -68,6 +77,8 @@ void CarrinhoRepositorio::Inserir(Carrinho* entidade)
 
     ExecuteSQLReplace(query, values);
     InserirNovoRegistro(entidade);
+
+    _itemCarrinhoRepositorio->AtualizarItensDeUmCarrinho(entidade);
 }
 
 void CarrinhoRepositorio::Atualizar(Carrinho* entidade)
@@ -84,10 +95,13 @@ void CarrinhoRepositorio::Atualizar(Carrinho* entidade)
     };        
 
     ExecuteSQLReplace(query, values);
+
+    _itemCarrinhoRepositorio->AtualizarItensDeUmCarrinho(entidade);
 }
 
 void CarrinhoRepositorio::Deletar(Carrinho* entidade)
 {
+    _itemCarrinhoRepositorio->DeletarTodosOsItensDeUmCarrinho(entidade);
     RepositorioBase::Deletar(_tabela, entidade);
 }
 

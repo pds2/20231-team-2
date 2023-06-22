@@ -5,6 +5,7 @@
 
 #include "Carrinho.hpp"
 #include "RepositorioBase.hpp"
+#include "ItemCarrinhoRepositorio.hpp"
 
 /*
  * Repositório que permite o acesso aos carrinhos armazenadas no banco de dados.
@@ -14,6 +15,7 @@ class CarrinhoRepositorio
 {
     private:
         std::string _tabela = "Carrinho";
+        ItemCarrinhoRepositorio* _itemCarrinhoRepositorio;
 
         /**
          * @brief Executa o comando para criar a tabela desse repositório no banco de dados.
@@ -29,8 +31,9 @@ class CarrinhoRepositorio
     public:   
         /**
          * @brief Instância uma nova comunicação de uma entidade com o banco de dados.
+         * @param itemCarrinhoRepositorio Acesso aos itens que compõem um carrinho.
          */
-        CarrinhoRepositorio();
+        CarrinhoRepositorio(ItemCarrinhoRepositorio* itemCarrinhoRepositorio);
 
         /**
          * @brief Busca um objeto no banco de dados.
