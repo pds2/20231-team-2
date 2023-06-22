@@ -7,10 +7,8 @@
 #include "Sqlite/sqlite3.h"
 #include "Repositories/ItemRepositorio.hpp"
 
-ItemRepositorio::ItemRepositorio(ItemCarrinhoRepositorio* itemCarrinhoRepositorio)
+ItemRepositorio::ItemRepositorio()
 { 
-    _itemCarrinhoRepositorio = itemCarrinhoRepositorio;
-
     CreateTable();
 }
 
@@ -33,21 +31,30 @@ Item* ItemRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
     return entity;
 }
 
+std::vector<Item*> ItemRepositorio::ListarPorIdDoRestaurante(int id)
+{
+    std::vector<Item*> itens;
+    
+    for(auto pair : _entidades)
+    {
+        Item* atual = pair.second;
+        if (atual->GetIdRestaurante() == id)
+            itens.push_back(atual);
+    }
+
+    return itens;
+}
+
 void ItemRepositorio::CarregarItensNoRestaurante(Restaurante* restaurante)
 {
     std::string idRestaurante = std::to_string(restaurante->GetId());
     std::string where = "WHERE idRestaurante = " + idRestaurante;
     RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela);
 
-    std::vector<Item*> itens;
-
-    for(auto pair : _entidades)
+    std::vector<Item*> itens = ListarPorIdDoRestaurante(restaurante->GetId());
+    for(Item* item : itens)
     {
-        Item* atual = pair.second;
-        if (atual->GetIdRestaurante() == restaurante->GetId())
-        {
-            restaurante->AdicionarItem(atual);
-        }
+        restaurante->AdicionarItem(item);
     }
 }
 
@@ -97,7 +104,6 @@ void ItemRepositorio::Atualizar(Item* entidade)
 
 void ItemRepositorio::Deletar(Item* entidade)
 {
-    _itemCarrinhoRepositorio->DeletarTodasAsRelacoesDeUmItem(entidade);
     RepositorioBase::Deletar(_tabela, entidade);
 }
 

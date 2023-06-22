@@ -5,10 +5,12 @@
 #include "Restaurante.hpp"
 #include "Sqlite/sqlite3.h"
 #include "Repositories/RestauranteRepositorio.hpp"
+#include "Repositories/ItemCarrinhoRepositorio.hpp"
 
-RestauranteRepositorio::RestauranteRepositorio(ItemRepositorio* itemRepositorio)
+RestauranteRepositorio::RestauranteRepositorio(ItemRepositorio* itemRepositorio, ItemCarrinhoRepositorio* itemCarrinhoRepositorio)
 {
     _itemRepositorio = itemRepositorio;
+    _itemCarrinhoRepositorio = itemCarrinhoRepositorio;
 
     CreateTable();
 }
@@ -111,9 +113,46 @@ void RestauranteRepositorio::Atualizar(Restaurante* entidade)
 void RestauranteRepositorio::Deletar(Restaurante* entidade)
 {
     for(Item* item : entidade->GetItens())
+    {
+        _itemCarrinhoRepositorio->DeletarTodasAsRelacoesDeUmItem(item);
         _itemRepositorio->Deletar(item);
-
+    }
+        
     RepositorioBase::Deletar(_tabela, entidade);
+}
+
+void RestauranteRepositorio::AtualizarItens(Restaurante* entidade)
+{
+    std::vector<Item*> itens_cadastrados_v = _itemRepositorio->ListarPorIdDoRestaurante(entidade->GetId());
+    std::map<int, Item*> itens_cadastrados_map;
+    for(Item* item : itens_cadastrados_v)
+        itens_cadastrados_map[item->GetId()] = item;
+
+    std::vector<Item*> itens_no_restaurante_v = entidade->GetItens();
+    std::map<int, Item*> itens_no_restaurante_map;
+    for(Item* item : itens_no_restaurante_v)
+        itens_no_restaurante_map[item->GetId()] = item;
+
+    // Inserir novos itens e atualizar os já existentes
+    for(auto pair : itens_no_restaurante_map)
+    {
+        Item* atual = pair.second;
+        if (itens_cadastrados_map.count(atual->GetId()) > 0)
+            _itemRepositorio->Atualizar(atual);
+        else
+            _itemRepositorio->Inserir(atual);
+    }
+
+    // Deletar os que foram removidos do restaurante
+    for(auto pair : itens_cadastrados_map)
+    {
+        Item* atual = pair.second;
+        if (!(itens_no_restaurante_map.count(atual->GetId()) > 0))
+        {
+            _itemCarrinhoRepositorio->DeletarTodasAsRelacoesDeUmItem(atual);
+            _itemRepositorio->Deletar(atual);
+        }
+    }
 }
 
 void RestauranteRepositorio::CreateTable()

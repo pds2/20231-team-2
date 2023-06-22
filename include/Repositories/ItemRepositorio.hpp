@@ -6,7 +6,6 @@
 #include "Item.hpp"
 #include "Restaurante.hpp"
 #include "RepositorioBase.hpp"
-#include "ItemCarrinhoRepositorio.hpp"
 
 /*
  * Repositório que permite o acesso aos itens armazenados no banco de dados.
@@ -16,7 +15,6 @@ class ItemRepositorio
 {
     private:
         std::string _tabela = "Item";
-        ItemCarrinhoRepositorio* _itemCarrinhoRepositorio;
 
         /**
          * @brief Executa o comando para criar a tabela desse repositório no banco de dados.
@@ -32,14 +30,20 @@ class ItemRepositorio
     public:   
         /**
          * @brief Instância uma nova comunicação de uma entidade com o banco de dados.
-         * @param itemCarrinhoRepositorio acesso aos itens que estão atrelados a algum carrinho.
          */
-        ItemRepositorio(ItemCarrinhoRepositorio* itemCarrinhoRepositorio);
+        ItemRepositorio();
 
         /**
          * @brief Carrega os itens de um restaurante na memória.
          */
         void CarregarItensNoRestaurante(Restaurante* restaurante);
+
+        /**
+         * @brief Lista os itens que fazem parte de um restaurante.
+         * @param id Identificador do restaurante.
+         * @returns Um vector com os itens.
+        */
+        std::vector<Item*> ListarPorIdDoRestaurante(int id);
 
         /**
          * @brief Busca um objeto no banco de dados.

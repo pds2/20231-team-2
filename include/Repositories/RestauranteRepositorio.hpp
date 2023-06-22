@@ -6,6 +6,7 @@
 #include "Restaurante.hpp"
 #include "RepositorioBase.hpp"
 #include "ItemRepositorio.hpp"
+#include "ItemCarrinhoRepositorio.hpp"
 
 /*
  * Repositório que permite o acesso aos restaurantes armazenados no banco de dados.
@@ -16,6 +17,7 @@ class RestauranteRepositorio
     private:
         std::string _tabela = "Restaurante";
         ItemRepositorio* _itemRepositorio;
+        ItemCarrinhoRepositorio* _itemCarrinhoRepositorio;
 
         /**
          * @brief Executa o comando para criar a tabela desse repositório no banco de dados.
@@ -32,8 +34,9 @@ class RestauranteRepositorio
         /**
          * @brief Instância uma nova comunicação de uma entidade com o banco de dados.
          * @param itemRepositorio Referência para acesso aos itens.
+         * @param _itemCarrinhoRepositorio Referência para acesso aos itens dos carrinhos.
          */
-        RestauranteRepositorio(ItemRepositorio* itemRepositorio);
+        RestauranteRepositorio(ItemRepositorio* itemRepositorio, ItemCarrinhoRepositorio* itemCarrinhoRepositorio);
 
         /**
          * @brief Lista os objetos salvos no banco de dados.
@@ -72,6 +75,12 @@ class RestauranteRepositorio
          * @param entity Objeto que será deletado.
          */
         void Deletar(Restaurante* entidade);
+
+        /**
+         * @brief Atualiza os itens relacionados a um restaurante.
+         * @param entity Objeto que será atualizado.
+        */
+        void AtualizarItens(Restaurante* entidade);
 };
 
 #endif
