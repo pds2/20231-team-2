@@ -10,8 +10,6 @@ ClienteRepositorio::ClienteRepositorio(CarteiraRepositorio* carteiraRepositorio,
 {
     _carteiraRepositorio = carteiraRepositorio;
     _carrinhoRepositorio = carrinhoRepositorio;
-
-    CreateTable();
 }
 
 Cliente* ClienteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)

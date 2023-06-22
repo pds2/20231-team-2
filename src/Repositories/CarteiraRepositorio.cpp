@@ -8,9 +8,7 @@
 #include "Repositories/CarteiraRepositorio.hpp"
 
 CarteiraRepositorio::CarteiraRepositorio()
-{
-    CreateTable();
-}
+{  }
 
 Carteira* CarteiraRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    

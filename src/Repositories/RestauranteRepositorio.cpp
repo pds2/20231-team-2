@@ -9,8 +9,6 @@
 RestauranteRepositorio::RestauranteRepositorio(ItemRepositorio* itemRepositorio)
 {
     _itemRepositorio = itemRepositorio;
-
-    CreateTable();
 }
 
 Restaurante* RestauranteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)

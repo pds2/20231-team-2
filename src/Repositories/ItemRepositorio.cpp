@@ -8,9 +8,7 @@
 #include "Repositories/ItemRepositorio.hpp"
 
 ItemRepositorio::ItemRepositorio()
-{
-    CreateTable();
-}
+{ }
 
 Item* ItemRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    

@@ -8,9 +8,7 @@
 #include "Repositories/CarrinhoRepositorio.hpp"
 
 CarrinhoRepositorio::CarrinhoRepositorio()
-{
-    CreateTable();
-}
+{ }
 
 Carrinho* CarrinhoRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    
