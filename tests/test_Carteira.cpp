@@ -1,4 +1,4 @@
-#include "../third_party/Sqlite/doctest/doctest.h"
+#include "../third_party/doctest.h"
 #include "Carteira.hpp"
 #include "Item.hpp"
 
