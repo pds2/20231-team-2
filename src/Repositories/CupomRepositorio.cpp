@@ -7,7 +7,9 @@
 #include "Repositories/CupomRepositorio.hpp"
 
 CupomRepositorio::CupomRepositorio()
-{ }
+{ 
+    CreateTable();
+}
 
 Cupom* CupomRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    

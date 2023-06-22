@@ -10,6 +10,8 @@
 CarrinhoRepositorio::CarrinhoRepositorio(ItemCarrinhoRepositorio* itemCarrinhoRepositorio)
 { 
     _itemCarrinhoRepositorio = itemCarrinhoRepositorio;
+
+    CreateTable();
 }
 
 Carrinho* CarrinhoRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)

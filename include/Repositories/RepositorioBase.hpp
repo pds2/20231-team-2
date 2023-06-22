@@ -36,11 +36,6 @@ class RepositorioBase
         std::map<int, Tipo*> _entidades;
 
         /**
-         * @brief Executa o comando para criar a tabela desse repositório no banco de dados.
-        */
-        virtual void CreateTable() = 0;
-
-        /**
          * @brief Converte um objeto retornado pelo banco de dados em um ponteiro.
          * @returns ponteiro pro objeto definitivo.
         */
@@ -229,8 +224,6 @@ class RepositorioBase
         {
             const char* diretorio = _diretorioDatabase.c_str();
             sqlite3_open(diretorio, &_database);
-
-            CreateTable();
         }
 
         /**
