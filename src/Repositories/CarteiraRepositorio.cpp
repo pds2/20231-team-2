@@ -58,10 +58,10 @@ void CarteiraRepositorio::Inserir(Carteira* entidade)
     std::string query = "INSERT INTO " + _tabela + " (idCliente, saldo, dataDeCriacao, dataUltimaAtualizacao) VALUES ({0}, {1}, '{2}', '{3}');";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
-        { "{1}", entidade->GetIdCliente() },
+        { "{0}", entidade->GetIdCliente() },
         { "{1}", entidade->GetSaldo() },
         { "{2}", entidade->GetDataDeCriacao() },
-        { "{4}", entidade->GetDataUltimaAtualizacao() }
+        { "{3}", entidade->GetDataUltimaAtualizacao() }
     };        
 
     ExecuteSQLReplace(query, values);
@@ -72,14 +72,12 @@ void CarteiraRepositorio::Atualizar(Carteira* entidade)
 {
     entidade->AtualizarAgora();
 
-    std::string query = "UPDATE " + _tabela + " SET saldo = '{0}', idCliente = {1}, dataUltimaAtualizacao = '{2}' WHERE id = {3};";
+    std::string query = "UPDATE " + _tabela + " SET saldo = {0}, dataUltimaAtualizacao = '{1}' WHERE id = {2};";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
         { "{0}", entidade->GetSaldo() },
-        { "{1}", entidade->GetIdCliente() },
-        { "{2}", entidade->GetDataUltimaAtualizacao() },
-        { "{3}", entidade->GetDataUltimaAtualizacao() },
-        { "{4}", entidade->GetId() }
+        { "{1}", entidade->GetDataUltimaAtualizacao() },
+        { "{2}", entidade->GetId() }
     };        
 
     ExecuteSQLReplace(query, values);
