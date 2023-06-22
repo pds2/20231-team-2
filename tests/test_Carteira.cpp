@@ -1,9 +1,9 @@
 #include "../doctest/doctest.h"
-#include "../include/Carteira.hpp"
-#include "../include/Item.hpp"
+#include "Carteira.hpp"
+#include "Item.hpp"
 
 TEST_CASE("Testando Carteira"){
-  Carteira carteira = Carteira("Gabriel");
+  Carteira carteira = Carteira(10);
 
   SUBCASE("Adicionar e Remover Saldo"){
     carteira.AdicionarSaldo(10.0);
@@ -23,7 +23,7 @@ TEST_CASE("Testando Carteira"){
     carteira.RemoverSaldo(0.25);
     CHECK(carteira.GetSaldo() == 0.0);
 
-    CHECK(carteira.GetNome() == "Gabriel");
+    CHECK(carteira.GetIdCliente() == 10);
 
     carteira.AdicionarSaldo(10.0);
     CHECK(carteira.GetSaldo() == 10.0);
