@@ -6,6 +6,7 @@
 #include "Cliente.hpp"
 #include "RepositorioBase.hpp"
 #include "CarteiraRepositorio.hpp"
+#include "CarrinhoRepositorio.hpp"
 
 /*
  * Repositório que permite o acesso aos clientes armazenados no banco de dados.
@@ -16,6 +17,7 @@ class ClienteRepositorio
     private:
         std::string _tabela = "Cliente";
         CarteiraRepositorio* _carteiraRepositorio;
+        CarrinhoRepositorio* _carrinhoRepositorio;
 
         /**
          * @brief Executa o comando para criar a tabela desse repositório no banco de dados.
@@ -28,12 +30,19 @@ class ClienteRepositorio
         */
         Cliente* ConverterParaEntidade(sqlite3_stmt* stmt);
 
+        /**
+         * @brief Carrega os dados desse cliente(como carteira e carrinhos).
+         * @param entidade Um ponteiro para o cliente;
+        */
+        void CarregarDependencias(Cliente* entidade);
+
     public:    
         /**
          * @brief Instância uma nova comunicação de uma entidade com o banco de dados.
          * @param carteiraRepositorio Referência para acesso as carteiras.
+         * @param carrinhoRepositorio Referência para acesso aos carrinhos.
          */
-        ClienteRepositorio(CarteiraRepositorio* carteiraRepositorio);
+        ClienteRepositorio(CarteiraRepositorio* carteiraRepositorio, CarrinhoRepositorio* carrinhoRepositorio);
 
         /**
          * @brief Lista os objetos salvos no banco de dados.
