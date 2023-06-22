@@ -1,4 +1,4 @@
-#include "../doctest/doctest.h"
+#include "../third_party/Sqlite/doctest/doctest.h"
 #include "Carrinho.hpp"
 #include "Item.hpp"
 
