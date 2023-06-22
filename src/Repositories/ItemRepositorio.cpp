@@ -7,8 +7,10 @@
 #include "Sqlite/sqlite3.h"
 #include "Repositories/ItemRepositorio.hpp"
 
-ItemRepositorio::ItemRepositorio()
+ItemRepositorio::ItemRepositorio(ItemCarrinhoRepositorio* itemCarrinhoRepositorio)
 { 
+    _itemCarrinhoRepositorio = itemCarrinhoRepositorio;
+
     CreateTable();
 }
 
@@ -95,6 +97,7 @@ void ItemRepositorio::Atualizar(Item* entidade)
 
 void ItemRepositorio::Deletar(Item* entidade)
 {
+    _itemCarrinhoRepositorio->DeletarTodasAsRelacoesDeUmItem(entidade);
     RepositorioBase::Deletar(_tabela, entidade);
 }
 
