@@ -7,6 +7,7 @@
 
 #include "Usuario.hpp"
 #include "Carteira.hpp"
+#include "Carrinho.hpp"
 
 /*
  *  Essa classe é responsável por armazenar e inicializar as informações básicas
@@ -16,6 +17,7 @@ class Cliente : public Usuario {
     private:
         std::string _CPF;
         Carteira* _carteira;
+        std::vector<Carrinho*> _carrinhos;
     public:
         /**
          * @brief Instância de um novo cliente.
@@ -36,6 +38,27 @@ class Cliente : public Usuario {
          * @brief Seta o ponteiro pra carteira desse cliente.
          */
         void SetCarteira(Carteira* carteira);
+
+        /**
+         * @brief Adiciona um carrinho a esse cliente.
+        */
+        void AdicionarCarrinho(Carrinho* carrinho);
+
+        /**
+         * @brief Remover um carrinho desse cliente.
+        */
+        void RemoverCarrinho(Carrinho* carrinho);
+
+        /**
+         * @brief Retorna os carrinhos desse cliente.
+        */
+        std::vector<Carrinho*> GetCarrinhos();
+
+        /**
+         * @brief Substitui o vector de carrinhos desse cliente.
+         * @param carrinhos Novos dados.
+        */
+        void SetCarrinhos(std::vector<Carrinho*> carrinhos);
 };
 
 #endif

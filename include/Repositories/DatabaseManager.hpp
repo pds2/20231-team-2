@@ -8,6 +8,7 @@
 #include "CupomRepositorio.hpp"
 #include "ClienteRepositorio.hpp"
 #include "CarteiraRepositorio.hpp"
+#include "CarrinhoRepositorio.hpp"
 #include "RestauranteRepositorio.hpp"
 
 /**
@@ -20,7 +21,9 @@ class DatabaseManager
         CupomRepositorio* _cupomRepositorio; 
         ClienteRepositorio* _clienteRepositorio;
         CarteiraRepositorio* _carteiraRepositorio;
+        CarrinhoRepositorio* _carrinhoRepositorio;
         RestauranteRepositorio* _restauranteRepositorio;
+        ItemCarrinhoRepositorio* _itemCarrinhoRepositorio;
 
     public:    
         /**
@@ -57,6 +60,11 @@ class DatabaseManager
          * @brief Retorna um ponteiro para o repositório de restaurantes.
         */
         RestauranteRepositorio* GetRestauranteRepositorio();
+
+        /**
+         * @brief Retorna um ponteiro para o repositório de carrinhos.
+        */
+        CarrinhoRepositorio* GetCarrinhoRepositorio();
 };
 
 #endif

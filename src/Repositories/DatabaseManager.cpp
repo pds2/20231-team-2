@@ -10,8 +10,10 @@ DatabaseManager::DatabaseManager()
     _itemRepositorio = new ItemRepositorio();
     _cupomRepositorio = new CupomRepositorio();
     _carteiraRepositorio = new CarteiraRepositorio();
-    _clienteRepositorio = new ClienteRepositorio(_carteiraRepositorio);
-    _restauranteRepositorio = new RestauranteRepositorio(_itemRepositorio);
+    _itemCarrinhoRepositorio = new ItemCarrinhoRepositorio(_itemRepositorio);
+    _carrinhoRepositorio = new CarrinhoRepositorio(_itemCarrinhoRepositorio);
+    _clienteRepositorio = new ClienteRepositorio(_carteiraRepositorio, _carrinhoRepositorio);
+    _restauranteRepositorio = new RestauranteRepositorio(_itemRepositorio, _itemCarrinhoRepositorio);
 }
 
 DatabaseManager::~DatabaseManager()
@@ -20,6 +22,8 @@ DatabaseManager::~DatabaseManager()
     delete _cupomRepositorio;
     delete _clienteRepositorio;
     delete _carteiraRepositorio;
+    delete _itemCarrinhoRepositorio;
+    delete _carrinhoRepositorio;
     delete _restauranteRepositorio;
 }
 
@@ -46,4 +50,9 @@ CarteiraRepositorio* DatabaseManager::GetCarteiraRepositorio()
 RestauranteRepositorio* DatabaseManager::GetRestauranteRepositorio()
 {
     return _restauranteRepositorio;
+}
+
+CarrinhoRepositorio* DatabaseManager::GetCarrinhoRepositorio()
+{
+    return _carrinhoRepositorio;
 }

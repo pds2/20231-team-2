@@ -7,7 +7,7 @@
 #include "Repositories/CupomRepositorio.hpp"
 
 CupomRepositorio::CupomRepositorio()
-{
+{ 
     CreateTable();
 }
 

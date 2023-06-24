@@ -39,6 +39,13 @@ class ItemRepositorio
         void CarregarItensNoRestaurante(Restaurante* restaurante);
 
         /**
+         * @brief Lista os itens que fazem parte de um restaurante.
+         * @param id Identificador do restaurante.
+         * @returns Um vector com os itens.
+        */
+        std::vector<Item*> ListarPorIdDoRestaurante(int id);
+
+        /**
          * @brief Busca um objeto no banco de dados.
          * @param id Id do objeto buscado.
          * @returns Um ponteiro para o objeto buscado.

@@ -4,7 +4,7 @@
 
 TEST_CASE("Testando Carrinho")
 {
-  Carrinho carrinho;
+  Carrinho carrinho = Carrinho(1);
   Item item1 = Item("Agua Mineral", "Agua com Minerios", ItemType::BEBIDAS, 10.0, 1);
   Item item2 = Item("Hamburguer", "Pão, Hamburguer, Maionese", ItemType::FAST_FOOD, 20.0, 1);
   Item item3 = Item("Macarrao", "Massa e molho de tomate", ItemType::PRATO_FEITO, 15.0, 1);

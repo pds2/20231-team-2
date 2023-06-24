@@ -6,9 +6,10 @@
 #include "Sqlite/sqlite3.h"
 #include "Repositories/ClienteRepositorio.hpp"
 
-ClienteRepositorio::ClienteRepositorio(CarteiraRepositorio* carteiraRepositorio)
+ClienteRepositorio::ClienteRepositorio(CarteiraRepositorio* carteiraRepositorio, CarrinhoRepositorio* carrinhoRepositorio)
 {
     _carteiraRepositorio = carteiraRepositorio;
+    _carrinhoRepositorio = carrinhoRepositorio;
 
     CreateTable();
 }
@@ -31,6 +32,21 @@ Cliente* ClienteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 
 }
 
+void ClienteRepositorio::CarregarDependencias(Cliente* entidade)
+{
+    if (entidade->GetCarteira() == nullptr)
+    {
+        Carteira* carteira = _carteiraRepositorio->BuscaPorIdDoCliente(entidade->GetId());
+        entidade->SetCarteira(carteira);
+    }
+
+    if (entidade->GetCarrinhos().empty())
+    {
+        std::vector<Carrinho*> carrinhos = _carrinhoRepositorio->BuscaPorIdDoCliente(entidade->GetId());
+        entidade->SetCarrinhos(carrinhos);
+    }
+}
+
 std::vector<Cliente*> ClienteRepositorio::ListarTodos()
 {
     RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela);
@@ -40,11 +56,7 @@ std::vector<Cliente*> ClienteRepositorio::ListarTodos()
     for(auto pair : _entidades)
     {
         Cliente* entidade = pair.second;
-        if (entidade->GetCarteira() == nullptr)
-        {
-            Carteira* carteira = _carteiraRepositorio->BuscaPorIdDoCliente(entidade->GetId());
-            entidade->SetCarteira(carteira);
-        }
+        CarregarDependencias(entidade);
         
         itens.push_back(entidade);
     }
@@ -59,11 +71,7 @@ Cliente* ClienteRepositorio::BuscaPorId(int id)
     if (entidade == nullptr)
         throw login_nao_encontrado_e();
 
-    if (entidade->GetCarteira() == nullptr)
-    {
-        Carteira* carteira = _carteiraRepositorio->BuscaPorIdDoCliente(entidade->GetId());
-        entidade->SetCarteira(carteira);
-    }
+    CarregarDependencias(entidade);
 
     return entidade;
 }
@@ -131,6 +139,9 @@ void ClienteRepositorio::Deletar(Cliente* entidade)
     Carteira* carteira = entidade->GetCarteira();
     if (carteira != nullptr)
         _carteiraRepositorio->Deletar(carteira);
+
+    for(Carrinho* carrinho : entidade->GetCarrinhos())
+        _carrinhoRepositorio->Deletar(carrinho);
 
     RepositorioBase::Deletar(_tabela, entidade);
 }
