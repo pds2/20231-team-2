@@ -1,6 +1,7 @@
 #include <iostream>
 
-#include "Repositories/DatabaseManager.hpp"
+#include "../third_party/cores.hpp"
+#include "../include/Repositories/DatabaseManager.hpp"
 #include "Servicos/AutenticacaoServico.hpp"
 
 int main()
@@ -13,9 +14,9 @@ int main()
     int opcao;
 
     while (opcao != 3) {
-        std::cout << "Bem-vindo(a) ao Menu principal" << std::endl;
+        std::cout << VERMELHO << "Bem-vindo(a) ao Menu principal! " << RESET << std::endl;
         std::cout << "Selecione uma opção:" << std::endl;
-        std::cout << "1. Fazer login como cliente." << std::endl;
+        std::cout << "1. Fazer como cliente " << std::endl;
         std::cout << "2. Fazer login como restaurante." << std::endl;
         std::cout << "3. Sair" << std::endl;
 
@@ -31,6 +32,7 @@ int main()
                 break;
             case 3:
                 std::cout << "Saindo do programa..." << std::endl;
+                break;
             default:
                 std::cout << "Opção inválida! Tente novamente." << std::endl;
         }
