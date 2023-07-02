@@ -4,16 +4,32 @@
 
 #include "Carrinho.hpp"
 #include "EntidadeBase.hpp"
+#include "Cupom.hpp"
 
 Carrinho::Carrinho(int idCliente)
 {
   _idCliente = idCliente;
   _pedidoEncerrado = false;
   _valorTotal = 0.0;
+  _descontoAplicado = false;
 }
 
 double Carrinho::GetValorTotal(){
   return _valorTotal;
+}
+
+void Carrinho::AplicarDesconto(Cupom *cupom){
+  if(_pedidoEncerrado == false){
+    throw encerrar_pedido_primeiro_e();
+  }
+  if(_descontoAplicado == false){
+     _valorTotal = _valorTotal * (100-cupom->GetValor())/100;
+    SetValorTotal(_valorTotal);
+    cupom->SetaValido();
+    _descontoAplicado = true;
+  }else{
+    throw um_cupom_ja_foi_usado_e();
+ }
 }
 
 void Carrinho::SetValorTotal(double valorTotal)
@@ -83,3 +99,8 @@ void Carrinho::SetStatus(bool status)
 {
   _pedidoEncerrado = status;
 }
+
+bool Carrinho::GetDescontoAplicado(){
+  return _descontoAplicado;
+}
+

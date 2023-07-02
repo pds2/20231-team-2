@@ -1,6 +1,7 @@
 #include "../third_party/doctest.h"
 #include "Carrinho.hpp"
 #include "Item.hpp"
+#include "Cupom.hpp"
 
 TEST_CASE("Testando Carrinho")
 {
@@ -54,4 +55,52 @@ TEST_CASE("Testando Carrinho")
     carrinho.LimparCarrinho();
     CHECK_THROWS_AS(carrinho.LimparCarrinho(), carrinho_vazio_e);
   }
+}
+
+TEST_CASE("Aplicando desconto"){
+  Carrinho carrinho = Carrinho(1);
+  Item item1 = Item("Agua Mineral", "Agua com Minerios", ItemType::BEBIDAS, 10.0, 1);
+  Item item2 = Item("Hamburguer", "Pão, Hamburguer, Maionese", ItemType::FAST_FOOD, 20.0, 1);
+  Item item3 = Item("Macarrao", "Massa e molho de tomate", ItemType::PRATO_FEITO, 15.0, 1);
+
+  SUBCASE("Aplicando Desconto e Verificando se o Cupom se torna inválido"){
+    Cupom *DezPorCento = new Cupom("DEZPORCENTO", 10.0);
+    carrinho.AdicionarItem(&item1);    
+    carrinho.AdicionarItem(&item2);
+    carrinho.AdicionarItem(&item3);
+    CHECK(carrinho.GetCarrinho().size() == 3);
+    CHECK(carrinho.GetValorTotal() == 45.0);
+
+    carrinho.Encerrar();
+    carrinho.AplicarDesconto(DezPorCento);
+    CHECK(carrinho.GetValorTotal() == 40.50);
+    CHECK(DezPorCento->EstaValido() == false);
+    CHECK(carrinho.EstaEncerrado() == true);    
+
+    delete DezPorCento;
+  }
+
+  SUBCASE("Tentando Aplicar mais de um cupom no carrinho"){
+    Cupom *DezPorCento = new Cupom("DEZPORCENTO", 10.0);
+    Item item1 = Item("Agua Mineral", "Agua com Minerios", ItemType::BEBIDAS, 10.0, 1);
+    Item item2 = Item("Hamburguer", "Pão, Hamburguer, Maionese", ItemType::FAST_FOOD, 20.0, 1);
+    carrinho.AdicionarItem(&item1);    
+    carrinho.AdicionarItem(&item2);
+
+    CHECK_THROWS_AS(carrinho.AplicarDesconto(DezPorCento), encerrar_pedido_primeiro_e);
+
+
+    carrinho.Encerrar();
+    carrinho.AplicarDesconto(DezPorCento);
+    CHECK(carrinho.GetValorTotal() == 27.00);
+    CHECK(DezPorCento->EstaValido() == false);
+    CHECK(carrinho.EstaEncerrado() == true);  
+
+    Cupom *CincoPorCento = new Cupom("CINCOPORCENTO", 5.0);
+    CHECK_THROWS_AS(carrinho.AplicarDesconto(CincoPorCento), um_cupom_ja_foi_usado_e);
+
+    delete DezPorCento;
+    delete CincoPorCento;
+  }
+
 }

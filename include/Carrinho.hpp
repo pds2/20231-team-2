@@ -5,6 +5,7 @@
 
 #include "Item.hpp"
 #include "EntidadeBase.hpp"
+#include "Cupom.hpp"
 
 /**
  * @brief Essa classe representa uma exceção que será lançada quando um item 
@@ -19,6 +20,18 @@ class item_nao_existe_no_carrinho_e {};
 class carrinho_vazio_e {};
 
 /**
+ * @brief Essa classe representa uma exceção que será lançada quando mais
+ * de um cupom tentar ser aplicado no carrinho.
+ */
+class um_cupom_ja_foi_usado_e {};
+
+/**
+ * @brief Essa classe representa uma exceção que será lançada quando o
+ * cliente tentar usar o cupom antes de finalizar o pedido
+ */
+class encerrar_pedido_primeiro_e {};
+
+/**
  * @brief Essa classe representa um carrinho de compras que poderá ser usado
  * pelos clientes para adicionar seus Itens.
  */
@@ -28,6 +41,7 @@ class Carrinho: public EntidadeBase{
   double _valorTotal;
   bool _pedidoEncerrado;
   int _idCliente;
+  bool _descontoAplicado;
 
   public:
 
@@ -42,6 +56,11 @@ class Carrinho: public EntidadeBase{
    * @brief Retorna o valor total do carrinho de compras.
    */
   double GetValorTotal();
+
+  /**
+   * @brief Aplica um desconto no valor total do carrinho.
+  */
+  void AplicarDesconto(Cupom *cupom);
 
   /**
    * @brief Seta o valor total do carrinho.
@@ -93,6 +112,11 @@ class Carrinho: public EntidadeBase{
    * @brief Retorna o id do cliente.
   */
   int GetIdCliente();
+
+  /**
+   * @brief Retorna se um desconto foi ou não aplicado.
+  */
+  bool GetDescontoAplicado();
 };
 
 #endif
