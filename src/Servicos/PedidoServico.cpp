@@ -2,14 +2,16 @@
 #include <vector>
 #include <string>
 
-#include "../include/Repositories/DatabaseManager.hpp"
-#include "../include/Servicos/PedidoServico.hpp"
-#include "../include/Restaurante.hpp"
-#include "../include/Carrinho.hpp"
-#include "../include/Item.hpp"
+#include "../../include/Repositories/CarrinhoRepositorio.hpp"
+#include "../../include/Repositories/DatabaseManager.hpp"
+#include "../../include/Servicos/PedidoServico.hpp"
+#include "../../include/Restaurante.hpp"
+#include "../../include/Carrinho.hpp"
+#include "../../include/Item.hpp"
 
 PedidoServico::PedidoServico(DatabaseManager * dbManager){
   _itemRepositorio = dbManager->GetItemRepositorio();
+  _carrinhoRepositorio = dbManager->GetCarrinhoRepositorio();
 }
 
 void ImprimeInformacoesIniciais(int &verMenu){
@@ -45,17 +47,17 @@ void ImprimeInstrucoesParaEdicaoDoCarrinho(int &id, std::string &edicao){
 
 //TERMINAR DE IMPLEMENTAR(Sem utilidade ainda)
 void ImprimeInformacoesParaEdicaoDoCarrinho(){
-  std::cupom;
-  std::cout << "Você deseja adicionar algum cupom ao seu carrinho? Digite [s] para ou [n] para não."
-  std::cin >> cupom;
+  std::cout << "Você deseja adicionar algum cupom ao seu carrinho? Digite [s] para ou [n] para não." << std::endl;
+  //Preciso receber uma referência para cupom
+  // std::cin >> cupom;
 }
 
 
 void PedidoServico::ImprimeMenu(Usuario *usuario){
   int verMenu;
-  std::cout << "Bem-vindo " << usuario->GetNome() << "!" << std::endl 
-  ImprimeInformacoesIniciais(verMenu);
+  std::cout << "Bem-vindo " << usuario->GetNome() << "!" << std::endl; 
   do{
+    ImprimeInformacoesIniciais(verMenu);
     switch (verMenu){
     case 1:
       ListarRestaurantes();
@@ -67,18 +69,18 @@ void PedidoServico::ImprimeMenu(Usuario *usuario){
       break;
     }
     case 3:{
-      ImprimeInformacoesdoCarrinho();
       Carrinho *carrinho = new Carrinho(usuario->GetId());          
       std::string editarCarrinho;
-      ImprimeInformacoesdoCarrinho(editarCarrinho)
+      ImprimeInformacoesdoCarrinho(editarCarrinho);
       if (editarCarrinho == "e"){
         int id;
         std::string edicao;
-        ImprimeInstrucoesParaEdicaoDoCarrinho(id, edicao)
+        ImprimeInstrucoesParaEdicaoDoCarrinho(id, edicao);
         EditarCarrinho(carrinho, id, edicao);
       }else if (editarCarrinho == "f"){
         carrinho->Encerrar();
         std::cout << "O valor total do seu pedido é: R$ " << carrinho->GetValorTotal() << std::endl;
+        _carrinhoRepositorio->Inserir(carrinho);
         delete carrinho;
       }else if (editarCarrinho != "s")
         std::cout << "Opção Inválida. Digite novamente" << std::endl;

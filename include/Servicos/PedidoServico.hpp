@@ -5,6 +5,7 @@
 #include <map>
 #include <string>
 
+#include "../Repositories/CarrinhoRepositorio.hpp"
 #include "../Repositories/DatabaseManager.hpp"
 #include "../Repositories/ItemRepositorio.hpp"
 #include "../Restaurante.hpp"
@@ -21,6 +22,7 @@ class PedidoServico{
   private:
   std::map<int, Restaurante*> _Restaurantes;
   ItemRepositorio *_itemRepositorio;
+  CarrinhoRepositorio *_carrinhoRepositorio;
 
   public:
 
