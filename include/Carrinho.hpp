@@ -9,7 +9,8 @@
 
 /**
  * @brief Essa classe representa uma exceção que será lançada quando um item 
- * que não está no carrinho de compras tentar ser retirado dele.
+ * que não está no carrinho de compras tentar ser retirado dele ou quando o usuário
+ * tentar limpar o carrinho que não tem item.
  */
 class item_nao_existe_no_carrinho_e {};
 
