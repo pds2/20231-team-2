@@ -50,7 +50,7 @@ SistemaUfmgfood é uma aplicação em terminal que permite aos usuários realiza
        sudo apt-get install sqlite3
        ```
      - Aguarde o processo de instalação ser concluído.
-     - 
+     
 ### Compilação
 1. Abra um terminal.
 2. Navegue até o diretório raiz do projeto (SistemaUfmgfood).
