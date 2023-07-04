@@ -1,5 +1,5 @@
 #include "../third_party/doctest.h"
-#include "Restaurante.hpp"
+#include "../include/Restaurante.hpp"
 #include "Item.hpp"
 
 TEST_CASE("Teste GetCNPJ"){
