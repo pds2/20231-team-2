@@ -52,6 +52,15 @@ void ImprimeInformacoesParaEdicaoDoCarrinho(){
   // std::cin >> cupom;
 }
 
+void ImprimeListaDeItensNoCarrinho(Carrinho *carrinho){
+  std::cout << "Sua lista de compras é:" << std::endl;
+  for(auto it : carrinho->GetCarrinho()){
+    std::cout << it->GetNome() << " Preço: R$ " << it->GetPrecoAtual() << std::endl; 
+  }
+  std::cout << std::endl;
+  std::cout << "O valor total do seu pedido é: R$ " << carrinho->GetValorTotal() << std::endl;
+}
+
 
 void PedidoServico::ImprimeMenu(Usuario *usuario){
   int verMenu;
@@ -79,15 +88,13 @@ void PedidoServico::ImprimeMenu(Usuario *usuario){
         EditarCarrinho(carrinho, id, edicao);
       }else if (editarCarrinho == "f"){
         carrinho->Encerrar();
-        std::cout << "O valor total do seu pedido é: R$ " << carrinho->GetValorTotal() << std::endl;
+        ImprimeListaDeItensNoCarrinho(carrinho);
         _carrinhoRepositorio->Inserir(carrinho);
         delete carrinho;
       }else if (editarCarrinho != "s")
         std::cout << "Opção Inválida. Digite novamente" << std::endl;
       break;
     }
-    case 4:
-      break;
     default:
       std::cout << "Opção Inválida. Digite novamente" << std::endl;
       break;
