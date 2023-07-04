@@ -32,7 +32,7 @@ public:
   void escolherTipoCadastro();
 
   /*
-  * @brief Cadastra um usuário do tipo cliente no sistema.
+  * @brief Cadastra um usuário do tipo cliente no sistema e inicializa a carteira dele.
   */
   void cadastrarCliente(std::string& nome, std::string& cpf, std::string& login, std::string& senha);
 

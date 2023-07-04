@@ -62,6 +62,8 @@ void CadastroServico::cadastrarCliente(std::string& nome, std::string& cpf, std:
   Cliente* novoCliente = new Cliente(nome, login, senha, cpf);
   try {
     _clienteRepositorio->Inserir(novoCliente);
+    Carteira* novaCarteira = new Carteira(novoCliente->GetId());
+    novoCliente->SetCarteira(novaCarteira);
     std::cout << VERDE << "Cadastro realizado com sucesso!" << RESET << std::endl;
   } catch (std::exception& ex) {
     std::cout << "Erro ao cadastrar cliente: " << ex.what() << std::endl;
