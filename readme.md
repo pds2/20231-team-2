@@ -68,4 +68,4 @@ SistemaUfmgfood é uma aplicação em terminal que permite aos usuários realiza
      ```
 
 ### Limpeza
-- Para limpar os arquivos objeto e binários gerados durante a compilação, execute o seguinte comando: make clean
+- Para limpar os arquivos objeto e binários gerados durante a compilação, execute o seguinte comando: `make clean`
