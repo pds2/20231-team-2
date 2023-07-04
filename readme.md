@@ -1,16 +1,15 @@
-# SistemaUfmgfood
+# 🍔 SistemaUfmgfood
 
 SistemaUfmgfood é uma aplicação em terminal que permite aos usuários realizar pedidos de comida de forma prática e rápida.
 
-## Desenvolvedores:
+## 🚀 Desenvolvedores:
 - [Gabriella de Lima](https://github.com/hellolima)
 - [Vitor Costa](https://github.com/vitorcosuta)
 - [Gabriel Prudente](https://github.com/Gabrielzzz7)
 - [Erik Neves](https://github.com/erikneves04)
 
-## Histórias de Usuário:
-
-1) Eu como restaurante quero conseguir cadastrar novos produtos e edita-los quando necessário, incluindo descontos esporádicos para que os clientes possam comprar.
+## 📚 Histórias de Usuário:
+1) Eu como restaurante quero conseguir cadastrar novos produtos e editá-los quando necessário, incluindo descontos esporádicos para que os clientes possam comprar.
 
 2) Eu como usuário quero ter uma espécie de carteira virtual para realizar transações.
 
@@ -26,7 +25,7 @@ SistemaUfmgfood é uma aplicação em terminal que permite aos usuários realiza
 
 9) (Opcional, se houver tempo) Eu como usuário quero poder ter uma estimativa do tempo de espera para a entrega da comida, considerando a localização da loja e do pedido.
 
-## Instruções de Uso
+## 📝 Instruções de Uso
 
 ### Pré-requisitos
 - Compilador C++ (recomenda-se o g++)
@@ -46,9 +45,9 @@ SistemaUfmgfood é uma aplicação em terminal que permite aos usuários realiza
    - **Linux:**
      - Abra o terminal.
      - Execute o seguinte comando para instalar o SQLite:
-       ```
-       sudo apt-get install sqlite3
-       ```
+     ```
+     sudo apt-get install sqlite3
+     ```
      - Aguarde o processo de instalação ser concluído.
      
 ### Compilação
