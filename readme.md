@@ -1,6 +1,6 @@
-# SemNomeAinda
+# SistemaUfmgfood
 
-SemNomeAinda é uma aplicação em terminal que permite aos usuários realizar pedidos de comida de forma prática e rápida.
+SistemaUfmgfood é uma aplicação em terminal que permite aos usuários realizar pedidos de comida de forma prática e rápida.
 
 ## Desenvolvedores:
 - [Gabriella de Lima](https://github.com/hellolima)
@@ -10,7 +10,7 @@ SemNomeAinda é uma aplicação em terminal que permite aos usuários realizar p
 
 ## Histórias de Usuário:
 
-1) Eu como restaurante quero conseguir cadastrar novos produtos e edita-los quando necessário,incluindo descontos esporádicos para que os clientes possam comprar.
+1) Eu como restaurante quero conseguir cadastrar novos produtos e edita-los quando necessário, incluindo descontos esporádicos para que os clientes possam comprar.
 
 2) Eu como usuário quero ter uma espécie de carteira virtual para realizar transações.
 
