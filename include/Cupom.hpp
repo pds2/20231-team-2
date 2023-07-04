@@ -7,7 +7,7 @@
 
 /*
  *@brief Essa classe representa um cupom que poderá ser usado
- *para que o cliente tenha desconto nas compras.
+ *para que o cliente tenha desconto (em porcentagem) nas compras.
  */
 class Cupom: public EntidadeBase{
   private:
@@ -40,6 +40,11 @@ class Cupom: public EntidadeBase{
    * data de expiração 
    */
   bool EstaValido();
+
+  /**
+   * @brief Seta o status do cupom.
+  */
+  void SetaValido();
 
 };
 

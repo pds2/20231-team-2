@@ -26,7 +26,9 @@ std::string Cupom::GetDataDeExpiracao()
       
     
 bool Cupom::EstaValido(){
-  //verificar se a data não é posterior a dataExpiração
-
   return _valido;
+}
+
+void Cupom::SetaValido(){
+  _valido = false;
 }
