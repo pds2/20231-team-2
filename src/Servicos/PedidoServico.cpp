@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 
+#include "../../include/Repositories/CarteiraRepositorio.hpp"
 #include "../../include/Repositories/CarrinhoRepositorio.hpp"
 #include "../../include/Repositories/DatabaseManager.hpp"
 #include "../../include/Servicos/PedidoServico.hpp"
@@ -15,6 +16,7 @@
 PedidoServico::PedidoServico(DatabaseManager * dbManager){
   _itemRepositorio = dbManager->GetItemRepositorio();
   _carrinhoRepositorio = dbManager->GetCarrinhoRepositorio();
+  _carteiraRepositorio = dbManager->GetCarteiraRepositorio();
 }
 
 void ImprimeInformacoesIniciais(int &verMenu){
@@ -95,7 +97,6 @@ void PedidoServico::ImprimeMenu(Cliente *cliente){
       }else if (editarCarrinho == "f"){
         EncerrarCarrinho(carrinho, cliente);        
         _carrinhoRepositorio->Inserir(carrinho);
-        delete carrinho;
       }else if (editarCarrinho != "s")
         std::cout << "Opção Inválida. Digite novamente" << std::endl;
       break;
@@ -163,6 +164,8 @@ void PedidoServico::LimparCarrinho(Carrinho *carrinho){
 void PedidoServico::EncerrarCarrinho(Carrinho *carrinho, Cliente *cliente){
   try{
     cliente->GetCarteira()->RemoverSaldo(carrinho->GetValorTotal());
+    Carteira *carteira = cliente->GetCarteira();
+    _carteiraRepositorio->Atualizar(carteira);
     carrinho->Encerrar();
     ImprimeListaDeItensNoCarrinho(carrinho);
   }catch(saldo_insuficiente_para_remocao_e &e){
