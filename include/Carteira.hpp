@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef CARTEIRA_HPP
 #define CARTEIRA_HPP
 
@@ -5,71 +7,76 @@
 #include "EntidadeBase.hpp"
 
 /**
- * @brief Essa classe representa uma exceção que será lançada quando
- * um saldo negativo ou igual a zero tentar ser adicionado.
+ * @class impossivel_adicionar_saldo_negativo_ou_igual_a_zero_e
+ * @brief Exceção lançada quando se tenta adicionar um saldo negativo ou igual a zero à carteira.
  */
 class impossivel_adicionar_saldo_negativo_ou_igual_a_zero_e {};
 
 /**
- * @brief Essa classe representa uma exceção que será lançada quando
- * um saldo negativo ou igual a zero tentar ser removido.
+ * @class impossivel_remover_saldo_negativo_ou_igual_a_zero_e
+ * @brief Exceção lançada quando se tenta remover um saldo negativo ou igual a zero da carteira.
  */
 class impossivel_remover_saldo_negativo_ou_igual_a_zero_e {};
 
 /**
- * @brief Essa classe representa uma exceção que será lançada quando
- * um saldo maior que o saldo do cliente tentar ser removido.
+ * @class saldo_insuficiente_para_remocao_e
+ * @brief Exceção lançada quando se tenta remover um saldo maior do que o saldo disponível na carteira.
  */
 class saldo_insuficiente_para_remocao_e {};
 
 /**
- * @brief Essa classe representa uma exceção que será lançada quando
- * o cliente tentar remover saldo com saldo igual a 0.
+ * @class sem_saldo_e
+ * @brief Exceção lançada quando se tenta remover saldo de uma carteira com saldo igual a zero.
  */
 class sem_saldo_e {};
 
 /**
- * @brief Essa classe representa uma carteira que armazenará um saldo. É por ela
- * que o cliente terá o dinheiro para fazer compras.
+ * @class Carteira
+ * @brief Classe que representa uma carteira do cliente.
+ *
+ * Essa classe representa uma carteira que armazena o saldo do cliente, utilizado para fazer compras.
  */
-class Carteira
-  : public EntidadeBase
-{
-  private:
+class Carteira : public EntidadeBase {
+private:
     int _idCliente;
     double _saldo;
 
-  public:
+public:
     /**
-     * @brief Instancia uma carteira do Cliente, com saldo inicial
-     * igual a 0.
+     * @brief Construtor da classe Carteira (o saldo inicial é 0.0).
+     * @param idCliente O identificador do cliente no banco.
      */
     Carteira(int idCliente);
 
     /**
-     * @brief Retorna o id do Cliente.
+     * @brief Retorna o ID do cliente associado à carteira.
+     * @return O ID do cliente.
      */
     int GetIdCliente();
 
     /**
-     * @brief Retorna o saldo do Cliente.
+     * @brief Retorna o saldo atual da carteira.
+     * @return O saldo da carteira.
      */
     double GetSaldo();
 
     /**
-     * @brief Seta o saldo do cliente.
-    */
+     * @brief Define o saldo da carteira.
+     * @param saldo O saldo a ser definido.
+     */
     void SetSaldo(double saldo);
 
     /**
-     * @brief Adiciona um determinado saldo da carteira.
+     * @brief Adiciona um valor ao saldo da carteira.
+     * @param saldo O valor a ser adicionado.
      */
     void AdicionarSaldo(double saldo);
 
     /**
-     * @brief Remove um determinado saldo da carteira.
+     * @brief Remove um valor do saldo da carteira.
+     * @param saldo O valor a ser removido.
      */
     void RemoverSaldo(double saldo);
 };
 
-#endif
+#endif // CARTEIRA_HPP
