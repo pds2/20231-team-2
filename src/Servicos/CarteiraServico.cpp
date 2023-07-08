@@ -45,14 +45,16 @@ void CarteiraServico::imprimeSaldo(Cliente *cliente) {
 }
 
 void CarteiraServico::adicionaSaldo(Cliente *cliente) {
-    if (cliente != nullptr && cliente->GetCarteira() != nullptr) {
+    Carteira* carteira = cliente->GetCarteira();
+    if (cliente != nullptr && carteira != nullptr) {
         double valor;
         std::cout << CIANO << "O saldo atual da sua carteira é: " << RESET << VERDE << cliente->GetCarteira()->GetSaldo() << RESET << std::endl;
         std::cout << "Qual valor você deseja adicionar? (insira no formato 0.0)" << std::endl;
         std::cout << "Valor: " << VERDE << std::endl;
         std::cin >> valor;
 
-        cliente->GetCarteira()->AdicionarSaldo(valor);
-        std::cout << CIANO << "Agora o atual saldo da sua carteira é: " << cliente->GetCarteira()->GetSaldo() << RESET << std::endl;
+        carteira->AdicionarSaldo(valor);
+        _carteiraRepositorio->Atualizar(carteira);
+        std::cout << CIANO << "Agora o atual saldo da sua carteira é: " << carteira->GetSaldo() << RESET << std::endl;
     }
 }
