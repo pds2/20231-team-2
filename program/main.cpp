@@ -64,6 +64,9 @@ int main()
 
         std::cout << std::endl;
 
+        if (opcao == 0)
+            break;
+
         if (usuario_logado == nullptr)
             continue;
         

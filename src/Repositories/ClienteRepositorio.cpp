@@ -106,11 +106,11 @@ void ClienteRepositorio::Inserir(Cliente* entidade)
 
     ExecuteSQLReplace(query, values);
     InserirNovoRegistro(entidade);
-
+    
     Carteira* carteira = entidade->GetCarteira();    
     if (carteira)
-    {
-        carteira->SetId(entidade->GetId());
+    {   
+        carteira->SetIdCliente(entidade->GetId());
         _carteiraRepositorio->Inserir(carteira);
     }     
 }       

@@ -62,7 +62,7 @@ Usuario* CadastroServico::MenuCadastro(){
 Cliente* CadastroServico::CadastrarCliente(std::string& nome, std::string& cpf, std::string& login, std::string& senha) {
   Cliente* novoCliente = new Cliente(nome, login, senha, cpf);
   try {
-    Carteira* novaCarteira = new Carteira(novoCliente->GetId());
+    Carteira* novaCarteira = new Carteira(0);
     novoCliente->SetCarteira(novaCarteira);
     _clienteRepositorio->Inserir(novoCliente);
     std::cout << VERDE << "Cadastro realizado com sucesso!" << RESET << std::endl;
