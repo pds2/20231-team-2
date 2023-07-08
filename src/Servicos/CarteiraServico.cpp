@@ -18,40 +18,38 @@ CarteiraServico::CarteiraServico(DatabaseManager *dbManager) {
     _carteiraRepositorio = dbManager->GetCarteiraRepositorio();
 }
 
-void CarteiraServico::escolherAcao(Usuario *usuario) {
+void CarteiraServico::escolherAcao(Cliente *cliente) {
     int opcao;
-    std::cout << CIANO << "Seja Bem-Vindo à sua carteira, " << usuario->GetNome() << "! Pressione: " << RESET << std::endl;
+    std::cout << CIANO << "Seja Bem-Vindo à sua carteira, " << cliente->GetNome() << "! Pressione: " << RESET << std::endl;
     std::cout << "[1] Ver o seu saldo" << std::endl;
     std::cout << "[2] Adicionar saldo" << std::endl;
-    std::cout << "Opção: ";
+    std::cout << "Opção: " << std::endl;
     std::cin >> opcao;
 
     switch (opcao) {
         case 1:
-            imprimeSaldo(usuario);
+            imprimeSaldo(cliente);
             break;
         case 2:
-            adicionaSaldo(usuario);
+            adicionaSaldo(cliente);
             break;
         default:
             break;
     }
 }
 
-void CarteiraServico::imprimeSaldo(Usuario *usuario) {
-    Cliente *cliente = dynamic_cast<Cliente*>(usuario);
+void CarteiraServico::imprimeSaldo(Cliente *cliente) {
     if (cliente != nullptr && cliente->GetCarteira() != nullptr) {
-        std::cout << CIANO << "O saldo da sua carteira é: " << cliente->GetCarteira()->GetSaldo() << RESET << std::endl;
+        std::cout << CIANO << "O saldo atual da sua carteira é: " << cliente->GetCarteira()->GetSaldo() << RESET << std::endl;
     }
 }
 
-void CarteiraServico::adicionaSaldo(Usuario *usuario) {
-    Cliente *cliente = dynamic_cast<Cliente*>(usuario);
+void CarteiraServico::adicionaSaldo(Cliente *cliente) {
     if (cliente != nullptr && cliente->GetCarteira() != nullptr) {
         double valor;
-        std::cout << CIANO << "O saldo atual da sua carteira é: " << cliente->GetCarteira()->GetSaldo() << std::endl;
-        std::cout << "Qual valor você deseja adicionar? (insira no formato 0.0)" << RESET << std::endl;
-        std::cout << VERDE << "Valor: " << RESET << std::endl;
+        std::cout << CIANO << "O saldo atual da sua carteira é: " << RESET << VERDE << cliente->GetCarteira()->GetSaldo() << RESET << std::endl;
+        std::cout << "Qual valor você deseja adicionar? (insira no formato 0.0)" << std::endl;
+        std::cout << "Valor: " << VERDE << std::endl;
         std::cin >> valor;
 
         cliente->GetCarteira()->AdicionarSaldo(valor);

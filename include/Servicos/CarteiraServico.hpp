@@ -29,17 +29,17 @@ public:
   /*
   * @brief Função em que o cliente irá escolher a ação que ele deseja realizar.
   */
-  void escolherAcao(Usuario *usuario);
+  void escolherAcao(Cliente *cliente);
 
   /*
   * @brief Função em que o saldo do cliente será impresso.
   */
-  void imprimeSaldo(Usuario *usuario);
+  void imprimeSaldo(Cliente *cliente);
 
   /*
   * @brief Função em que o cliente adiciona saldo na sua carteira e o saldo antigo e o novo são impressos.
   */
-  void adicionaSaldo(Usuario *usuario);
+  void adicionaSaldo(Cliente *cliente);
 
   
 };
