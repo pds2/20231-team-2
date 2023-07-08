@@ -20,8 +20,3 @@ std::string Usuario::GetNome()
 {
     return _nome;
 };
-
-TipoUsuario Usuario::GetTipo()
-{
-    return _tipo;
-}
