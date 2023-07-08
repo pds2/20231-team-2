@@ -13,7 +13,7 @@
 enum class ItemType
 {
     BEBIDAS,            /**< Bebidas comuns. */
-    BEBIDAS_ALCOOLICAS, /**< Bebidas contendo álcool. */
+    BEBIDAS_ALCOLICAS, /**< Bebidas contendo álcool. */
     FAST_FOOD,          /**< Comidas pré-processadas. */
     PRATO_FEITO,        /**< Prato feito. */
     DOCES,              /**< Doces. */
