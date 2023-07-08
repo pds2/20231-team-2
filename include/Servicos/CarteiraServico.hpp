@@ -12,7 +12,7 @@
 #include "Repositories/CarteiraRepositorio.hpp"
 #include "Usuario.hpp"
 
-/*
+/**
  * @brief Classe responsável pelo gerenciamento por parte do cliente com a sua carteira.
  */
 class CarteiraServico {
@@ -21,26 +21,25 @@ private:
   CarteiraRepositorio *_carteiraRepositorio;
 
 public:
-  /*
+  /**
   * @brief Construtor padrão.
   */
   CarteiraServico(DatabaseManager *dbManager);
 
-  /*
+  /**
   * @brief Função em que o cliente irá escolher a ação que ele deseja realizar.
   */
   void escolherAcao(Cliente *cliente);
 
-  /*
+  /**
   * @brief Função em que o saldo do cliente será impresso.
   */
   void imprimeSaldo(Cliente *cliente);
 
-  /*
+  /**
   * @brief Função em que o cliente adiciona saldo na sua carteira e o saldo antigo e o novo são impressos.
   */
   void adicionaSaldo(Cliente *cliente);
-
   
 };
 
