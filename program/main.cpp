@@ -73,8 +73,8 @@ int main()
         {
             Cliente* cliente = static_cast<Cliente*>(usuario_logado);
 
-            int opcao = -1;
-            while (opcao != 0) 
+            int opcao_cliente = -1;
+            while (opcao_cliente != 0) 
             {
                 std::cout << VERMELHO << "Bem-vindo(a) ao Menu dos clientes! " << RESET << std::endl;
                 std::cout << "Escolha uma das opções abaixo:" << std::endl;
@@ -82,9 +82,9 @@ int main()
                 std::cout << "[1] Acessar a carteira." << std::endl;
                 std::cout << "[2] Fazer um pedido." << std::endl;
                 std::cout << "Opção escolhida: ";
-                std::cin >> opcao;
+                std::cin >> opcao_cliente;
 
-                switch (opcao) 
+                switch (opcao_cliente) 
                 {
                     case 0:
                         std::cout << "Retornando ao menu principal..." << std::endl;
@@ -104,8 +104,8 @@ int main()
         {
             Restaurante* restaurante = static_cast<Restaurante*>(usuario_logado);
 
-            int opcao = -1;
-            while (opcao != 0) 
+            int opcao_restaurante = -1;
+            while (opcao_restaurante != 0) 
             {
                 std::cout << VERMELHO << "Bem-vindo(a) ao Menu dos restaurantes! " << RESET << std::endl;
                 std::cout << "Escolha uma das opções abaixo:" << std::endl;
@@ -113,9 +113,9 @@ int main()
                 std::cout << "[1] ." << std::endl;
                 std::cout << "[2] ." << std::endl;
                 std::cout << "Opção escolhida: ";
-                std::cin >> opcao;
+                std::cin >> opcao_restaurante;
 
-                switch (opcao) 
+                switch (opcao_restaurante) 
                 {
                     case 0:
                         std::cout << "Retornando ao menu principal..." << std::endl;
