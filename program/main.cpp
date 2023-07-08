@@ -52,7 +52,7 @@ int main()
             case 2:
                 usuario_logado = autenticacaoServico.MenuLogin();
                 break;
-            case 4:
+            case 3:
                 if (usuario_logado != nullptr)
                 {
                     usuario_logado = nullptr;
