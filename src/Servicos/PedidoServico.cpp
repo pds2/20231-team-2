@@ -1,17 +1,17 @@
-#include <iostream>
 #include <vector>
 #include <string>
+#include <iostream>
 
-#include "../../include/Repositories/CarteiraRepositorio.hpp"
-#include "../../include/Repositories/CarrinhoRepositorio.hpp"
-#include "../../include/Repositories/DatabaseManager.hpp"
-#include "../../include/Servicos/PedidoServico.hpp"
-#include "../../include/Restaurante.hpp"
-#include "../../third_party/cores.hpp"
-#include "../../include/Carrinho.hpp"
-#include "../../include/Cliente.hpp"
-#include "../../include/Item.hpp"
+#include "Servicos/PedidoServico.hpp"
+#include "Repositories/DatabaseManager.hpp"
+#include "Repositories/CarteiraRepositorio.hpp"
+#include "Repositories/CarrinhoRepositorio.hpp"
 
+#include "Item.hpp"
+#include "cores.hpp"
+#include "Cliente.hpp"
+#include "Carrinho.hpp"
+#include "Restaurante.hpp"
 
 PedidoServico::PedidoServico(DatabaseManager * dbManager){
   _itemRepositorio = dbManager->GetItemRepositorio();
