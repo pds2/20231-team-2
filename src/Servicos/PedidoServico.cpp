@@ -2,20 +2,25 @@
 #include <vector>
 #include <string>
 
+#include "../../include/Repositories/CarteiraRepositorio.hpp"
 #include "../../include/Repositories/CarrinhoRepositorio.hpp"
 #include "../../include/Repositories/DatabaseManager.hpp"
 #include "../../include/Servicos/PedidoServico.hpp"
 #include "../../include/Restaurante.hpp"
+#include "../../third_party/cores.hpp"
 #include "../../include/Carrinho.hpp"
+#include "../../include/Cliente.hpp"
 #include "../../include/Item.hpp"
+
 
 PedidoServico::PedidoServico(DatabaseManager * dbManager){
   _itemRepositorio = dbManager->GetItemRepositorio();
   _carrinhoRepositorio = dbManager->GetCarrinhoRepositorio();
+  _carteiraRepositorio = dbManager->GetCarteiraRepositorio();
 }
 
 void ImprimeInformacoesIniciais(int &verMenu){
-  std::cout << "Pressione:" << std::endl;
+  std::cout << CIANO << "Pressione:" << RESET << std::endl;
   std::cout << "[1] - Para ver nossos restaurantes" << std::endl; 
   std::cout << "[2] - Para visualizar um Restaurante e ver seus itens disponíveis" << std::endl;
   std::cout << "[3] - Para criar um carrinho de Compras" << std::endl ;
@@ -33,6 +38,7 @@ void ImprimeInformacoesdoCarrinho(std::string &editarCarrinho){
   std::cout << "Agora que você tem um carrinho, o que deseja fazer com ele?" << std::endl;
   std::cout << "Pressione:" << std::endl; 
   std::cout << "[e] - Para Adicionar ou Remover itens no seu carrinho de Compras" << std::endl;
+  std::cout << "[l] - Para Limpar seu carrinho" << std::endl;
   std::cout << "[f] - Para finalizar seu Pedido" << std::endl; 
   std::cout << "[s] - Para sair do Carrinho" << std::endl;
   std::cin >> editarCarrinho;
@@ -58,13 +64,13 @@ void ImprimeListaDeItensNoCarrinho(Carrinho *carrinho){
     std::cout << it->GetNome() << " Preço: R$ " << it->GetPrecoAtual() << std::endl; 
   }
   std::cout << std::endl;
-  std::cout << "O valor total do seu pedido é: R$ " << carrinho->GetValorTotal() << std::endl;
+  std::cout << AMARELO << "O valor total do seu pedido é: R$ " << carrinho->GetValorTotal() << RESET << std::endl;
 }
 
 
-void PedidoServico::ImprimeMenu(Usuario *usuario){
+void PedidoServico::ImprimeMenu(Cliente *cliente){
   int verMenu;
-  std::cout << "Bem-vindo " << usuario->GetNome() << "!" << std::endl; 
+  std::cout << "Bem-vindo " << cliente->GetNome() << "!" << std::endl; 
   do{
     ImprimeInformacoesIniciais(verMenu);
     switch (verMenu){
@@ -78,7 +84,7 @@ void PedidoServico::ImprimeMenu(Usuario *usuario){
       break;
     }
     case 3:{
-      Carrinho *carrinho = new Carrinho(usuario->GetId());          
+      Carrinho *carrinho = new Carrinho(cliente->GetId());          
       std::string editarCarrinho;
       ImprimeInformacoesdoCarrinho(editarCarrinho);
       if (editarCarrinho == "e"){
@@ -86,17 +92,17 @@ void PedidoServico::ImprimeMenu(Usuario *usuario){
         std::string edicao;
         ImprimeInstrucoesParaEdicaoDoCarrinho(id, edicao);
         EditarCarrinho(carrinho, id, edicao);
+      }else if(editarCarrinho == "l"){
+        LimparCarrinho(carrinho);
       }else if (editarCarrinho == "f"){
-        carrinho->Encerrar();
-        ImprimeListaDeItensNoCarrinho(carrinho);
+        EncerrarCarrinho(carrinho, cliente);        
         _carrinhoRepositorio->Inserir(carrinho);
-        delete carrinho;
       }else if (editarCarrinho != "s")
         std::cout << "Opção Inválida. Digite novamente" << std::endl;
       break;
     }
     default:
-      std::cout << "Opção Inválida. Digite novamente" << std::endl;
+      std::cout << VERMELHO << "Opção Inválida. Digite novamente" << RESET << std::endl;
       break;
     }
   } while (verMenu != 4);
@@ -137,7 +143,34 @@ void PedidoServico::EditarCarrinho(Carrinho *carrinho, int idDoItem, std::string
   }
 
   if(AdicionarOuRemover == "r"){
-    carrinho->RemoverItem(item);
+    try{
+      carrinho->RemoverItem(item);
+    }catch(carrinho_vazio_e){
+      std::cout << VERMELHO << "Seu carrinho está vazio." << RESET << std::endl;
+    }catch(item_nao_existe_no_carrinho_e &e){
+      std::cout << VERMELHO << "Este item não está no seu Carrinho." << RESET << std::endl;
+    }
   }
+}
+
+void PedidoServico::LimparCarrinho(Carrinho *carrinho){
+  try{
+    carrinho->LimparCarrinho();
+  }catch(item_nao_existe_no_carrinho_e &e){
+    std::cout << VERMELHO << "Carrinho já está vazio." << RESET << std::endl;
+  }
+}
+
+void PedidoServico::EncerrarCarrinho(Carrinho *carrinho, Cliente *cliente){
+  try{
+    cliente->GetCarteira()->RemoverSaldo(carrinho->GetValorTotal());
+    Carteira *carteira = cliente->GetCarteira();
+    _carteiraRepositorio->Atualizar(carteira);
+    carrinho->Encerrar();
+    ImprimeListaDeItensNoCarrinho(carrinho);
+  }catch(saldo_insuficiente_para_remocao_e &e){
+    std::cout << VERMELHO << "Saldo Insuficiente" << RESET << std::endl;
+    std::cout << VERDE << "Por favor, feche o Menu, e adicione mais saldo para finalizar o pedido!" << RESET << std::endl;
+  }    
 }
 
