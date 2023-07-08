@@ -1,13 +1,17 @@
 #include <iostream>
 
+// Inclusão de cores pras saídas.
 #include "cores.hpp"
-#include "Repositories/DatabaseManager.hpp"
-#include "Servicos/AutenticacaoServico.hpp"
-#include "Servicos/CadastroServico.hpp"
-#include "Servicos/PedidoServico.hpp"
 
-/// @brief 
-/// @return 
+// Inclusão do gerenciador de repositórios.
+#include "Repositories/DatabaseManager.hpp"
+
+// Inclusão dos serviços.
+#include "Servicos/PedidoServico.hpp"
+#include "Servicos/CadastroServico.hpp"
+#include "Servicos/CarteiraServico.hpp"
+#include "Servicos/AutenticacaoServico.hpp"
+
 int main()
 {
     // Gerenciamento de acesso ao banco de dados.
@@ -17,6 +21,7 @@ int main()
     AutenticacaoServico autenticacaoServico = AutenticacaoServico(dbManager);
     CadastroServico cadastroServico = CadastroServico(dbManager);
     PedidoServico pedidoServico = PedidoServico(dbManager);
+    CarteiraServico carteiraServico = CarteiraServico(dbManager);
 
     // Usuário atual.
     Usuario* usuario_logado = nullptr;
@@ -74,7 +79,7 @@ int main()
                 std::cout << VERMELHO << "Bem-vindo(a) ao Menu dos clientes! " << RESET << std::endl;
                 std::cout << "Escolha uma das opções abaixo:" << std::endl;
                 std::cout << "[0] Sair." << std::endl;
-                std::cout << "[1] Editar carteira." << std::endl;
+                std::cout << "[1] Acessar a carteira." << std::endl;
                 std::cout << "[2] Fazer um pedido." << std::endl;
                 std::cout << "Opção escolhida: ";
                 std::cin >> opcao;
@@ -85,7 +90,7 @@ int main()
                         std::cout << "Retornando ao menu principal..." << std::endl;
                         break;
                     case 1:
-                        // Merge da PR pendente
+                        carteiraServico.escolherAcao(cliente);
                         break;
                     case 2:
                         pedidoServico.ImprimeMenu(cliente);
