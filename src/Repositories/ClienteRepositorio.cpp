@@ -109,7 +109,10 @@ void ClienteRepositorio::Inserir(Cliente* entidade)
 
     Carteira* carteira = entidade->GetCarteira();    
     if (carteira)
+    {
+        carteira->SetId(entidade->GetId());
         _carteiraRepositorio->Inserir(carteira);
+    }     
 }       
 
 void ClienteRepositorio::Atualizar(Cliente* entidade)

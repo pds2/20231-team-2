@@ -41,3 +41,8 @@ void Carteira::RemoverSaldo(double saldo){
 
   _saldo -= saldo;
 }
+
+void Carteira::SetIdCliente(int id)
+{
+  _idCliente = id;
+}
