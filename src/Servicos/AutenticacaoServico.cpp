@@ -36,13 +36,9 @@ template<typename Tipo>
 Usuario* AutenticacaoServico::BuscaUsuario(std::string login)
 {
     if (std::is_same<Tipo, Restaurante>::value)
-    {
         return _restauranteRepositorio->BuscaPorLogin(login);
-    }
     else if (std::is_same<Tipo, Cliente>::value)
-    {
         return _clienteRepositorio->BuscaPorLogin(login);
-    }
 
     return nullptr;
 }
@@ -50,8 +46,6 @@ Usuario* AutenticacaoServico::BuscaUsuario(std::string login)
 template<typename Tipo>
 Tipo* AutenticacaoServico::LoginGenerico(std::string mensagem_sucesso)
 {
-    static_assert(std::is_base_of<Usuario, Tipo>::value, "Tipo deve herdar de Usuario");
-
     ImprimirMensagemInicial();
 
     bool encerrar_login = false;
@@ -85,7 +79,7 @@ Tipo* AutenticacaoServico::LoginGenerico(std::string mensagem_sucesso)
         }
         catch(const login_nao_encontrado_e e)
         {
-            std::cout << "O login " << login << " não foi encontrado!" << std::endl;
+            std::cout << "O login '" << login << "' não foi encontrado!" << std::endl;
             std::cout << "Tente novamente ou digite 'encerrar' como login para retornar ao menu principal. \n" << std::endl;
         }
     }
