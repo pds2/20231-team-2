@@ -38,3 +38,7 @@ std::vector<Item*> Restaurante::GetItens()
 {
     return _itens;
 }
+
+TipoUsuario Restaurante::GetTipo(){
+    return _tipo;
+}

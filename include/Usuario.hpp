@@ -33,6 +33,7 @@ class Usuario
         std::string _login;
         std::string _senha;
         TipoUsuario _tipo;
+
     public:
         /**
          * @brief Instância de um novo usuário.
@@ -55,9 +56,9 @@ class Usuario
         std::string GetNome();
 
         /**
-         * @brief Retorna o tipo de um usário.
+         * @brief Método virtual que etorna o tipo de um usário e será implementado nas classes derivadas.
          */
-        TipoUsuario GetTipo();
+        virtual TipoUsuario GetTipo() = 0;
 };
 
 #endif

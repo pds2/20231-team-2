@@ -43,6 +43,11 @@ class Restaurante : public Usuario {
          * @returns Um vector contendo ponteiros pros itens.
         */
         std::vector<Item*> GetItens();
+
+        /**
+         * @brief Retorna o tipo de um usário, neste caso, restaurante.
+         */
+        TipoUsuario GetTipo() override;
 };
 
 #endif

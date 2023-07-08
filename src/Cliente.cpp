@@ -49,3 +49,7 @@ void Cliente::SetCarrinhos(std::vector<Carrinho*> carrinhos)
 {
     _carrinhos = carrinhos;
 }
+
+TipoUsuario Cliente::GetTipo(){
+    return _tipo;
+}

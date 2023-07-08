@@ -59,6 +59,11 @@ class Cliente : public Usuario {
          * @param carrinhos Novos dados.
         */
         void SetCarrinhos(std::vector<Carrinho*> carrinhos);
+
+        /**
+         * @brief Retorna o tipo de um usário, neste caso, cliente.
+         */
+        TipoUsuario GetTipo() override;
 };
 
 #endif
