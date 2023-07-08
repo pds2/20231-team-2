@@ -14,11 +14,11 @@
  */
 class ItemCarrinho : public EntidadeBase
 {
-private:
+public:
     int _idItem;     /**< ID do item. */
+    
     int _idCarrinho; /**< ID do carrinho. */
 
-public:
     /**
      * @brief Construtor da classe ItemCarrinho.
      * @param idItem ID do item.
