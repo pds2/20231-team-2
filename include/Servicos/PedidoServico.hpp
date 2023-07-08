@@ -5,15 +5,14 @@
 #include <map>
 #include <string>
 
-#include "../Repositories/CarteiraRepositorio.hpp"
-#include "../Repositories/CarrinhoRepositorio.hpp"
-#include "../Repositories/DatabaseManager.hpp"
-#include "../Repositories/ItemRepositorio.hpp"
-#include "../Restaurante.hpp"
-#include "../Usuario.hpp"
-#include "../EntidadeBase.hpp"
-#include "../Carrinho.hpp"
-
+#include "Repositories/CarteiraRepositorio.hpp"
+#include "Repositories/CarrinhoRepositorio.hpp"
+#include "Repositories/DatabaseManager.hpp"
+#include "Repositories/ItemRepositorio.hpp"
+#include "EntidadeBase.hpp"
+#include "Restaurante.hpp"
+#include "Carrinho.hpp"
+#include "Usuario.hpp"
 
 /**
  * @brief Essa classe é responsável por gerenciar
