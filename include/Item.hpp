@@ -91,7 +91,7 @@ public:
      * @brief Verifica se existe um desconto aplicado ao item.
      * @return `true` se existe um desconto aplicado, `false` caso contrário.
      */
-    bool ExisteDescontoAplicado();
+    bool ExisteUmDescontoAplicado();
 
     /**
      * @brief Aplica um desconto sobre o preço base do item.
