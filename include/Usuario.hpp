@@ -8,7 +8,7 @@
 
 /**
  * @brief Exceção lançada quando um login não é encontrado.
-*/
+ */
 class login_nao_encontrado_e {};
 
 /**
@@ -21,44 +21,54 @@ enum class TipoUsuario
     CLIENTE
 };
 
-/*
- *  Essa classe é responsável por armazenar e inicializar as informações básicas
- * comuns às entidades de Usuário, como cliente e restaurante. 
+/**
+ * @class Usuario
+ * @brief Classe base para entidades de usuário.
+ *
+ * Essa classe é responsável por armazenar e inicializar as informações básicas
+ * comuns às entidades de Usuário, como cliente e restaurante.
  */
-class Usuario 
-: public EntidadeBase
+class Usuario : public EntidadeBase
 {
-    protected:
-        std::string _nome;
-        std::string _login;
-        std::string _senha;
-        TipoUsuario _tipo;
+protected:
+    std::string _nome;
+    std::string _login;
+    std::string _senha;
+    TipoUsuario _tipo;
 
-    public:
-        /**
-         * @brief Instância de um novo usuário.
-         */
-        Usuario(std::string nome, std::string login, std::string senha, TipoUsuario tipo);
+public:
+    /**
+     * @brief Construtor da classe Usuario.
+     * @param nome O nome do usuário.
+     * @param login O login do usuário.
+     * @param senha A senha do usuário.
+     * @param tipo O tipo do usuário.
+     */
+    Usuario(std::string nome, std::string login, std::string senha, TipoUsuario tipo);
 
-        /**
-         * @brief Retorna o login de um usuário.
-         */
-       std::string GetLogin();
+    /**
+     * @brief Retorna o login do usuário.
+     * @return O login do usuário.
+     */
+    std::string GetLogin();
 
-        /**
-         * @brief Retorna a senha de um usário.
-         */
-        std::string GetSenha();
+    /**
+     * @brief Retorna a senha do usuário.
+     * @return A senha do usuário.
+     */
+    std::string GetSenha();
 
-        /**
-         * @brief Retorna o nome de um usário.
-         */
-        std::string GetNome();
+    /**
+     * @brief Retorna o nome do usuário.
+     * @return O nome do usuário.
+     */
+    std::string GetNome();
 
-        /**
-         * @brief Método virtual que etorna o tipo de um usário e será implementado nas classes derivadas.
-         */
-        virtual TipoUsuario GetTipo() = 0;
+    /**
+     * @brief Método virtual que retorna o tipo do usuário.
+     * @return O tipo do usuário.
+     */
+    virtual TipoUsuario GetTipo() = 0;
 };
 
-#endif
+#endif // USUARIO_HPP

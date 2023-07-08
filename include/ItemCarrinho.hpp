@@ -7,26 +7,24 @@
 #include "EntidadeBase.hpp"
 
 /**
- *  Essa classe é responsável por relacionar um item a um carrinho
+ * @class ItemCarrinho
+ * @brief Classe responsável por relacionar um item a um carrinho.
+ *
+ * Essa classe representa a relação entre um item e um carrinho de compras.
  */
-class ItemCarrinho 
-    : public EntidadeBase
-{ 
-    public:
-        /**
-         * @brief Id do item.
-        */
-        int _idItem;
+class ItemCarrinho : public EntidadeBase
+{
+public:
+    int _idItem;     /**< ID do item. */
+    
+    int _idCarrinho; /**< ID do carrinho. */
 
-        /**
-         * @brief Id do carrinho.
-        */
-        int _idCarrinho;
-
-        /**
-         * @brief Intância um novo item(produto).
-         */
-        ItemCarrinho(int idItem, int idCarrinho);
+    /**
+     * @brief Construtor da classe ItemCarrinho.
+     * @param idItem ID do item.
+     * @param idCarrinho ID do carrinho.
+     */
+    ItemCarrinho(int idItem, int idCarrinho);
 };
 
-#endif
+#endif // ITEMCARRINHO_HPP

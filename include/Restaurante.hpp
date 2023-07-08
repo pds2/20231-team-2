@@ -9,45 +9,57 @@
 #include "Item.hpp"
 #include "Usuario.hpp"
 
-/*
- *  Essa classe é responsável por armazenar e inicializar as informações básicas
- *  de um usuário do tipo restaurante.
+/**
+ * @class Restaurante
+ * @brief Classe que representa um restaurante.
+ *
+ * Essa classe é responsável por armazenar e inicializar as informações básicas
+ * de um usuário do tipo restaurante.
  */
 class Restaurante : public Usuario {
-    private:
-        std::string _CNPJ;
-        std::vector<Item*> _itens;
-    public:
-        /**
-         * @brief Instância de um novo restaurante.
-         */
-        Restaurante(std::string nome, std::string login, std::string senha,std::string CNPJ);
+private:
+    std::string _CNPJ;
+    std::vector<Item*> _itens;
 
-        /**
-         * @brief Retorna o CNPJ de um restaurante.
-         */
-        std::string GetCNPJ();
+public:
+    /**
+     * @brief Construtor da classe Restaurante.
+     * @param nome O nome do restaurante.
+     * @param login O login do restaurante.
+     * @param senha A senha do restaurante.
+     * @param CNPJ O CNPJ do restaurante.
+     */
+    Restaurante(std::string nome, std::string login, std::string senha, std::string CNPJ);
 
-        /**
-         * @brief Adiciona um item a esse restaurante.
-        */
-        void AdicionarItem(Item* item);
+    /**
+     * @brief Retorna o CNPJ do restaurante.
+     * @return O CNPJ do restaurante.
+     */
+    std::string GetCNPJ();
 
-        /**
-         * @brief Remove um item desse restaurante.
-        */
-        void RemoverItem(Item* item);
+    /**
+     * @brief Adiciona um item a esse restaurante.
+     * @param item O item a ser adicionado.
+     */
+    void AdicionarItem(Item* item);
 
-        /**
-         * @brief Acesso aos itens desse restaurante;
-         * @returns Um vector contendo ponteiros pros itens.
-        */
-        std::vector<Item*> GetItens();
+    /**
+     * @brief Remove um item desse restaurante.
+     * @param item O item a ser removido.
+     */
+    void RemoverItem(Item* item);
 
-        /**
-         * @brief Retorna o tipo de um usário, neste caso, restaurante.
-         */
-        TipoUsuario GetTipo() override;
+    /**
+     * @brief Retorna os itens desse restaurante.
+     * @return Um vetor de ponteiros para os itens do restaurante.
+     */
+    std::vector<Item*> GetItens();
+
+    /**
+     * @brief Retorna o tipo do usuário, neste caso, restaurante.
+     * @return O tipo do usuário.
+     */
+    TipoUsuario GetTipo() override;
 };
 
-#endif
+#endif // RESTAURANTE_HPP
