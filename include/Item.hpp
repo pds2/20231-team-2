@@ -8,15 +8,15 @@
 
 /**
  * @enum ItemType
- * Um enumerador representando os tipos de de itens disponíveis.
+ * Enumeração representando os tipos de itens disponíveis.
  */
 enum class ItemType
 {
-    BEBIDAS,            /**< Bebidas comuns */
-    BEBIDAS_ALCOLICAS,  /**< Bebidas contendo alcool */
-    FAST_FOOD,          /**< Comidas pré-processadas */
-    PRATO_FEITO,        /**< Prato feito */
-    DOCES,              /**< Doces */
+    BEBIDAS,            /**< Bebidas comuns. */
+    BEBIDAS_ALCOOLICAS, /**< Bebidas contendo álcool. */
+    FAST_FOOD,          /**< Comidas pré-processadas. */
+    PRATO_FEITO,        /**< Prato feito. */
+    DOCES,              /**< Doces. */
 };
 
 /**
@@ -26,76 +26,90 @@ enum class ItemType
 class desconto_invalido_e {};
 
 /**
- *  Essa classe é responsável por armazenar e inicializar as informações básicas
- *              dos itens(representação genérica de um produto).
+ * @class Item
+ * @brief Classe responsável por armazenar e inicializar as informações básicas dos itens (representação genérica de um produto).
+ *
  */
-class Item 
-    : public EntidadeBase
+class Item : public EntidadeBase
 {
-    private:
-        std::string _nome;
-        std::string _descricao;
-        ItemType _tipo;
-        double _precoBase;
-        double _precoComDesconto;
-        int _idRestaurante;
-    
-    public:
-        /**
-         * @brief Intância um novo item(produto).
-         */
-        Item(std::string nome, std::string descricao, ItemType tipo, double precoBase, int idRestaurante);
+private:
+    std::string _nome;
+    std::string _descricao;
+    ItemType _tipo;
+    double _precoBase;
+    double _precoComDesconto;
+    int _idRestaurante;
 
-        /**
-         * @brief Retorna o nome desse item.
-         */
-        std::string GetNome();
+public:
+    /**
+     * @brief Construtor da classe Item.
+     * @param nome O nome do item.
+     * @param descricao A descrição do item.
+     * @param tipo O tipo do item.
+     * @param precoBase O preço base do item.
+     * @param idRestaurante O ID do restaurante que oferece o item.
+     */
+    Item(std::string nome, std::string descricao, ItemType tipo, double precoBase, int idRestaurante);
 
-        /**
-         * @brief Retorna a descrição desse item.
-         */
-        std::string GetDescricao();
+    /**
+     * @brief Retorna o nome do item.
+     * @return O nome do item.
+     */
+    std::string GetNome();
 
-        /**
-         * @brief Retorna o tipo desse item.
-         */
-        ItemType GetTipo();
+    /**
+     * @brief Retorna a descrição do item.
+     * @return A descrição do item.
+     */
+    std::string GetDescricao();
 
-        /**
-         * @brief Retorna o preço base desse item.
-         */
-        double GetPrecoBase();
+    /**
+     * @brief Retorna o tipo do item.
+     * @return O tipo do item.
+     */
+    ItemType GetTipo();
 
-        /**
-         * @brief Retorna o preço atual desse item. Esse método considera possíveis descontos aplicados.
-         */
-        double GetPrecoAtual();
+    /**
+     * @brief Retorna o preço base do item.
+     * @return O preço base do item.
+     */
+    double GetPrecoBase();
 
-        /**
-         * @brief Seta o preço com desconto desse produto.
-         */
-        void SetPrecoComDesconto(double precoComDesconto);
+    /**
+     * @brief Retorna o preço atual do item. Esse método considera possíveis descontos aplicados.
+     * @return O preço atual do item.
+     */
+    double GetPrecoAtual();
 
-        /**
-         * @brief Retorna verdadeiro caso exista um desconto aplicado a esse item.
-         */
-        bool ExisteUmDescontoAplicado();
+    /**
+     * @brief Define o preço com desconto do item.
+     * @param precoComDesconto O preço com desconto do item.
+     */
+    void SetPrecoComDesconto(double precoComDesconto);
 
-        /**
-         * @brief Aplica um desconto sobre o preço base.
-         * @param percentualDesconto Pode variar de 1 a 100.
-         */
-        void AplicarDesconto(int percentualDesconto);
+    /**
+     * @brief Verifica se existe um desconto aplicado ao item.
+     * @return `true` se existe um desconto aplicado, `false` caso contrário.
+     */
+    bool ExisteDescontoAplicado();
 
-        /**
-         * @brief Remove o desconto aplicado a esse item, caso exista.
-        */
-        void RemoverDescontoAtual();
+    /**
+     * @brief Aplica um desconto sobre o preço base do item.
+     * @param percentualDesconto O percentual de desconto a ser aplicado. Deve ser um valor entre 1 e 100.
+     * @throw desconto_invalido_e Se o percentual de desconto for inválido.
+     */
+    void AplicarDesconto(int percentualDesconto);
 
-        /**
-         * @brief Retorna o id do restaurante.
-        */
-        int GetIdRestaurante();
+    /**
+     * @brief Remove o desconto atualmente aplicado ao item.
+     */
+    void RemoverDescontoAtual();
+
+    /**
+     * @brief Retorna o ID do restaurante que oferece o item.
+     * @return O ID do restaurante.
+     */
+    int GetIdRestaurante();
 };
 
-#endif
+#endif // ITEM_HPP
