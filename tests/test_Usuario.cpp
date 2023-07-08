@@ -3,7 +3,7 @@
 #include "../include/Cliente.hpp"
 #include "../include/Restaurante.hpp"
 
-TEST_CASE("02 - Testando criação de Cliente e atribuição a Usuario*(já que usuário é uma classe abstrata)") {
+TEST_CASE("01 - Testando criação de Cliente e atribuição a Usuario*(já que usuário é uma classe abstrata)") {
     Cliente cliente("nome", "login", "12345", "1234567890");
 
     Usuario* usuario = &cliente;
@@ -15,7 +15,7 @@ TEST_CASE("02 - Testando criação de Cliente e atribuição a Usuario*(já que 
     CHECK(usuario->GetTipo() == TipoUsuario::CLIENTE);
 }
 
-TEST_CASE("03 - Testando criação de Restaurante e atribuição a Usuario*(já que usuário é uma classe abstrata)") {
+TEST_CASE("02 - Testando criação de Restaurante e atribuição a Usuario*(já que usuário é uma classe abstrata)") {
     Restaurante restaurante("nome", "login", "98765", "12345678901234");
 
     Usuario* usuario = &restaurante;
