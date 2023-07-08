@@ -1,15 +1,15 @@
 #include <string>
 #include <iostream>
 
-#include "../../include/Usuario.hpp"
-#include "../../include/Cliente.hpp"
-#include "../../include/Carteira.hpp"
-#include "../../include/EntidadeBase.hpp"
-#include "../../include/Servicos/CarteiraServico.hpp"
+#include "Usuario.hpp"
+#include "Cliente.hpp"
+#include "Carteira.hpp"
+#include "EntidadeBase.hpp"
+#include "Servicos/CarteiraServico.hpp"
 
-#include "../../include/Repositories/ClienteRepositorio.hpp"
-#include "../../include/Repositories/DatabaseManager.hpp"
-#include "../../include/Repositories/CarteiraRepositorio.hpp"
+#include "Repositories/ClienteRepositorio.hpp"
+#include "Repositories/DatabaseManager.hpp"
+#include "Repositories/CarteiraRepositorio.hpp"
 
 #include "../../third_party/cores.hpp"
 

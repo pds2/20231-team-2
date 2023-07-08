@@ -4,13 +4,13 @@
 #include <string>
 #include <iostream>
 
-#include "../Cliente.hpp"
-#include "../Carteira.hpp"
-#include "../EntidadeBase.hpp"
-#include "../Repositories/ClienteRepositorio.hpp"
-#include "../Repositories/DatabaseManager.hpp"
-#include "../Repositories/CarteiraRepositorio.hpp"
-#include "../Usuario.hpp"
+#include "Cliente.hpp"
+#include "Carteira.hpp"
+#include "EntidadeBase.hpp"
+#include "Repositories/ClienteRepositorio.hpp"
+#include "Repositories/DatabaseManager.hpp"
+#include "Repositories/CarteiraRepositorio.hpp"
+#include "Usuario.hpp"
 
 /*
  * @brief Classe responsável pelo gerenciamento por parte do cliente com a sua carteira.
