@@ -45,6 +45,12 @@ class AutenticacaoServico
         AutenticacaoServico(DatabaseManager * dbManager);
 
         /**
+         * Responsável por interagir com o usuário e fazer o login 
+         *      do tipo(restaurante ou cliente) correto.
+        */
+        Usuario* MenuLogin();
+
+        /**
          * Responsável por fazer o procedimento de login de um cliente.
          * @returns Um ponteiro para o cliente em caso de sucesso.
         */

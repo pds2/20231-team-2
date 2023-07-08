@@ -13,11 +13,39 @@ AutenticacaoServico::AutenticacaoServico(DatabaseManager * dbManager)
     _restauranteRepositorio = dbManager->GetRestauranteRepositorio();
 }
 
-void ImprimirMensagemInicial()
+Usuario* AutenticacaoServico::MenuLogin()
 {
     std::cout << "+------------------------+" << std::endl;
     std::cout << "| MÓDULO DE AUTENTICAÇÃO |" << std::endl;
     std::cout << "+------------------------+\n" << std::endl;
+
+    int escolha = -1;
+    while (escolha != 0)
+    {
+        std::cout << "Selecione sua função: " << std::endl;
+        std::cout << "[0] Cancelar." << std::endl;
+        std::cout << "[1] Cliente. " << std::endl;
+        std::cout << "[2] Restaurante." << std::endl;
+        std::cout << "Escolha: " << std::endl;
+        std::cin >> escolha;
+
+        switch (escolha)
+        {
+            case 0:
+                std::cout << "Retornando ao menu principal." << std::endl;
+                break;
+            case 1:
+                return LoginCliente();
+                break;
+            case 2:
+                return LoginRestaurante();
+                break;
+            default:
+                std::cout << "Opção inválida! Tente novamente." << std::endl;
+        }   
+    }
+
+    return nullptr;
 }
 
 Cliente* AutenticacaoServico::LoginCliente()
@@ -36,13 +64,9 @@ template<typename Tipo>
 Usuario* AutenticacaoServico::BuscaUsuario(std::string login)
 {
     if (std::is_same<Tipo, Restaurante>::value)
-    {
         return _restauranteRepositorio->BuscaPorLogin(login);
-    }
     else if (std::is_same<Tipo, Cliente>::value)
-    {
         return _clienteRepositorio->BuscaPorLogin(login);
-    }
 
     return nullptr;
 }
@@ -50,10 +74,6 @@ Usuario* AutenticacaoServico::BuscaUsuario(std::string login)
 template<typename Tipo>
 Tipo* AutenticacaoServico::LoginGenerico(std::string mensagem_sucesso)
 {
-    static_assert(std::is_base_of<Usuario, Tipo>::value, "Tipo deve herdar de Usuario");
-
-    ImprimirMensagemInicial();
-
     bool encerrar_login = false;
     while (!encerrar_login)
     {
@@ -85,7 +105,7 @@ Tipo* AutenticacaoServico::LoginGenerico(std::string mensagem_sucesso)
         }
         catch(const login_nao_encontrado_e e)
         {
-            std::cout << "O login " << login << " não foi encontrado!" << std::endl;
+            std::cout << "O login '" << login << "' não foi encontrado!" << std::endl;
             std::cout << "Tente novamente ou digite 'encerrar' como login para retornar ao menu principal. \n" << std::endl;
         }
     }
