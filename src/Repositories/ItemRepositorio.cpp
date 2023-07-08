@@ -49,7 +49,7 @@ void ItemRepositorio::CarregarItensNoRestaurante(Restaurante* restaurante)
 {
     std::string idRestaurante = std::to_string(restaurante->GetId());
     std::string where = "WHERE idRestaurante = " + idRestaurante;
-    RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela);
+    RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela, where);
 
     std::vector<Item*> itens = ListarPorIdDoRestaurante(restaurante->GetId());
     for(Item* item : itens)

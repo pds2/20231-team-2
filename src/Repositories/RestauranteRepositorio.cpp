@@ -108,6 +108,8 @@ void RestauranteRepositorio::Atualizar(Restaurante* entidade)
     };
 
     ExecuteSQLReplace(query, values);
+
+    AtualizarItens(entidade);
 }
 
 void RestauranteRepositorio::Deletar(Restaurante* entidade)
