@@ -32,6 +32,7 @@ class PedidoServico{
   /**
    * @brief Esse método é um menu que apresenta as opções 
    * para o usuário interagir com o sistema.
+   * @param cliente Um ponteiro para o cliente que acessa o menu.
    */
   void ImprimeMenu(Cliente *cliente);
   
@@ -44,25 +45,33 @@ class PedidoServico{
   /**
    * @brief Esse método é responsável por Listar todos os
    * itens de um restaurante.
+   * @param id O id do restaurante.
    */
   void ListarItensDeUmRestaurante(int id);
 
   /**
    * @brief Esse metódo é responsável por criar um carrinho 
    * para o usuário. O usuário pode adicionar e remover itens
-   * com esse método
+   * com esse método.
+   * @param carrinho Um ponteiro para o carrinho do cliente.
+   * @param idDoItem O id do item que será adicionado ou removido.
+   * @param AdicionarouRemover Uma string que indica se o cliente irá
+   * adicionar ou remover um item.
    */
   void EditarCarrinho(Carrinho *carrinho, int idDoItem, std::string AdicionarOuRemover);
 
   /**
    * @brief Esse metódo é responsável por remover todos os itens
-   * do carrinho do usuário
+   * do carrinho do usuário.
+   * @param carrinho Um ponteiro para o carrinho do cliente.
    */
   void LimparCarrinho(Carrinho *carrinho);
 
   /**
    * @brief Esse metódo é responsável por finalizar o carrinho de compras
    * do usuário quando ele estiver pronto para pagar.
+   * @param carrinho Um ponteiro para o carrinho do cliente.
+   * @param cliente Um ponteiro para o cliente.
    */
   void EncerrarCarrinho(Carrinho *carrinho, Cliente *cliente);
 };
