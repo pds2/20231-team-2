@@ -1,6 +1,6 @@
 #include "../include/CupomBasico.hpp"
 
-CupomBasico::CupomBasico(std::string etiqueta, double desconto, int idCliente) : Cupom(etiqueta, desconto, idCliente) {};
+CupomBasico::CupomBasico(std::string etiqueta, double desconto, int idCliente) : Cupom(etiqueta, desconto, idCliente, CupomType::BASICO) {};
 
 std::string CupomBasico::Descricao(){
     

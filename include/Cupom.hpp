@@ -10,6 +10,11 @@
 class impossivel_desconto_negativo_e {};
 class impossivel_descricao_vazia_e {};
 
+enum class CupomType{
+    BASICO,
+    CUSTOMIZADO
+};
+
 /**
  * @class Cupom
  * @brief Classe que representa um cupom de desconto.
@@ -19,6 +24,8 @@ class impossivel_descricao_vazia_e {};
 class Cupom : public EntidadeBase {
 protected:
     std::string _etiqueta; //Ex: NIVER15
+    std::string _descricao;
+    CupomType _tipo;
     double _valor_desconto;
     bool _valido;
     int _idDoCliente;
@@ -30,7 +37,7 @@ public:
      * @param desconto O valor do desconto em porcentagem.
      * @param idDoCliente O id do cliente que tem esse cupom.
      */
-    Cupom(std::string etiqueta, double desconto, int idDoCliente);
+    Cupom(std::string etiqueta, double desconto, int idDoCliente, CupomType tipo);
 
     /**
      * @brief Retorna o valor do desconto do cupom.
@@ -60,6 +67,12 @@ public:
      * @return O id do cliente.
      */
     int GetIdDoCliente();
+
+    /**
+     * @brief Acessa o tipo do cupom de desconto.
+     * @return O tipo do cupom.
+     */
+    CupomType GetTipoCupom();
 
     /**
      * Retorna uma mensagem ou slogan descrevendo o cupom.

@@ -12,8 +12,6 @@
  */
 class CupomCustomizado : public Cupom{
 
-    private:
-        std::string _descricao;
     public:
         CupomCustomizado(std::string etiqueta, double desconto, int idCliente, std::string descricao);
         virtual std::string Descricao() override;
