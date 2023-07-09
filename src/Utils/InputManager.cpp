@@ -117,7 +117,7 @@ void ImprimeFalhaString()
     std::cout << "Nova entrada: ";
 }
 
-bool isStringEmptyOrWhitespace(const std::string& str) {
+bool StringVazia(const std::string& str) {
     for (char c : str) {
         if (!std::isspace(c)) {
             return false;
@@ -137,7 +137,7 @@ std::string InputManager::LerString()
         {
             std::getline(std::cin, texto);
             
-            if (isStringEmptyOrWhitespace(texto))
+            if (StringVazia(texto))
                 throw std::exception();
             
             leitura_com_sucesso = true;
