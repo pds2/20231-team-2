@@ -83,46 +83,6 @@ void ImprimeListaDeItensNoCarrinho(Carrinho *carrinho){
   std::cout << AMARELO << "O valor total do seu pedido é: R$ " << carrinho->GetValorTotal() << RESET << std::endl;
 }
 
-void PedidoServico::ImprimeMenu(Cliente *cliente){
-  int verMenu;
-  std::cout << CIANO << "Bem-vindo " << cliente->GetNome() << "!" << RESET << std::endl; 
-  do{
-    ImprimeInformacoesIniciais(verMenu);
-    switch (verMenu){
-    case 1:
-      ListarRestaurantes();
-      break;
-    case 2:{
-      int id;
-      ImprimeSolicitacaoDoIdDoRestaurante(id);
-      ListarItensDeUmRestaurante(id);
-      break;
-    }
-    case 3:{
-      Carrinho *carrinho = new Carrinho(cliente->GetId());          
-      std::string editarCarrinho;
-      ImprimeInformacoesdoCarrinho(editarCarrinho);
-      if (editarCarrinho == "e"){
-        int id;
-        std::string edicao;
-        ImprimeInstrucoesParaEdicaoDoCarrinho(id, edicao);
-        EditarCarrinho(carrinho, id, edicao);
-      }else if(editarCarrinho == "l"){
-        LimparCarrinho(carrinho);
-      }else if (editarCarrinho == "f"){
-        EncerrarCarrinho(carrinho, cliente);        
-        _carrinhoRepositorio->Inserir(carrinho);
-      }else if (editarCarrinho != "s")
-        std::cout << "Opção Inválida. Digite novamente" << std::endl;
-      break;
-    }
-    default:
-      std::cout << VERMELHO << "Opção Inválida. Digite novamente" << RESET << std::endl;
-      break;
-    }
-  } while (verMenu != 4);
-}
-
 void PedidoServico::ListarRestaurantes()
 {
   std::cout << VERMELHO << "Bem vindo ao UfmgFood: " << std::endl;
