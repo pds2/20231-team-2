@@ -37,30 +37,35 @@ class AutenticacaoServico
         */
         bool SenhaValida(Usuario* usuario);
 
-    public:
         /**
-         * Responsável por inicializar essa classe.
-         * @param dbManager Acesso aos repositórios do banco de dados.
-        */
-        AutenticacaoServico(DatabaseManager * dbManager);
-
-        /**
-         * Responsável por interagir com o usuário e fazer o login 
-         *      do tipo(restaurante ou cliente) correto.
-        */
-        Usuario* MenuLogin();
-
-        /**
-         * Responsável por fazer o procedimento de login de um cliente.
+         * @brief Responsável por fazer o procedimento de login de um cliente.
          * @returns Um ponteiro para o cliente em caso de sucesso.
         */
         Cliente* LoginCliente();
 
         /**
-         * Responsável por fazer o procedimento de login de um restaurante.
+         * @brief Responsável por fazer o procedimento de login de um restaurante.
          * @returns Um ponteiro para o restaurante em caso de sucesso.
         */
         Restaurante* LoginRestaurante();
+
+    public:
+        /**
+         * @brief Responsável por inicializar essa classe.
+         * @param dbManager Acesso aos repositórios do banco de dados.
+        */
+        AutenticacaoServico(DatabaseManager * dbManager);
+
+        /**
+         * @brief Responsável por interagir com o usuário e fazer o login 
+         *      do tipo(restaurante ou cliente) correto.
+        */
+        Usuario* MenuLogin();
+
+        /**
+         * @brief Responsável por gerenciar a mudança de senhas do usuário logado.
+        */
+        void EditarSenha(Usuario* usuario);
 };
 
 #endif

@@ -45,7 +45,8 @@ int main()
         if (usuario_logado != nullptr)
         {
             std::cout << "[3] Logout." << std::endl;
-            std::cout << "[4] " << VERMELHO << "Deletar" << RESET << " o usuário atual." << std::endl;
+            std::cout << "[4] Alterar sua senha." << std::endl;
+            std::cout << "[5] " << VERMELHO << "Deletar" << RESET << " o usuário atual." << std::endl;
         }
             
         std::cout << "Opção escolhida: ";
@@ -70,6 +71,12 @@ int main()
                     break;
                 }
             case 4:
+                if (usuario_logado != nullptr)
+                {
+                    autenticacaoServico.EditarSenha(usuario_logado);
+                    break;
+                }
+            case 5:
                 if (usuario_logado != nullptr)
                 {
                     usuario_logado = remocaoServico.RemoverUsuarioAtual(usuario_logado);
