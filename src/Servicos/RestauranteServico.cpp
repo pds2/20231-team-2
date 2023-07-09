@@ -143,13 +143,14 @@ void RestauranteServico::EditarItemUnico(int id)
             std::cout << "[3] Preço." << std::endl;
             std::cout << "[4] Aplicar desconto." << std::endl;
             std::cout << "Escolha: ";
-            int alteracao = InputManager::LerInt();
+            alteracao = InputManager::LerInt();
             std::cout << std::endl;
 
             std::string nome, descricao;
             switch (alteracao)
             { 
                 case 0:
+                    std::cout << "Alteração do Id " << id << " encerrada." << std::endl;
                     break;
                 case 1:
                     std::cout << "Digite o novo nome: ";
@@ -190,16 +191,14 @@ void RestauranteServico::EditarItemUnico(int id)
 void RestauranteServico::editarItens(Restaurante* restaurante)
 {
     std::cout << "Deseja listar os itens antes de editá-los?" << std::endl;
-    std::cout << "[0] Sim." << std::endl;
+    std::cout << "[0] Não." << std::endl;
     std::cout << "[1] Sim." << std::endl;
+    std::cout << "Escolha: ";
     int listar_itens = InputManager::LerInt();
     std::cout << std::endl;
 
     if(listar_itens == 1)
-    {
         exibirItens(restaurante);
-        std::cout << std::endl;
-    }
 
     int escolha = -1;
     while(escolha != 0)
