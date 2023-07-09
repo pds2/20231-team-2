@@ -71,7 +71,7 @@ Restaurante* RestauranteRepositorio::BuscaPorLogin(std::string login)
         }           
     }
 
-    throw login_nao_encontrado_e();
+    throw entidade_nao_encontrada_e();
 }
 
 void RestauranteRepositorio::Inserir(Restaurante* entidade)

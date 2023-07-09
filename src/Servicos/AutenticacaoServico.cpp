@@ -110,7 +110,7 @@ Tipo* AutenticacaoServico::LoginGenerico(std::string mensagem_sucesso)
                 return nullptr;
             }
         }
-        catch(const login_nao_encontrado_e e)
+        catch(const entidade_nao_encontrada_e e)
         {
             std::cout << VERMELHO << "O login '" << login << "' não foi encontrado!" << RESET << std::endl;
             std::cout << "Tente novamente ou digite 'encerrar' como login para retornar ao menu principal. \n" << std::endl;
