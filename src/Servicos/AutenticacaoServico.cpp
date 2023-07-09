@@ -16,7 +16,7 @@ AutenticacaoServico::AutenticacaoServico(DatabaseManager * dbManager)
 
 void ImprimeModulo()
 {
-    std::cout << "\n+------------------------+" << std::endl;
+    std::cout << "+------------------------+" << std::endl;
     std::cout << "| " << CIANO << "MÓDULO DE AUTENTICAÇÃO" << RESET << " |" << std::endl;
     std::cout << "+------------------------+\n" << std::endl;
 }

@@ -50,6 +50,7 @@ SistemaUfmgfood é uma aplicação em terminal que permite aos usuários realiza
 1. Abra um terminal.
 2. Navegue até o diretório raiz do projeto (SistemaUfmgfood).
 3. Execute o comando `make` para compilar o código.
+4. Execute o comando `make tests` para compilar os testes.
 
 ### Execução
 1. Após a compilação, ainda no terminal, execute um dos seguintes comandos:

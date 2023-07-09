@@ -68,3 +68,18 @@ int Item::GetIdRestaurante()
 {
     return _idRestaurante;
 }
+
+void Item::SetNome(std::string nome)
+{
+    _nome = nome;
+}
+
+void Item::SetDescricao(std::string descricao)
+{
+    _descricao = descricao;
+}
+
+void Item::SetPrecoBase(double preco)
+{
+    _precoBase = preco;
+}
