@@ -90,6 +90,7 @@ void RestauranteServico::adicionarItem(Restaurante *restaurante)
 
     restaurante->AdicionarItem(novoItem);
     _restauranteRepositorio->AtualizarItens(restaurante);
+    std::cout << VERDE << "Item adicionado com sucesso!" << RESET << std::endl;
 }
 
 void RestauranteServico::removerItem(Restaurante *restaurante)
