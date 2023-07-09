@@ -34,17 +34,13 @@ Cliente* ClienteRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 
 void ClienteRepositorio::CarregarDependencias(Cliente* entidade)
 {
-    if (entidade->GetCarteira() == nullptr)
-    {
-        Carteira* carteira = _carteiraRepositorio->BuscaPorIdDoCliente(entidade->GetId());
-        entidade->SetCarteira(carteira);
-    }
+    int id = entidade->GetId();
 
-    if (entidade->GetCarrinhos().empty())
-    {
-        std::vector<Carrinho*> carrinhos = _carrinhoRepositorio->BuscaPorIdDoCliente(entidade->GetId());
-        entidade->SetCarrinhos(carrinhos);
-    }
+    Carteira* carteira = _carteiraRepositorio->BuscaPorIdDoCliente(id);
+    entidade->SetCarteira(carteira);
+    
+    std::vector<Carrinho*> carrinhos = _carrinhoRepositorio->BuscaPorIdDoCliente(id);
+    entidade->SetCarrinhos(carrinhos);
 }
 
 std::vector<Cliente*> ClienteRepositorio::ListarTodos()
@@ -84,7 +80,10 @@ Cliente* ClienteRepositorio::BuscaPorLogin(std::string login)
     {
         Cliente* cliente = pair.second;
         if (cliente->GetLogin() == login)
+        {
+            CarregarDependencias(cliente);
             return cliente;
+        } 
     }
 
     throw login_nao_encontrado_e();
@@ -106,10 +105,13 @@ void ClienteRepositorio::Inserir(Cliente* entidade)
 
     ExecuteSQLReplace(query, values);
     InserirNovoRegistro(entidade);
-
+    
     Carteira* carteira = entidade->GetCarteira();    
     if (carteira)
+    {   
+        carteira->SetIdCliente(entidade->GetId());
         _carteiraRepositorio->Inserir(carteira);
+    }     
 }       
 
 void ClienteRepositorio::Atualizar(Cliente* entidade)

@@ -77,6 +77,12 @@ public:
      * @param saldo O valor a ser removido.
      */
     void RemoverSaldo(double saldo);
+
+    /**
+     * @brief Altera o id do cliente dono dessa carteira.
+     * @param id id do cliente;
+    */
+    void SetIdCliente(int id);
 };
 
 #endif // CARTEIRA_HPP

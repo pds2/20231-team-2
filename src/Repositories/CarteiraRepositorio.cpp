@@ -15,8 +15,8 @@ CarteiraRepositorio::CarteiraRepositorio()
 Carteira* CarteiraRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 {    
     int id = sqlite3_column_int(stmt, 0);
-    std::string criacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 7)));
-    std::string atualizacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 8)));
+    std::string criacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 3)));
+    std::string atualizacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 4)));
 
     double saldo = sqlite3_column_double(stmt, 2);
     int idCliente = sqlite3_column_double(stmt, 1);
@@ -40,7 +40,7 @@ Carteira* CarteiraRepositorio::BuscaPorIdDoCliente(int idCliente)
     std::string where = "WHERE IdCliente = " + idClienteString;
 
     RepositorioBase::CarregarTodosOsDadosNaMemoria(_tabela, where);
-
+    
     for(auto pair : _entidades)
     {
         Carteira* atual = pair.second;
