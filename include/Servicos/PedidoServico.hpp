@@ -5,6 +5,7 @@
 #include <map>
 #include <string>
 
+#include "Repositories/RestauranteRepositorio.hpp"
 #include "Repositories/CarteiraRepositorio.hpp"
 #include "Repositories/CarrinhoRepositorio.hpp"
 #include "Repositories/DatabaseManager.hpp"
@@ -20,7 +21,7 @@
  */
 class PedidoServico{
   private:
-  std::map<int, Restaurante*> _Restaurantes;
+  RestauranteRepositorio* _RestaurantesRepositorio;
   ItemRepositorio *_itemRepositorio;
   CarrinhoRepositorio *_carrinhoRepositorio;
   CarteiraRepositorio *_carteiraRepositorio;
@@ -88,6 +89,12 @@ class PedidoServico{
    * @param carrinho Um ponteiro para o carrinho do cliente.
    */
   void AplicaCupom(std::string &aplicarCupom, Cliente *cliente, Carrinho *carrinho);
+
+  /**
+   * @brief Esse metódo é responsável por imprimir um menu do carrinho de compras
+   * do cliente.
+  */
+  void MenuDoCarrinho(Cliente *cliente);
 };
 
 #endif

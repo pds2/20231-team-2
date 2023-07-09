@@ -21,6 +21,7 @@ CadastroServico::CadastroServico(DatabaseManager *dbManager) {
 Usuario* CadastroServico::MenuCadastro(){
     int opcao;
     std::cout << CIANO << "Escolha o tipo de cadastro! Pressione" << RESET <<std::endl;
+    std::cout << "[0] Se você quiser sair" << std::endl;
     std::cout << "[1] Cliente" << std::endl;
     std::cout << "[2] Restaurante" << std::endl;
     std::cout << "Opção escolhida: ";
@@ -29,6 +30,8 @@ Usuario* CadastroServico::MenuCadastro(){
     std::string nome, login, senha, cpf, cnpj;
 
     switch (opcao) {
+      case 0:
+        break;     
       case 1:
         std::cout << "Digite o nome do cliente: ";
         nome = InputManager::LerString();

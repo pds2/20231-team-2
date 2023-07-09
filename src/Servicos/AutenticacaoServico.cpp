@@ -32,7 +32,7 @@ Usuario* AutenticacaoServico::MenuLogin()
         std::cout << "[0] Cancelar." << std::endl;
         std::cout << "[1] Cliente. " << std::endl;
         std::cout << "[2] Restaurante." << std::endl;
-        std::cout << "Opão escolhida: ";
+        std::cout << "Opção escolhida: ";
         escolha = InputManager::LerInt();
         std::cout << std::endl;
 

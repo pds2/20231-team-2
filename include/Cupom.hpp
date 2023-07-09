@@ -6,7 +6,6 @@
 #include <string>
 #include "EntidadeBase.hpp"
 
-
 /**
  * @class Cupom
  * @brief Classe que representa um cupom de desconto.
