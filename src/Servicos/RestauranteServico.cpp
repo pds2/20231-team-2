@@ -12,24 +12,29 @@
 #include "Repositories/ItemRepositorio.hpp"
 #include "../../third_party/cores.hpp"
 
-RestauranteServico::RestauranteServico(DatabaseManager* dbManager)
+RestauranteServico::RestauranteServico(DatabaseManager *dbManager)
 {
     _restauranteRepositorio = dbManager->GetRestauranteRepositorio();
     _itemRepositorio = dbManager->GetItemRepositorio();
 }
 
-void RestauranteServico::escolherAcao(Restaurante* restaurante)
+void RestauranteServico::escolherAcao(Restaurante *restaurante)
 {
-    int opcao;
-    std::cout << CIANO << "Seja Bem-Vindo, " << restaurante->GetNome() << "! Pressione: " << RESET << std::endl;
-    std::cout << "[1] Ver os itens do restaurante" << std::endl;
-    std::cout << "[2] Adicionar um novo item" << std::endl;
-    std::cout << "[3] Remover um item existente" << std::endl;
-    std::cout << "Opção: ";
-    opcao = InputManager::LerInt();
-
-    switch (opcao)
+    int opcao = -1;
+    while (opcao != 0)
     {
+        std::cout << CIANO << "Seja Bem-Vindo, " << restaurante->GetNome() << "! Pressione: " << RESET << std::endl;
+        std::cout << "[0] Sair." << std::endl;
+        std::cout << "[1] Ver os itens do restaurante." << std::endl;
+        std::cout << "[2] Adicionar um novo item." << std::endl;
+        std::cout << "[3] Remover um item existente." << std::endl;
+        std::cout << "Opção: ";
+        opcao = InputManager::LerInt();
+
+        switch (opcao)
+        {
+        case 0:
+            break;
         case 1:
             exibirItens(restaurante);
             break;
@@ -40,16 +45,17 @@ void RestauranteServico::escolherAcao(Restaurante* restaurante)
             removerItem(restaurante);
             break;
         default:
-            break;
+             std::cout << VERMELHO << "Opção inválida! Tente novamente." <<  RESET << std::endl;
+        }
     }
 }
 
-void RestauranteServico::exibirItens(Restaurante* restaurante)
+void RestauranteServico::exibirItens(Restaurante *restaurante)
 {
-    std::vector<Item*> itens = restaurante->GetItens();
+    std::vector<Item *> itens = restaurante->GetItens();
 
     std::cout << CIANO << "Itens do Restaurante:" << RESET << std::endl;
-    for (Item* item : itens)
+    for (Item *item : itens)
     {
         std::cout << "ID: " << item->GetId() << std::endl;
         std::cout << "Nome: " << item->GetNome() << std::endl;
@@ -61,7 +67,7 @@ void RestauranteServico::exibirItens(Restaurante* restaurante)
     }
 }
 
-void RestauranteServico::adicionarItem(Restaurante* restaurante)
+void RestauranteServico::adicionarItem(Restaurante *restaurante)
 {
     std::string nome, descricao;
     int tipo;
@@ -79,21 +85,20 @@ void RestauranteServico::adicionarItem(Restaurante* restaurante)
     std::cout << "Preço base do item: ";
     precoBase = InputManager::LerDouble();
 
-    Item* novoItem = new Item(nome, descricao, static_cast<ItemType>(tipo), precoBase, restaurante->GetId());
-    
+    Item *novoItem = new Item(nome, descricao, static_cast<ItemType>(tipo), precoBase, restaurante->GetId());
+
     restaurante->AdicionarItem(novoItem);
     _restauranteRepositorio->AtualizarItens(restaurante);
-} 
+}
 
-
-void RestauranteServico::removerItem(Restaurante* restaurante)
+void RestauranteServico::removerItem(Restaurante *restaurante)
 {
     int idItem;
 
     std::cout << "ID do item a ser removido: ";
     idItem = InputManager::LerInt();
 
-    Item* item = _itemRepositorio->BuscaPorId(idItem);
+    Item *item = _itemRepositorio->BuscaPorId(idItem);
     if (item != nullptr && item->GetIdRestaurante() == restaurante->GetId())
     {
         restaurante->RemoverItem(item);
