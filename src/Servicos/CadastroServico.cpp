@@ -8,8 +8,9 @@
 #include "Cliente.hpp"
 #include "Restaurante.hpp"
 #include "EntidadeBase.hpp"
-#include "Repositories/ClienteRepositorio.hpp"
+#include "Utils/InputManager.hpp"
 #include "Repositories/DatabaseManager.hpp"
+#include "Repositories/ClienteRepositorio.hpp"
 #include "Repositories/RestauranteRepositorio.hpp"
 
 CadastroServico::CadastroServico(DatabaseManager *dbManager) {
@@ -22,32 +23,32 @@ Usuario* CadastroServico::MenuCadastro(){
     std::cout << CIANO << "Escolha o tipo de cadastro! Pressione" << RESET <<std::endl;
     std::cout << "[1] Cliente" << std::endl;
     std::cout << "[2] Restaurante" << std::endl;
-    std::cout << "Opção: ";
-    std::cin >> opcao;
+    std::cout << "Opção escolhida: ";
+    opcao = InputManager::LerInt();
     
     std::string nome, login, senha, cpf, cnpj;
 
     switch (opcao) {
       case 1:
         std::cout << "Digite o nome do cliente: ";
-        std:: cin >> nome;
+        nome = InputManager::LerString();
         std::cout << "Digite o CPF do cliente: ";
-        std::cin >> cpf;
+        cpf = InputManager::LerString();
         std::cout << "Digite o login do cliente: ";
-        std::cin >> login;
+        login = InputManager::LerString();
         std::cout << "Digite a senha do cliente: ";
-        std::cin >> senha;
+        senha = InputManager::LerString();
         return CadastrarCliente(nome, cpf, login, senha);
         break;
       case 2:
         std::cout << "Digite o nome do restaurante: ";
-        std:: cin >> nome;
+        nome = InputManager::LerString();
         std::cout << "Digite o CNPJ do restaurante: ";
-        std::cin >> cnpj;
+        cnpj = InputManager::LerString();
         std::cout << "Digite o login do restaurante: ";
-        std::cin >> login;
+        login = InputManager::LerString();
         std::cout << "Digite a senha do restaurante: ";
-        std::cin >> senha;
+        senha = InputManager::LerString();
         return CadastrarRestaurante(nome, cnpj, login, senha);
         break;
 

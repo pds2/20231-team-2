@@ -59,6 +59,12 @@ public:
     std::string GetSenha();
 
     /**
+     * @brief Altera a senha do usuário.
+     * @param senha nova senha.
+     */
+    void SetSenha(std::string senha);
+
+    /**
      * @brief Retorna o nome do usuário.
      * @return O nome do usuário.
      */

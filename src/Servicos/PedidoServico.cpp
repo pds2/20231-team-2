@@ -13,6 +13,7 @@
 #include "Cliente.hpp"
 #include "Carrinho.hpp"
 #include "Restaurante.hpp"
+#include "Utils/InputManager.hpp"
 
 PedidoServico::PedidoServico(DatabaseManager * dbManager){
   _itemRepositorio = dbManager->GetItemRepositorio();
@@ -23,34 +24,38 @@ PedidoServico::PedidoServico(DatabaseManager * dbManager){
 
 void ImprimeInformacoesIniciais(int &verMenu){
   std::cout << CIANO << "Pressione:" << RESET << std::endl;
-  std::cout << "[1] - Para ver nossos restaurantes" << std::endl; 
-  std::cout << "[2] - Para visualizar um Restaurante e ver seus itens disponíveis" << std::endl;
-  std::cout << "[3] - Para criar um carrinho de Compras" << std::endl ;
-  std::cout << "[4] - Para sair do Menu" << std::endl;
-  std::cin >> verMenu;
+  std::cout << "[1]  Para ver nossos restaurantes" << std::endl; 
+  std::cout << "[2]  Para visualizar um Restaurante e ver seus itens disponíveis" << std::endl;
+  std::cout << "[3]  Para criar um carrinho de Compras" << std::endl ;
+  std::cout << "[4]  Para sair do Menu" << std::endl;
+  std::cout << "Opção escolhida: ";
+  verMenu = InputManager::LerInt();
+  std::cout << std::endl;
 }
 
 void ImprimeSolicitacaoDoIdDoRestaurante(int &id){
   std::cout << "Por favor, forneça o ID do restaurante." << std::endl;
-  std::cin >> id;
+  id = InputManager::LerInt();
 }
 
 void ImprimeInformacoesdoCarrinho(std::string &editarCarrinho){
-  std::cout << "Pronto para as compras?!" << std::endl;  
-  std::cout << "Agora que você tem um carrinho, o que deseja fazer com ele?" << std::endl;
+  std::cout << CIANO << "Pronto para as compras?!" << std::endl;  
+  std::cout << "Agora que você tem um carrinho, o que deseja fazer com ele?" << RESET << std::endl;
   std::cout << "Pressione:" << std::endl; 
-  std::cout << "[e] - Para Adicionar ou Remover itens no seu carrinho de Compras" << std::endl;
-  std::cout << "[l] - Para Limpar seu carrinho" << std::endl;
-  std::cout << "[f] - Para finalizar seu Pedido" << std::endl; 
-  std::cout << "[s] - Para sair do Carrinho" << std::endl;
-  std::cin >> editarCarrinho;
+  std::cout << "[e]  Para Adicionar ou Remover itens no seu carrinho de Compras" << std::endl;
+  std::cout << "[l]  Para Limpar seu carrinho" << std::endl;
+  std::cout << "[f]  Para finalizar seu Pedido" << std::endl; 
+  std::cout << "[s]  Para sair do Carrinho" << std::endl;
+  std::cout << "Opção escolhida: ";
+  editarCarrinho = InputManager::LerString();
+  std::cout << std::endl;
 }
 
 void ImprimeInstrucoesParaEdicaoDoCarrinho(int &id, std::string &edicao){
   std::cout << "Qual é o id item a ser adicionado/removido?" << std::endl;
-  std::cin >> id;
+  id = InputManager::LerInt();
   std::cout << "Para adicionar um item digite [a] e para remover digite [r]" << std::endl;
-  std::cin >> edicao;
+  edicao = InputManager::LerString();
 }
 
 void ImprimeInformacoesParaAplicacaoDeCupom(std::string &aplicarCupom, Cliente *cliente, Carrinho *carrinho){
@@ -78,10 +83,51 @@ void ImprimeListaDeItensNoCarrinho(Carrinho *carrinho){
   std::cout << AMARELO << "O valor total do seu pedido é: R$ " << carrinho->GetValorTotal() << RESET << std::endl;
 }
 
+void PedidoServico::ImprimeMenu(Cliente *cliente){
+  int verMenu;
+  std::cout << CIANO << "Bem-vindo " << cliente->GetNome() << "!" << RESET << std::endl; 
+  do{
+    ImprimeInformacoesIniciais(verMenu);
+    switch (verMenu){
+    case 1:
+      ListarRestaurantes();
+      break;
+    case 2:{
+      int id;
+      ImprimeSolicitacaoDoIdDoRestaurante(id);
+      ListarItensDeUmRestaurante(id);
+      break;
+    }
+    case 3:{
+      Carrinho *carrinho = new Carrinho(cliente->GetId());          
+      std::string editarCarrinho;
+      ImprimeInformacoesdoCarrinho(editarCarrinho);
+      if (editarCarrinho == "e"){
+        int id;
+        std::string edicao;
+        ImprimeInstrucoesParaEdicaoDoCarrinho(id, edicao);
+        EditarCarrinho(carrinho, id, edicao);
+      }else if(editarCarrinho == "l"){
+        LimparCarrinho(carrinho);
+      }else if (editarCarrinho == "f"){
+        EncerrarCarrinho(carrinho, cliente);        
+        _carrinhoRepositorio->Inserir(carrinho);
+      }else if (editarCarrinho != "s")
+        std::cout << "Opção Inválida. Digite novamente" << std::endl;
+      break;
+    }
+    default:
+      std::cout << VERMELHO << "Opção Inválida. Digite novamente" << RESET << std::endl;
+      break;
+    }
+  } while (verMenu != 4);
+}
+
 void PedidoServico::ListarRestaurantes()
 {
-  std::cout << "Bem vindo(a) ao SistemaUfmgfood: " << std::endl;
-  std::cout << "Os restaurantes disponíveis são: " << std::endl;
+  std::cout << VERMELHO << "Bem vindo ao UfmgFood: " << std::endl;
+  std::cout << "Os restaurantes disponíveis são: " << RESET << std::endl;
+
   for (auto it : _Restaurantes)
   {
     std::cout << it.second->GetNome() << std::endl;
@@ -96,7 +142,7 @@ void PedidoServico::ListarItensDeUmRestaurante(int id)
     {
       Restaurante *restaurante = it.second;
       std::cout << "Bem vindo ao: " << restaurante->GetNome() << std::endl;
-      std::cout << "Os nossos itens disponíveis para pedido são:" << std::endl;
+      std::cout << "Os nossos itens disponíveis para pedido são: " << std::endl;
       for (auto it : restaurante->GetItens())
       {
         std::cout << it->GetNome() << ": " << it->GetDescricao() << std::endl;

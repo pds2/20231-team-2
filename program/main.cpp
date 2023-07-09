@@ -1,5 +1,8 @@
 #include <iostream>
 
+// Inclusão de utilitários.
+#include "Utils/InputManager.hpp"
+
 // Inclusão de cores pras saídas.
 #include "cores.hpp"
 
@@ -12,6 +15,7 @@
 #include "Servicos/CadastroServico.hpp"
 #include "Servicos/CarteiraServico.hpp"
 #include "Servicos/AutenticacaoServico.hpp"
+#include "Servicos/RestauranteServico.hpp"
 
 int main()
 {
@@ -24,6 +28,7 @@ int main()
     RemocaoServico remocaoServico = RemocaoServico(dbManager);
     PedidoServico pedidoServico = PedidoServico(dbManager);
     CarteiraServico carteiraServico = CarteiraServico(dbManager);
+    RestauranteServico restauranteServico = RestauranteServico(dbManager);
 
     // Usuário atual.
     Usuario* usuario_logado = nullptr;
@@ -40,11 +45,13 @@ int main()
         if (usuario_logado != nullptr)
         {
             std::cout << "[3] Logout." << std::endl;
-            std::cout << "[4] " << VERMELHO << "Deletar" << RESET << " o usuário atual." << std::endl;
+            std::cout << "[4] Alterar sua senha." << std::endl;
+            std::cout << "[5] " << VERMELHO << "Deletar" << RESET << " o usuário atual." << std::endl;
         }
             
         std::cout << "Opção escolhida: ";
-        std::cin >> opcao;
+        opcao = InputManager::LerInt();
+        std::cout << std::endl;
 
         switch (opcao) 
         {
@@ -64,6 +71,12 @@ int main()
                     break;
                 }
             case 4:
+                if (usuario_logado != nullptr)
+                {
+                    autenticacaoServico.EditarSenha(usuario_logado);
+                    break;
+                }
+            case 5:
                 if (usuario_logado != nullptr)
                 {
                     usuario_logado = remocaoServico.RemoverUsuarioAtual(usuario_logado);
@@ -96,7 +109,8 @@ int main()
                 std::cout << "[1] Acessar a carteira." << std::endl;
                 std::cout << "[2] Fazer um pedido." << std::endl;
                 std::cout << "Opção escolhida: ";
-                std::cin >> opcao_cliente;
+                opcao_cliente = InputManager::LerInt();
+                std::cout << std::endl;
 
                 switch (opcao_cliente) 
                 {
@@ -110,7 +124,7 @@ int main()
                         pedidoServico.ImprimeMenu(cliente);
                         break;                            
                     default:
-                        std::cout << "Opção inválida! Tente novamente." << std::endl;
+                        std::cout << VERMELHO << "Opção inválida! Tente novamente." << RESET << std::endl;
                 }
             }
         }
@@ -124,10 +138,10 @@ int main()
                 std::cout << VERMELHO << "Bem-vindo(a) ao Menu dos restaurantes! " << RESET << std::endl;
                 std::cout << "Escolha uma das opções abaixo:" << std::endl;
                 std::cout << "[0] Sair." << std::endl;
-                std::cout << "[1] ." << std::endl;
-                std::cout << "[2] ." << std::endl;
+                std::cout << "[1] Acessar central de controle." << std::endl;
                 std::cout << "Opção escolhida: ";
-                std::cin >> opcao_restaurante;
+                opcao_restaurante = InputManager::LerInt();
+                std::cout << std::endl;
 
                 switch (opcao_restaurante) 
                 {
@@ -135,11 +149,10 @@ int main()
                         std::cout << "Retornando ao menu principal..." << std::endl;
                         break;
                     case 1:
-                        break;
-                    case 2:
-                        break;                            
+                        restauranteServico.escolherAcao(restaurante);
+                        break;                          
                     default:
-                        std::cout << "Opção inválida! Tente novamente." << std::endl;
+                        std::cout << VERMELHO << "Opção inválida! Tente novamente." <<  RESET << std::endl;
                 }
             }
         }
