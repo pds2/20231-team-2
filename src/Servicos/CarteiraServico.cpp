@@ -65,7 +65,7 @@ void CarteiraServico::adicionaSaldo(Cliente *cliente)
     {
         double valor;
         std::cout << CIANO << "O saldo atual da sua carteira é: " << RESET << VERDE << cliente->GetCarteira()->GetSaldo() << RESET << std::endl;
-        std::cout << "Qual valor você deseja adicionar? (insira no formato 0.0)";
+        std::cout << "Qual valor você deseja adicionar? (insira no formato 0.0)" << std::endl;
         std::cout << "Valor: " << VERDE << std::endl;
         valor = InputManager::LerDouble();
 
