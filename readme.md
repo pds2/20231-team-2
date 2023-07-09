@@ -17,13 +17,9 @@ SistemaUfmgfood é uma aplicação em terminal que permite aos usuários realiza
 
 4) Eu como usuário quero comprar mais de uma refeição por vez.
 
-5) Eu como usuário quero receber recompensas pelas minhas compras para utilizar no futuro.
+5) Eu como usuário quero adicionar várias comidas a um carrinho que exibirá todas as refeições a serem pedidas e o valor total da compra.
 
-6) Eu como usuário quero adicionar várias comidas a um carrinho que exibirá todas as refeições a serem pedidas e o valor total da compra.
-
-7) Eu como usuário quero ter um catálogo de comidas para selecionar e adicionar ao carrinho de compras.
-
-9) (Opcional, se houver tempo) Eu como usuário quero poder ter uma estimativa do tempo de espera para a entrega da comida, considerando a localização da loja e do pedido.
+6) Eu como usuário quero ter um catálogo de comidas para selecionar e adicionar ao carrinho de compras.
 
 ## 📝 Instruções de Uso
 
