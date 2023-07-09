@@ -79,6 +79,15 @@ class PedidoServico{
    * @param cliente Um ponteiro para o cliente.
    */
   void EncerrarCarrinho(Carrinho *carrinho, Cliente *cliente);
+  
+  /**
+   * @brief Esse metódo é responsável por finalizar o carrinho de compras
+   * do usuário quando ele estiver pronto para pagar.
+   * @param AdicionarouRemover Uma string que indica se o cliente irá aplicar ou não um cupom.
+   * @param cliente Um ponteiro para o cliente.
+   * @param carrinho Um ponteiro para o carrinho do cliente.
+   */
+  void AplicaCupom(std::string &aplicarCupom, Cliente *cliente, Carrinho *carrinho);
 };
 
 #endif
