@@ -68,7 +68,7 @@ void ItemRepositorio::Inserir(Item* entidade)
     std::string query = "INSERT INTO " + _tabela + " (idRestaurante, nome, descricao, tipo, precoBase, precoComDesconto, dataDeCriacao, dataUltimaAtualizacao) VALUES ({0}, '{1}', '{2}', {3}, {4}, {5}, '{6}', '{7}');";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
-        { "{1}", entidade->GetIdRestaurante() },
+        { "{0}", entidade->GetIdRestaurante() },
         { "{1}", entidade->GetNome() },
         { "{2}", entidade->GetDescricao() },
         { "{3}", static_cast<int>(entidade->GetTipo()) },

@@ -80,8 +80,9 @@ void RestauranteServico::adicionarItem(Restaurante* restaurante)
     precoBase = InputManager::LerDouble();
 
     Item* novoItem = new Item(nome, descricao, static_cast<ItemType>(tipo), precoBase, restaurante->GetId());
+    
     restaurante->AdicionarItem(novoItem);
-    _itemRepositorio->Inserir(novoItem);
+    _restauranteRepositorio->AtualizarItens(restaurante);
 } 
 
 
@@ -96,6 +97,8 @@ void RestauranteServico::removerItem(Restaurante* restaurante)
     if (item != nullptr && item->GetIdRestaurante() == restaurante->GetId())
     {
         restaurante->RemoverItem(item);
+        _restauranteRepositorio->AtualizarItens(restaurante);
+
         std::cout << "Item removido com sucesso!" << std::endl;
     }
     else
