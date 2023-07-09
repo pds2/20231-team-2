@@ -23,7 +23,7 @@ Usuario* CadastroServico::MenuCadastro(){
     std::cout << CIANO << "Escolha o tipo de cadastro! Pressione" << RESET <<std::endl;
     std::cout << "[1] Cliente" << std::endl;
     std::cout << "[2] Restaurante" << std::endl;
-    std::cout << "Opção: ";
+    std::cout << "Opção escolhida: ";
     opcao = InputManager::LerInt();
     
     std::string nome, login, senha, cpf, cnpj;
