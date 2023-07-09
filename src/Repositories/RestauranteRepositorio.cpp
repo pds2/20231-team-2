@@ -65,7 +65,10 @@ Restaurante* RestauranteRepositorio::BuscaPorLogin(std::string login)
     {
         Restaurante* restaurante = pair.second;
         if (restaurante->GetLogin() == login)
+        {
+            _itemRepositorio->CarregarItensNoRestaurante(restaurante);
             return restaurante;
+        }           
     }
 
     throw login_nao_encontrado_e();
