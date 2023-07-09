@@ -4,6 +4,7 @@
 #define CUPOM_HPP
 
 #include <string>
+#include <sstream>
 #include "EntidadeBase.hpp"
 
 
@@ -14,12 +15,12 @@
  * Essa classe representa um cupom que pode ser utilizado para fornecer descontos aos clientes em suas compras.
  */
 class Cupom : public EntidadeBase {
-private:
-    std::string _codigo;
-    double _desconto;
+protected:
+    static int _cupons_criados;
+    std::string _etiqueta; //Ex: NIVER15
+    double _valor_desconto;
     bool _valido;
     int _idDoCliente;
-    
 
 public:
     /**
@@ -28,19 +29,19 @@ public:
      * @param desconto O valor do desconto em porcentagem.
      * @param idDoCliente O id do cliente que tem esse cupom.
      */
-    Cupom(std::string codigo, double desconto, int idDoCliente);
-
-    /**
-     * @brief Retorna o código do cupom.
-     * @return O código do cupom.
-     */
-    std::string GetCodigo();
+    Cupom(std::string etiqueta, double desconto, int idDoCliente);
 
     /**
      * @brief Retorna o valor do desconto do cupom.
      * @return O valor do desconto em porcentagem.
      */
     double GetValor();
+
+    /**
+     * @brief Retorna a etiqueta do cupom.
+     * @return A etiqueta do cupom.
+     */
+    std::string GetEtiqueta();
 
     /**
      * @brief Verifica se o cupom está válido.
@@ -58,6 +59,11 @@ public:
      * @return O id do cliente.
      */
     int GetIdDoCliente();
+
+    /**
+     * Retorna uma mensagem ou slogan descrevendo o cupom.
+    */
+    virtual std::string Descricao() = 0;
 };
 
 #endif // CUPOM_HPP
