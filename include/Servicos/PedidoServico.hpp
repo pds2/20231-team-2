@@ -27,7 +27,11 @@ class PedidoServico{
 
   public:
 
-  PedidoServico(DatabaseManager * dbManager);
+  /**
+  * @brief Construtor padrão.
+  * @param dbManager Um ponteiro para o Database.
+  */
+  PedidoServico(DatabaseManager *dbManager);
 
   /**
    * @brief Esse método é um menu que apresenta as opções 

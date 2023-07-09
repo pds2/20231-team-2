@@ -33,11 +33,19 @@ public:
 
   /**
   * @brief Cadastra um usuário do tipo cliente no sistema e inicializa a carteira dele.
+  * @param nome Uma string que representa o nome do cliente.
+  * @param cpf Uma string que representa o cpf do cliente.
+  * @param login Uma string que representa o login do cliente para que ele acesse sua conta.
+  * @param senha Uma string que representa a senha do cliente para que ele acesse sua conta.
   */
   Cliente* CadastrarCliente(std::string& nome, std::string& cpf, std::string& login, std::string& senha);
 
   /**
   * @brief Cadastra um usuário do tipo restaurante no sistema.
+  * @param nome Uma string que representa o nome do restaurante.
+  * @param cnpj Uma string que representa o cnpj do restaurante.
+  * @param login Uma string que representa o login do restaurante para que ele acesse sua conta.
+  * @param senha Uma string que representa a senha do restaurante para que ele acesse sua conta.
   */
   Restaurante* CadastrarRestaurante(std::string& nome, std::string& cnpj, std::string& login, std::string& senha);
 };
