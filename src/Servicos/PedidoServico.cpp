@@ -22,11 +22,13 @@ PedidoServico::PedidoServico(DatabaseManager * dbManager){
 
 void ImprimeInformacoesIniciais(int &verMenu){
   std::cout << CIANO << "Pressione:" << RESET << std::endl;
-  std::cout << "[1] - Para ver nossos restaurantes" << std::endl; 
-  std::cout << "[2] - Para visualizar um Restaurante e ver seus itens disponíveis" << std::endl;
-  std::cout << "[3] - Para criar um carrinho de Compras" << std::endl ;
-  std::cout << "[4] - Para sair do Menu" << std::endl;
+  std::cout << "[1]  Para ver nossos restaurantes" << std::endl; 
+  std::cout << "[2]  Para visualizar um Restaurante e ver seus itens disponíveis" << std::endl;
+  std::cout << "[3]  Para criar um carrinho de Compras" << std::endl ;
+  std::cout << "[4]  Para sair do Menu" << std::endl;
+  std::cout << "Opção escolhida: ";
   verMenu = InputManager::LerInt();
+  std::cout << std::endl;
 }
 
 void ImprimeSolicitacaoDoIdDoRestaurante(int &id){
@@ -35,14 +37,16 @@ void ImprimeSolicitacaoDoIdDoRestaurante(int &id){
 }
 
 void ImprimeInformacoesdoCarrinho(std::string &editarCarrinho){
-  std::cout << "Pronto para as compras?!" << std::endl;  
-  std::cout << "Agora que você tem um carrinho, o que deseja fazer com ele?" << std::endl;
+  std::cout << CIANO << "Pronto para as compras?!" << std::endl;  
+  std::cout << "Agora que você tem um carrinho, o que deseja fazer com ele?" << RESET << std::endl;
   std::cout << "Pressione:" << std::endl; 
-  std::cout << "[e] - Para Adicionar ou Remover itens no seu carrinho de Compras" << std::endl;
-  std::cout << "[l] - Para Limpar seu carrinho" << std::endl;
-  std::cout << "[f] - Para finalizar seu Pedido" << std::endl; 
-  std::cout << "[s] - Para sair do Carrinho" << std::endl;
+  std::cout << "[e]  Para Adicionar ou Remover itens no seu carrinho de Compras" << std::endl;
+  std::cout << "[l]  Para Limpar seu carrinho" << std::endl;
+  std::cout << "[f]  Para finalizar seu Pedido" << std::endl; 
+  std::cout << "[s]  Para sair do Carrinho" << std::endl;
+  std::cout << "Opção escolhida: ";
   editarCarrinho = InputManager::LerString();
+  std::cout << std::endl;
 }
 
 void ImprimeInstrucoesParaEdicaoDoCarrinho(int &id, std::string &edicao){
@@ -71,7 +75,7 @@ void ImprimeListaDeItensNoCarrinho(Carrinho *carrinho){
 
 void PedidoServico::ImprimeMenu(Cliente *cliente){
   int verMenu;
-  std::cout << "Bem-vindo " << cliente->GetNome() << "!" << std::endl; 
+  std::cout << CIANO << "Bem-vindo " << cliente->GetNome() << "!" << RESET << std::endl; 
   do{
     ImprimeInformacoesIniciais(verMenu);
     switch (verMenu){
@@ -111,8 +115,8 @@ void PedidoServico::ImprimeMenu(Cliente *cliente){
 
 void PedidoServico::ListarRestaurantes()
 {
-  std::cout << "Bem vindo ao (nome do Sistema): " << std::endl;
-  std::cout << "Os restaurantes disponíveis são: " << std::endl;
+  std::cout << VERMELHO << "Bem vindo ao UfmgFood: " << std::endl;
+  std::cout << "Os restaurantes disponíveis são: " << RESET << std::endl;
   for (auto it : _Restaurantes)
   {
     std::cout << it.second->GetNome() << std::endl;
@@ -127,7 +131,7 @@ void PedidoServico::ListarItensDeUmRestaurante(int id)
     {
       Restaurante *restaurante = it.second;
       std::cout << "Bem vindo ao: " << restaurante->GetNome() << std::endl;
-      std::cout << "Os nossos itens disponíveis para pedido são:" << std::endl;
+      std::cout << "Os nossos itens disponíveis para pedido são: " << std::endl;
       for (auto it : restaurante->GetItens())
       {
         std::cout << it->GetNome() << ": " << it->GetDescricao() << std::endl;

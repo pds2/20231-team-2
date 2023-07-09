@@ -27,7 +27,7 @@ Usuario* AutenticacaoServico::MenuLogin()
         std::cout << "[0] Cancelar." << std::endl;
         std::cout << "[1] Cliente. " << std::endl;
         std::cout << "[2] Restaurante." << std::endl;
-        std::cout << "Escolha: ";
+        std::cout << "Opão escolhida: ";
         escolha = InputManager::LerInt();
         std::cout << std::endl;
 
@@ -96,18 +96,18 @@ Tipo* AutenticacaoServico::LoginGenerico(std::string mensagem_sucesso)
     
             if (SenhaValida(usuario))
             {
-                std::cout << "Login efetuado com sucesso. " << mensagem_sucesso << std::endl;
+                std::cout << VERDE << "Login efetuado com sucesso. " << mensagem_sucesso << RESET << std::endl;
                 return usuario;
             }
             else
             {
-                std::cout << "Falha na autenticação, tentativas excedidas!" << std::endl;
+                std::cout << VERMELHO << "Falha na autenticação, tentativas excedidas!" << RESET << std::endl;
                 return nullptr;
             }
         }
         catch(const login_nao_encontrado_e e)
         {
-            std::cout << "O login '" << login << "' não foi encontrado!" << std::endl;
+            std::cout << VERMELHO << "O login '" << login << "' não foi encontrado!" << RESET << std::endl;
             std::cout << "Tente novamente ou digite 'encerrar' como login para retornar ao menu principal. \n" << std::endl;
         }
     }
