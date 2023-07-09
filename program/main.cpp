@@ -134,6 +134,7 @@ int main()
                 std::cout << "[1] Acessar central de controle." << std::endl;
                 std::cout << "Opção escolhida: ";
                 opcao_restaurante = InputManager::LerInt();
+                std::cout << std::endl;
 
                 switch (opcao_restaurante) 
                 {

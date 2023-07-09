@@ -30,6 +30,7 @@ void RestauranteServico::escolherAcao(Restaurante *restaurante)
         std::cout << "[3] Remover um item existente." << std::endl;
         std::cout << "Opção: ";
         opcao = InputManager::LerInt();
+        std::cout << std::endl;
 
         switch (opcao)
         {
