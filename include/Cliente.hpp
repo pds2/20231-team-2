@@ -9,6 +9,7 @@
 #include "Usuario.hpp"
 #include "Carteira.hpp"
 #include "Carrinho.hpp"
+#include "Cupom.hpp"
 
 /**
  * @class Cliente
@@ -22,6 +23,7 @@ private:
     std::string _CPF;
     Carteira* _carteira;
     std::vector<Carrinho*> _carrinhos;
+    std::vector<Cupom*> _cupons;
 
 public:
     /**
@@ -80,6 +82,19 @@ public:
      * @return O tipo do usuário.
      */
     TipoUsuario GetTipo() override;
+
+    /**
+     * @brief Adiciona um cupom aos cupons do cliente.
+     * @param cupom O ponteiro para os cupons do cliente.
+    */
+    void AdicionaCupom(Cupom* cupom);
+
+    
+    /**
+     * @brief Retorna o vetor de Cupons que o cliente possui.
+     * @return Um vetor de ponteiros para os cupons do cliente.
+    */
+    std::vector<Cupom*> GetCupons();
 };
 
 #endif // CLIENTE_HPP

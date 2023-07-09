@@ -53,3 +53,11 @@ void Cliente::SetCarrinhos(std::vector<Carrinho*> carrinhos)
 TipoUsuario Cliente::GetTipo(){
     return _tipo;
 }
+
+void Cliente::AdicionaCupom(Cupom* cupom){
+    _cupons.push_back(cupom);
+}
+
+std::vector<Cupom*> Cliente::GetCupons(){
+    return _cupons;
+}
