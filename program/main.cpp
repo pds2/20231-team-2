@@ -1,5 +1,8 @@
 #include <iostream>
 
+// Inclusão de utilitários.
+#include "Utils/InputManager.hpp"
+
 // Inclusão de cores pras saídas.
 #include "cores.hpp"
 
@@ -44,7 +47,7 @@ int main()
         }
             
         std::cout << "Opção escolhida: ";
-        std::cin >> opcao;
+        opcao = InputManager::LerInt();
 
         switch (opcao) 
         {
@@ -96,7 +99,7 @@ int main()
                 std::cout << "[1] Acessar a carteira." << std::endl;
                 std::cout << "[2] Fazer um pedido." << std::endl;
                 std::cout << "Opção escolhida: ";
-                std::cin >> opcao_cliente;
+                opcao_cliente = InputManager::LerInt();
 
                 switch (opcao_cliente) 
                 {
@@ -127,7 +130,7 @@ int main()
                 std::cout << "[1] ." << std::endl;
                 std::cout << "[2] ." << std::endl;
                 std::cout << "Opção escolhida: ";
-                std::cin >> opcao_restaurante;
+                opcao_restaurante = InputManager::LerInt();
 
                 switch (opcao_restaurante) 
                 {
