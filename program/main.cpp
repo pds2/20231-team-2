@@ -12,6 +12,7 @@
 #include "Servicos/CadastroServico.hpp"
 #include "Servicos/CarteiraServico.hpp"
 #include "Servicos/AutenticacaoServico.hpp"
+#include "Servicos/RestauranteServico.hpp"
 
 int main()
 {
@@ -24,6 +25,7 @@ int main()
     RemocaoServico remocaoServico = RemocaoServico(dbManager);
     PedidoServico pedidoServico = PedidoServico(dbManager);
     CarteiraServico carteiraServico = CarteiraServico(dbManager);
+    RestauranteServico restauranteServico = RestauranteServico(dbManager);
 
     // Usuário atual.
     Usuario* usuario_logado = nullptr;
@@ -124,8 +126,7 @@ int main()
                 std::cout << VERMELHO << "Bem-vindo(a) ao Menu dos restaurantes! " << RESET << std::endl;
                 std::cout << "Escolha uma das opções abaixo:" << std::endl;
                 std::cout << "[0] Sair." << std::endl;
-                std::cout << "[1] ." << std::endl;
-                std::cout << "[2] ." << std::endl;
+                std::cout << "[1] Acessar central de controle." << std::endl;
                 std::cout << "Opção escolhida: ";
                 std::cin >> opcao_restaurante;
 
@@ -135,9 +136,8 @@ int main()
                         std::cout << "Retornando ao menu principal..." << std::endl;
                         break;
                     case 1:
-                        break;
-                    case 2:
-                        break;                            
+                        restauranteServico.escolherAcao(restaurante);
+                        break;                          
                     default:
                         std::cout << "Opção inválida! Tente novamente." << std::endl;
                 }
