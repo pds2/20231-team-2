@@ -8,6 +8,7 @@
 #include "Cliente.hpp"
 #include "Restaurante.hpp"
 #include "EntidadeBase.hpp"
+#include "Utils/InputManager.hpp"
 #include "Repositories/ClienteRepositorio.hpp"
 #include "Repositories/DatabaseManager.hpp"
 #include "Repositories/RestauranteRepositorio.hpp"
@@ -46,7 +47,7 @@ Usuario* RemocaoServico::RemoverUsuarioAtual(Usuario* usuario)
     std::string escolha;
     std::cout << "Digite 'SIM' para " << VERMELHO << "confirmar a remoção." << RESET << " Outras entradas irão cancelar essa operação." << std::endl;
     std::cout << "Entrada: ";
-    std::cin >> escolha;
+    escolha = InputManager::LerString();
 
     if (escolha != "SIM")
     {

@@ -4,8 +4,8 @@
 #include "cores.hpp"
 #include "Cliente.hpp"
 #include "Restaurante.hpp"
+#include "Utils/InputManager.hpp"
 #include "Repositories/DatabaseManager.hpp"
-
 #include "Servicos/AutenticacaoServico.hpp"
 
 AutenticacaoServico::AutenticacaoServico(DatabaseManager * dbManager)
@@ -28,7 +28,7 @@ Usuario* AutenticacaoServico::MenuLogin()
         std::cout << "[1] Cliente. " << std::endl;
         std::cout << "[2] Restaurante." << std::endl;
         std::cout << "Escolha: ";
-        std::cin >> escolha;
+        escolha = InputManager::LerInt();
         std::cout << std::endl;
 
         switch (escolha)
@@ -82,7 +82,7 @@ Tipo* AutenticacaoServico::LoginGenerico(std::string mensagem_sucesso)
         std::string login;
 
         std::cout << "Digite seu login: ";
-        std::cin >> login;
+        login = InputManager::LerString();
 
         if (login == "encerrar")
         {
@@ -124,7 +124,7 @@ bool AutenticacaoServico::SenhaValida(Usuario* usuario)
         std::string senha;
 
         std::cout << "Digite sua senha: ";
-        std::cin >> senha;
+        senha = InputManager::LerString();
 
         if (senha == usuario->GetSenha())
             return true;

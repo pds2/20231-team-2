@@ -1,17 +1,17 @@
 #include <string>
 #include <iostream>
 
+#include "cores.hpp"
 #include "Usuario.hpp"
 #include "Cliente.hpp"
 #include "Carteira.hpp"
 #include "EntidadeBase.hpp"
+#include "Utils/InputManager.hpp"
 #include "Servicos/CarteiraServico.hpp"
 
 #include "Repositories/ClienteRepositorio.hpp"
 #include "Repositories/DatabaseManager.hpp"
 #include "Repositories/CarteiraRepositorio.hpp"
-
-#include "../../third_party/cores.hpp"
 
 CarteiraServico::CarteiraServico(DatabaseManager *dbManager) {
     _clienteRepositorio = dbManager->GetClienteRepositorio();
@@ -24,7 +24,7 @@ void CarteiraServico::escolherAcao(Cliente *cliente) {
     std::cout << "[1] Ver o seu saldo" << std::endl;
     std::cout << "[2] Adicionar saldo" << std::endl;
     std::cout << "Opção: " << std::endl;
-    std::cin >> opcao;
+    opcao = InputManager::LerInt();
 
     switch (opcao) {
         case 1:
@@ -51,7 +51,7 @@ void CarteiraServico::adicionaSaldo(Cliente *cliente) {
         std::cout << CIANO << "O saldo atual da sua carteira é: " << RESET << VERDE << cliente->GetCarteira()->GetSaldo() << RESET << std::endl;
         std::cout << "Qual valor você deseja adicionar? (insira no formato 0.0)" << std::endl;
         std::cout << "Valor: " << VERDE << std::endl;
-        std::cin >> valor;
+        valor = InputManager::LerDouble();
 
         carteira->AdicionarSaldo(valor);
         _carteiraRepositorio->Atualizar(carteira);

@@ -5,6 +5,7 @@
 #include "Restaurante.hpp"
 #include "Item.hpp"
 #include "EntidadeBase.hpp"
+#include "Utils/InputManager.hpp"
 #include "Servicos/RestauranteServico.hpp"
 #include "Repositories/RestauranteRepositorio.hpp"
 #include "Repositories/DatabaseManager.hpp"
@@ -25,7 +26,7 @@ void RestauranteServico::escolherAcao(Restaurante* restaurante)
     std::cout << "[2] Adicionar um novo item" << std::endl;
     std::cout << "[3] Remover um item existente" << std::endl;
     std::cout << "Opção: ";
-    std::cin >> opcao;
+    opcao = InputManager::LerInt();
 
     switch (opcao)
     {
@@ -67,21 +68,21 @@ void RestauranteServico::adicionarItem(Restaurante* restaurante)
     double precoBase;
 
     std::cout << "Nome do item: ";
-    std::cin >> nome;
+    nome = InputManager::LerString();
 
     std::cout << "Descrição do item: ";
-    std::cin >> descricao;
+    descricao = InputManager::LerString();
 
     std::cout << "Tipo do item (1-Bebidas, 2-Bebidas Alcoólicas, 3-Fast Food, 4-Prato Feito, 5-Doces): ";
-    std::cin >> tipo;
+    tipo = InputManager::LerInt();
 
     std::cout << "Preço base do item: ";
-    std::cin >> precoBase;
+    precoBase = InputManager::LerDouble();
 
     Item* novoItem = new Item(nome, descricao, static_cast<ItemType>(tipo), precoBase, restaurante->GetId());
     restaurante->AdicionarItem(novoItem);
     _itemRepositorio->Inserir(novoItem);
-}
+} 
 
 
 void RestauranteServico::removerItem(Restaurante* restaurante)
@@ -89,7 +90,7 @@ void RestauranteServico::removerItem(Restaurante* restaurante)
     int idItem;
 
     std::cout << "ID do item a ser removido: ";
-    std::cin >> idItem;
+    idItem = InputManager::LerInt();
 
     Item* item = _itemRepositorio->BuscaPorId(idItem);
     if (item != nullptr && item->GetIdRestaurante() == restaurante->GetId())
