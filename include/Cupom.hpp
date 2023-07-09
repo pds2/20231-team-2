@@ -7,6 +7,8 @@
 #include <sstream>
 #include "EntidadeBase.hpp"
 
+class impossivel_desconto_negativo_e {};
+class impossivel_descricao_vazia_e {};
 
 /**
  * @class Cupom
@@ -16,7 +18,6 @@
  */
 class Cupom : public EntidadeBase {
 protected:
-    static int _cupons_criados;
     std::string _etiqueta; //Ex: NIVER15
     double _valor_desconto;
     bool _valido;

@@ -2,10 +2,13 @@
 
 #include "Cupom.hpp"
 
-int Cupom::_cupons_criados = 0;
-
 Cupom::Cupom(std::string etiqueta, double desconto, int idDoCliente)
 {
+
+  if(desconto <= 0){
+    throw impossivel_desconto_negativo_e();
+  }
+
   _etiqueta = etiqueta;
   _valor_desconto = desconto;
   _valido = true;
