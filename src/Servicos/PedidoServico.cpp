@@ -58,7 +58,7 @@ void ImprimeInstrucoesParaEdicaoDoCarrinho(int &id, std::string &edicao){
   edicao = InputManager::LerString();
 }
 
-void ImprimeInformacoesParaAplicacaoDeCupom(std::string &aplicarCupom, Cliente *cliente, Carrinho *carrinho){
+void PedidoServico::AplicaCupom(std::string &aplicarCupom, Cliente *cliente, Carrinho *carrinho){
   std::cout << "Você deseja adicionar algum cupom ao seu carrinho? Digite [s] para sim ou [n] para não." << std::endl;
    aplicarCupom = InputManager::LerString();
   if(aplicarCupom == "s"){
@@ -68,6 +68,8 @@ void ImprimeInformacoesParaAplicacaoDeCupom(std::string &aplicarCupom, Cliente *
     try{
     Cupom *cupom = cliente->GetCupom(id);
     carrinho->AplicarDesconto(cupom);
+    cupom->SetaValido();
+    _cupomRepositorio->Atualizar(cupom);
     }catch(um_cupom_ja_foi_usado_e){
       std::cout << VERMELHO << "Voce ja usou um cupom." << RESET << std::endl;
     }
@@ -113,21 +115,24 @@ void PedidoServico::ListarItensDeUmRestaurante(int id)
 }
 
 void PedidoServico::EditarCarrinho(Carrinho *carrinho, int idDoItem, std::string AdicionarOuRemover){
-  //TERMINAR DE IMPLEMENTAR: Tratamento da exceção lançada se um item não existe
-  Item *item = _itemRepositorio->BuscaPorId(idDoItem);
-  if(AdicionarOuRemover == "a"){
-    carrinho->AdicionarItem(item);
-  }
-
-  if(AdicionarOuRemover == "r"){
-    try{
-      carrinho->RemoverItem(item);
-    }catch(carrinho_vazio_e){
-      std::cout << VERMELHO << "Seu carrinho está vazio." << RESET << std::endl;
-    }catch(item_nao_existe_no_carrinho_e){
-      std::cout << VERMELHO << "Este item não está no seu Carrinho." << RESET << std::endl;
+  try{
+    Item *item = _itemRepositorio->BuscaPorId(idDoItem);
+      if(AdicionarOuRemover == "a"){
+      carrinho->AdicionarItem(item);
     }
+    if(AdicionarOuRemover == "r"){
+      try{
+        carrinho->RemoverItem(item);
+      }catch(carrinho_vazio_e){
+        std::cout << VERMELHO << "Seu carrinho está vazio." << RESET << std::endl;
+      }catch(item_nao_existe_no_carrinho_e){
+        std::cout << VERMELHO << "Este item não está no seu Carrinho." << RESET << std::endl;
+      }
+    }
+  }catch(entidade_nao_encontrada_e){
+    std::cout << VERMELHO << "Este item nao existe." << RESET << std::endl;
   }
+  
 }
 
 void PedidoServico::LimparCarrinho(Carrinho *carrinho){
@@ -179,7 +184,7 @@ void PedidoServico::ImprimeMenu(Cliente *cliente){
         LimparCarrinho(carrinho);
       }else if (editarCarrinho == "f"){
         std::string aplicarCupom;
-        ImprimeInformacoesParaAplicacaoDeCupom(aplicarCupom, cliente, carrinho);
+        AplicaCupom(aplicarCupom, cliente, carrinho);
         EncerrarCarrinho(carrinho, cliente);        
         _carrinhoRepositorio->Inserir(carrinho);
       }else if (editarCarrinho != "s")
