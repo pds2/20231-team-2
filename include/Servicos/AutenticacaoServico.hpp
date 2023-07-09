@@ -3,7 +3,7 @@
 
 #include "Cliente.hpp"
 #include "Restaurante.hpp"
-#include "../Repositories/DatabaseManager.hpp"
+#include "Repositories/DatabaseManager.hpp"
 
 /**
  * Classe responsável por autenticar usuários no sistema.
