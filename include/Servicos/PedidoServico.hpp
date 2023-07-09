@@ -24,6 +24,7 @@ class PedidoServico{
   ItemRepositorio *_itemRepositorio;
   CarrinhoRepositorio *_carrinhoRepositorio;
   CarteiraRepositorio *_carteiraRepositorio;
+  CupomRepositorio *_cupomRepositorio;
 
   public:
 

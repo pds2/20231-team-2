@@ -12,6 +12,12 @@
 #include "Cupom.hpp"
 
 /**
+ * @brief Lança uma exceção se o cliente tentar usar um cupom
+ * que não existe/que não tem.
+*/
+class cupom_nao_existe_e {};
+
+/**
  * @class Cliente
  * @brief Classe que representa um cliente.
  *
@@ -100,6 +106,13 @@ public:
      * @param cupons novo vector de cupons.
     */
     void SetCupons(std::vector<Cupom*> cupons);
+
+    /**
+     * @brief Retorna o cupom ao qual o id se refere.
+     * @param id Id do cupom.
+     * @return Ponteiro para cupom.
+    */
+    Cupom* GetCupom(int id);
 };
 
 #endif // CLIENTE_HPP

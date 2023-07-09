@@ -70,3 +70,12 @@ void Cliente::SetCupons(std::vector<Cupom*> cupons)
 {
     _cupons = cupons;
 }
+
+Cupom* Cliente::GetCupom(int id){
+    for(auto it : _cupons){
+        if(it->GetId() == id){
+            return it;
+        }
+    }
+    throw cupom_nao_existe_e();
+}

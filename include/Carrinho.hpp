@@ -27,11 +27,6 @@ class carrinho_vazio_e {};
  */
 class um_cupom_ja_foi_usado_e {};
 
-/**
- * @class encerrar_pedido_primeiro_e
- * @brief Exceção lançada quando se tenta usar um cupom antes de finalizar o pedido.
- */
-class encerrar_pedido_primeiro_e {};
 
 /**
  * @class Carrinho
