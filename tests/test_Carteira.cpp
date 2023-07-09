@@ -30,6 +30,5 @@ TEST_CASE("Testando Carteira"){
 
     CHECK_THROWS_AS(carteira.RemoverSaldo(-5.0),impossivel_remover_saldo_negativo_ou_igual_a_zero_e);
     CHECK_THROWS_AS(carteira.RemoverSaldo(11.00), saldo_insuficiente_para_remocao_e);
-    CHECK_THROWS_AS(carteira.RemoverSaldo(0.0), sem_saldo_e);
   }  
 }

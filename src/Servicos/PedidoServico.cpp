@@ -60,11 +60,11 @@ void ImprimeInstrucoesParaEdicaoDoCarrinho(int &id, std::string &edicao){
 
 void ImprimeInformacoesParaAplicacaoDeCupom(std::string &aplicarCupom, Cliente *cliente, Carrinho *carrinho){
   std::cout << "Você deseja adicionar algum cupom ao seu carrinho? Digite [s] para sim ou [n] para não." << std::endl;
-  std::cin >> aplicarCupom;
+   aplicarCupom = InputManager::LerString();
   if(aplicarCupom == "s"){
     int id;
     std::cout << "Por favor, digite o id do Cupom." << std:: endl;
-    std::cin >> id;
+    id = InputManager::LerInt();
     try{
     Cupom *cupom = cliente->GetCupom(id);
     carrinho->AplicarDesconto(cupom);
