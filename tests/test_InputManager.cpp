@@ -5,11 +5,19 @@
 #include "doctest.h"
 #include "Utils/InputManager.hpp"
 
+/**
+ * @brief Altera a saída padrão para que os std::cout não sejame exibidos no terminal.
+ * @returns um ponteiro pra saída original do código.
+*/
 std::streambuf* AlterarSaidaPadrao()
 {
     return std::cout.rdbuf(nullptr);
 }
 
+/**
+ * @brief Retorna para a saída padrão.
+ * @param original_cout ponteiro pra saída original.
+*/
 void RestaurarSaidaPadrao(std::streambuf* original_cout)
 {
     std::cout.rdbuf(original_cout);
