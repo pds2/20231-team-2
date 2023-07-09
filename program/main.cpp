@@ -8,6 +8,7 @@
 
 // Inclusão dos serviços.
 #include "Servicos/PedidoServico.hpp"
+#include "Servicos/RemocaoServico.hpp"
 #include "Servicos/CadastroServico.hpp"
 #include "Servicos/CarteiraServico.hpp"
 #include "Servicos/AutenticacaoServico.hpp"
@@ -20,6 +21,7 @@ int main()
     // Serviços responsáveis pelas funcionalidades do software.
     AutenticacaoServico autenticacaoServico = AutenticacaoServico(dbManager);
     CadastroServico cadastroServico = CadastroServico(dbManager);
+    RemocaoServico remocaoServico = RemocaoServico(dbManager);
     PedidoServico pedidoServico = PedidoServico(dbManager);
     CarteiraServico carteiraServico = CarteiraServico(dbManager);
 
@@ -36,8 +38,11 @@ int main()
         std::cout << "[1] Primeiro acesso." << std::endl;
         std::cout << "[2] Login." << std::endl;
         if (usuario_logado != nullptr)
+        {
             std::cout << "[3] Logout." << std::endl;
-
+            std::cout << "[4] " << VERMELHO << "Deletar" << RESET << " o usuário atual." << std::endl;
+        }
+            
         std::cout << "Opção escolhida: ";
         std::cin >> opcao;
 
@@ -56,6 +61,12 @@ int main()
                 if (usuario_logado != nullptr)
                 {
                     usuario_logado = nullptr;
+                    break;
+                }
+            case 4:
+                if (usuario_logado != nullptr)
+                {
+                    usuario_logado = remocaoServico.RemoverUsuarioAtual(usuario_logado);
                     break;
                 }
             default:
