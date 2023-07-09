@@ -27,7 +27,7 @@ void Carteira::AdicionarSaldo(double saldo){
 }
 
 void Carteira::RemoverSaldo(double saldo){
-  if(saldo == 0){
+  if(_saldo == 0){
     throw sem_saldo_e();
   }
 
