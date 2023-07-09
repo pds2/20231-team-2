@@ -80,6 +80,7 @@ void RestauranteServico::adicionarItem(Restaurante* restaurante)
 
     Item* novoItem = new Item(nome, descricao, static_cast<ItemType>(tipo), precoBase, restaurante->GetId());
     restaurante->AdicionarItem(novoItem);
+    _itemRepositorio->Inserir(novoItem);
 }
 
 
