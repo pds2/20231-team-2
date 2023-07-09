@@ -64,7 +64,7 @@ TEST_CASE("Aplicando desconto"){
   Item item3 = Item("Macarrao", "Massa e molho de tomate", ItemType::PRATO_FEITO, 15.0, 1);
 
   SUBCASE("Aplicando Desconto e Verificando se o Cupom se torna inválido"){
-    Cupom *DezPorCento = new Cupom("DEZPORCENTO", 10.0);
+    Cupom *DezPorCento = new Cupom("DEZPORCENTO", 10.0, 1);
     carrinho.AdicionarItem(&item1);    
     carrinho.AdicionarItem(&item2);
     carrinho.AdicionarItem(&item3);
@@ -81,7 +81,7 @@ TEST_CASE("Aplicando desconto"){
   }
 
   SUBCASE("Tentando Aplicar mais de um cupom no carrinho"){
-    Cupom *DezPorCento = new Cupom("DEZPORCENTO", 10.0);
+    Cupom *DezPorCento = new Cupom("DEZPORCENTO", 10.0, 1);
     Item item1 = Item("Agua Mineral", "Agua com Minerios", ItemType::BEBIDAS, 10.0, 1);
     Item item2 = Item("Hamburguer", "Pão, Hamburguer, Maionese", ItemType::FAST_FOOD, 20.0, 1);
     carrinho.AdicionarItem(&item1);    
@@ -96,7 +96,7 @@ TEST_CASE("Aplicando desconto"){
     CHECK(DezPorCento->EstaValido() == false);
     CHECK(carrinho.EstaEncerrado() == true);  
 
-    Cupom *CincoPorCento = new Cupom("CINCOPORCENTO", 5.0);
+    Cupom *CincoPorCento = new Cupom("CINCOPORCENTO", 5.0, 2);
     CHECK_THROWS_AS(carrinho.AplicarDesconto(CincoPorCento), um_cupom_ja_foi_usado_e);
 
     delete DezPorCento;

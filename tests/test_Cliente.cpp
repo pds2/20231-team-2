@@ -31,3 +31,11 @@ TEST_CASE("Teste AdicionarRemoverCarrinho") {
     delete carrinho1;
     delete carrinho2;
 }
+
+TEST_CASE("Testa adição e remoção de cupons"){
+    Cliente cliente("Nome", "login", "senha", "123456789");
+    Cupom* Dez = new Cupom("1", 5, 1);
+    cliente.AdicionaCupom(Dez);
+
+    CHECK(cliente.GetCupons().size() == 1);
+}
