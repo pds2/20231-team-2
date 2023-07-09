@@ -28,3 +28,8 @@ bool Cupom::EstaValido(){
 void Cupom::SetaValido(){
   _valido = false;
 }
+
+int Cupom::GetIdDoCliente()
+{
+  return _idDoCliente;
+}

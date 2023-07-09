@@ -52,6 +52,12 @@ public:
      * @brief Define o status do cupom como válido.
      */
     void SetaValido();
+
+    /**
+     * @brief REtorna o id do cliente.
+     * @return O id do cliente.
+     */
+    int GetIdDoCliente();
 };
 
 #endif // CUPOM_HPP

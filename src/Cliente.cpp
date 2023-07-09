@@ -65,3 +65,8 @@ void Cliente::AdicionaCupom(Cupom* cupom){
 std::vector<Cupom*> Cliente::GetCupons(){
     return _cupons;
 }
+
+void Cliente::SetCupons(std::vector<Cupom*> cupons)
+{
+    _cupons = cupons;
+}

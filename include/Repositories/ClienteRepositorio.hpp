@@ -5,6 +5,7 @@
 
 #include "Cliente.hpp"
 #include "RepositorioBase.hpp"
+#include "CupomRepositorio.hpp"
 #include "CarteiraRepositorio.hpp"
 #include "CarrinhoRepositorio.hpp"
 
@@ -18,6 +19,7 @@ class ClienteRepositorio
         std::string _tabela = "Cliente";
         CarteiraRepositorio* _carteiraRepositorio;
         CarrinhoRepositorio* _carrinhoRepositorio;
+        CupomRepositorio* _cupomRepositorio;
 
         /**
          * @brief Executa o comando para criar a tabela desse repositório no banco de dados.
@@ -41,8 +43,9 @@ class ClienteRepositorio
          * @brief Instância uma nova comunicação de uma entidade com o banco de dados.
          * @param carteiraRepositorio Referência para acesso as carteiras.
          * @param carrinhoRepositorio Referência para acesso aos carrinhos.
+         * @param cupomRepositorio Referência para acesso aos cupons.
          */
-        ClienteRepositorio(CarteiraRepositorio* carteiraRepositorio, CarrinhoRepositorio* carrinhoRepositorio);
+        ClienteRepositorio(CarteiraRepositorio* carteiraRepositorio, CarrinhoRepositorio* carrinhoRepositorio, CupomRepositorio* cupomRepositorio);
 
         /**
          * @brief Lista os objetos salvos no banco de dados.

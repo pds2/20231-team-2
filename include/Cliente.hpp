@@ -89,12 +89,17 @@ public:
     */
     void AdicionaCupom(Cupom* cupom);
 
-    
     /**
      * @brief Retorna o vetor de Cupons que o cliente possui.
      * @return Um vetor de ponteiros para os cupons do cliente.
     */
     std::vector<Cupom*> GetCupons();
+
+    /**
+     * @brief Seta os cupons desse cliente.
+     * @param cupons novo vector de cupons.
+    */
+    void SetCupons(std::vector<Cupom*> cupons);
 };
 
 #endif // CLIENTE_HPP
