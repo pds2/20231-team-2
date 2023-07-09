@@ -16,6 +16,11 @@ std::string Usuario::GetSenha()
     return _senha;
 };
 
+void Usuario::SetSenha(std::string senha)
+{
+    _senha = senha;
+}
+
 std::string Usuario::GetNome()
 {
     return _nome;
