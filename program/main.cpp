@@ -50,6 +50,7 @@ int main()
             
         std::cout << "Opção escolhida: ";
         opcao = InputManager::LerInt();
+        std::cout << std::endl;
 
         switch (opcao) 
         {
@@ -102,6 +103,7 @@ int main()
                 std::cout << "[2] Fazer um pedido." << std::endl;
                 std::cout << "Opção escolhida: ";
                 opcao_cliente = InputManager::LerInt();
+                std::cout << std::endl;
 
                 switch (opcao_cliente) 
                 {
@@ -115,7 +117,7 @@ int main()
                         pedidoServico.ImprimeMenu(cliente);
                         break;                            
                     default:
-                        std::cout << "Opção inválida! Tente novamente." << std::endl;
+                        std::cout << VERMELHO << "Opção inválida! Tente novamente." << RESET << std::endl;
                 }
             }
         }
@@ -142,7 +144,7 @@ int main()
                         restauranteServico.escolherAcao(restaurante);
                         break;                          
                     default:
-                        std::cout << "Opção inválida! Tente novamente." << std::endl;
+                        std::cout << VERMELHO << "Opção inválida! Tente novamente." <<  RESET << std::endl;
                 }
             }
         }
