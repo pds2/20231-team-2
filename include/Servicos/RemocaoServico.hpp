@@ -24,11 +24,13 @@ class RemocaoServico
 
         /**
          * @brief Responsável por deletar um restaurante e suas dependências do sistema.
+         * @param restaurante restaurante que será deletado.
         */
         void DeletarRestaurante(Restaurante* restaurante);
 
         /**
          * @brief Responsável por deletar um cliente e suas dependências do sistema.
+         * @param cliente cliente que será deletado.
         */
         void DeletarCliente(Cliente* cliente);
 
