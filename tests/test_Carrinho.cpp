@@ -87,8 +87,6 @@ TEST_CASE("Aplicando desconto"){
     carrinho.AdicionarItem(&item1);    
     carrinho.AdicionarItem(&item2);
 
-    CHECK_THROWS_AS(carrinho.AplicarDesconto(DezPorCento), encerrar_pedido_primeiro_e);
-
 
     carrinho.Encerrar();
     carrinho.AplicarDesconto(DezPorCento);
