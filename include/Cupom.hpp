@@ -6,6 +6,7 @@
 #include <string>
 #include "EntidadeBase.hpp"
 
+
 /**
  * @class Cupom
  * @brief Classe que representa um cupom de desconto.
@@ -17,16 +18,17 @@ private:
     std::string _codigo;
     double _desconto;
     bool _valido;
-    //pode ser definido mais tarde
-    std::string _dataExpiracao;
+    int _idDoCliente;
+    
 
 public:
     /**
      * @brief Construtor da classe Cupom.
      * @param codigo O código do cupom.
      * @param desconto O valor do desconto em porcentagem.
+     * @param idDoCliente O id do cliente que tem esse cupom.
      */
-    Cupom(std::string codigo, double desconto);
+    Cupom(std::string codigo, double desconto, int idDoCliente);
 
     /**
      * @brief Retorna o código do cupom.
@@ -41,12 +43,6 @@ public:
     double GetValor();
 
     /**
-     * @brief Retorna a data de expiração do cupom.
-     * @return A data de expiração do cupom.
-     */
-    std::string GetDataDeExpiracao();
-
-    /**
      * @brief Verifica se o cupom está válido.
      * @return true se o cupom estiver válido, false caso contrário.
      */
@@ -56,6 +52,12 @@ public:
      * @brief Define o status do cupom como válido.
      */
     void SetaValido();
+
+    /**
+     * @brief REtorna o id do cliente.
+     * @return O id do cliente.
+     */
+    int GetIdDoCliente();
 };
 
 #endif // CUPOM_HPP

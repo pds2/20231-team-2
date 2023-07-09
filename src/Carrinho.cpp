@@ -19,9 +19,6 @@ double Carrinho::GetValorTotal(){
 }
 
 void Carrinho::AplicarDesconto(Cupom *cupom){
-  if(_pedidoEncerrado == false){
-    throw encerrar_pedido_primeiro_e();
-  }
   if(_descontoAplicado == false){
      _valorTotal = _valorTotal * (100-cupom->GetValor())/100;
     SetValorTotal(_valorTotal);

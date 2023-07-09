@@ -1,6 +1,10 @@
 #include <string>
 
 #include "Cliente.hpp"
+#include "Usuario.hpp"
+#include "Carteira.hpp"
+#include "Carrinho.hpp"
+#include "Cupom.hpp"
 
 Cliente::Cliente(std::string nome, std::string login, std::string senha, std::string CPF)
     :Usuario(nome, login, senha, TipoUsuario::CLIENTE), _CPF(CPF)
@@ -52,4 +56,26 @@ void Cliente::SetCarrinhos(std::vector<Carrinho*> carrinhos)
 
 TipoUsuario Cliente::GetTipo(){
     return _tipo;
+}
+
+void Cliente::AdicionaCupom(Cupom* cupom){
+    _cupons.push_back(cupom);
+}
+
+std::vector<Cupom*> Cliente::GetCupons(){
+    return _cupons;
+}
+
+void Cliente::SetCupons(std::vector<Cupom*> cupons)
+{
+    _cupons = cupons;
+}
+
+Cupom* Cliente::GetCupom(int id){
+    for(auto it : _cupons){
+        if(it->GetId() == id){
+            return it;
+        }
+    }
+    throw cupom_nao_existe_e();
 }

@@ -9,6 +9,13 @@
 #include "Usuario.hpp"
 #include "Carteira.hpp"
 #include "Carrinho.hpp"
+#include "Cupom.hpp"
+
+/**
+ * @brief Lança uma exceção se o cliente tentar usar um cupom
+ * que não existe/que não tem.
+*/
+class cupom_nao_existe_e {};
 
 /**
  * @class Cliente
@@ -22,6 +29,7 @@ private:
     std::string _CPF;
     Carteira* _carteira;
     std::vector<Carrinho*> _carrinhos;
+    std::vector<Cupom*> _cupons;
 
 public:
     /**
@@ -80,6 +88,31 @@ public:
      * @return O tipo do usuário.
      */
     TipoUsuario GetTipo() override;
+
+    /**
+     * @brief Adiciona um cupom aos cupons do cliente.
+     * @param cupom O ponteiro para os cupons do cliente.
+    */
+    void AdicionaCupom(Cupom* cupom);
+
+    /**
+     * @brief Retorna o vetor de Cupons que o cliente possui.
+     * @return Um vetor de ponteiros para os cupons do cliente.
+    */
+    std::vector<Cupom*> GetCupons();
+
+    /**
+     * @brief Seta os cupons desse cliente.
+     * @param cupons novo vector de cupons.
+    */
+    void SetCupons(std::vector<Cupom*> cupons);
+
+    /**
+     * @brief Retorna o cupom ao qual o id se refere.
+     * @param id Id do cupom.
+     * @return Ponteiro para cupom.
+    */
+    Cupom* GetCupom(int id);
 };
 
 #endif // CLIENTE_HPP

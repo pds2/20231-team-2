@@ -2,11 +2,13 @@
 
 #include "Cupom.hpp"
 
-Cupom::Cupom(std::string codigo, double desconto)
+
+Cupom::Cupom(std::string codigo, double desconto, int idDoCliente)
 {
   _codigo = codigo;
   _desconto = desconto;
   _valido = true;
+  _idDoCliente = idDoCliente;
 }
     
 std::string Cupom::GetCodigo()
@@ -17,13 +19,7 @@ std::string Cupom::GetCodigo()
 double Cupom::GetValor()
 {
   return _desconto;
-}
-
-std::string Cupom::GetDataDeExpiracao()
-{
-  return _dataExpiracao;
-}
-      
+}  
     
 bool Cupom::EstaValido(){
   return _valido;
@@ -31,4 +27,9 @@ bool Cupom::EstaValido(){
 
 void Cupom::SetaValido(){
   _valido = false;
+}
+
+int Cupom::GetIdDoCliente()
+{
+  return _idDoCliente;
 }

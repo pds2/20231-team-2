@@ -4,6 +4,7 @@
 #define CUPOMREPOSITORIO_HPP
 
 #include "Cupom.hpp"
+#include "Cliente.hpp"
 #include "RepositorioBase.hpp"
 
 /*
@@ -37,6 +38,12 @@ class CupomRepositorio
          * @returns Uma lista de ponteiros para o objetos armazenados.
          */
         std::vector<Cupom*> ListarTodos();
+
+        /**
+         * @brief Carrega os cupons de um cliente.
+         * @param cliente ponteiro para o cliente.
+        */
+        void CarregarCuponsNoCliente(Cliente* cliente);
 
         /**
          * @brief Busca um objeto no banco de dados.

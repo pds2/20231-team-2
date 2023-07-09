@@ -23,21 +23,25 @@ private:
 public:
   /**
   * @brief Construtor padrão.
+  * @param dbManager Um ponteiro para o Database.
   */
   CarteiraServico(DatabaseManager *dbManager);
 
   /**
   * @brief Função em que o cliente irá escolher a ação que ele deseja realizar.
+  * @param cliente Um ponteiro para o cliente.
   */
   void escolherAcao(Cliente *cliente);
 
   /**
   * @brief Função em que o saldo do cliente será impresso.
+  * @param cliente Um ponteiro para o cliente.
   */
   void imprimeSaldo(Cliente *cliente);
 
   /**
   * @brief Função em que o cliente adiciona saldo na sua carteira e o saldo antigo e o novo são impressos.
+  * @param cliente Um ponteiro para o cliente.
   */
   void adicionaSaldo(Cliente *cliente);
   

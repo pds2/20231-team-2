@@ -6,10 +6,11 @@
 #include "Sqlite/sqlite3.h"
 #include "Repositories/ClienteRepositorio.hpp"
 
-ClienteRepositorio::ClienteRepositorio(CarteiraRepositorio* carteiraRepositorio, CarrinhoRepositorio* carrinhoRepositorio)
+ClienteRepositorio::ClienteRepositorio(CarteiraRepositorio* carteiraRepositorio, CarrinhoRepositorio* carrinhoRepositorio, CupomRepositorio* cupomRepositorio)
 {
     _carteiraRepositorio = carteiraRepositorio;
     _carrinhoRepositorio = carrinhoRepositorio;
+    _cupomRepositorio = cupomRepositorio;
 
     CreateTable();
 }
@@ -41,6 +42,8 @@ void ClienteRepositorio::CarregarDependencias(Cliente* entidade)
     
     std::vector<Carrinho*> carrinhos = _carrinhoRepositorio->BuscaPorIdDoCliente(id);
     entidade->SetCarrinhos(carrinhos);
+
+    _cupomRepositorio->CarregarCuponsNoCliente(entidade);
 }
 
 std::vector<Cliente*> ClienteRepositorio::ListarTodos()
@@ -134,6 +137,9 @@ void ClienteRepositorio::Atualizar(Cliente* entidade)
     Carteira* carteira = entidade->GetCarteira();
     if (carteira != nullptr)
         _carteiraRepositorio->Atualizar(carteira);
+
+    for(Cupom* cupom : entidade->GetCupons())
+        _cupomRepositorio->Atualizar(cupom);
 }
 
 void ClienteRepositorio::Deletar(Cliente* entidade)
@@ -144,6 +150,9 @@ void ClienteRepositorio::Deletar(Cliente* entidade)
 
     for(Carrinho* carrinho : entidade->GetCarrinhos())
         _carrinhoRepositorio->Deletar(carrinho);
+
+    for(Cupom* cupom : entidade->GetCupons())
+        _cupomRepositorio->Deletar(cupom);
 
     RepositorioBase::Deletar(_tabela, entidade);
 }

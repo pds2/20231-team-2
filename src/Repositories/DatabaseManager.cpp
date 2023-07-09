@@ -12,7 +12,7 @@ DatabaseManager::DatabaseManager()
     _carteiraRepositorio = new CarteiraRepositorio();
     _itemCarrinhoRepositorio = new ItemCarrinhoRepositorio(_itemRepositorio);
     _carrinhoRepositorio = new CarrinhoRepositorio(_itemCarrinhoRepositorio);
-    _clienteRepositorio = new ClienteRepositorio(_carteiraRepositorio, _carrinhoRepositorio);
+    _clienteRepositorio = new ClienteRepositorio(_carteiraRepositorio, _carrinhoRepositorio, _cupomRepositorio);
     _restauranteRepositorio = new RestauranteRepositorio(_itemRepositorio, _itemCarrinhoRepositorio);
 }
 
