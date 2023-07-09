@@ -56,12 +56,24 @@ public:
      * @return O nome do item.
      */
     std::string GetNome();
+    
+    /**
+     * @brief Seta o nome do item.
+     * @param nome O nome do item.
+     */
+    void SetNome(std::string nome);
 
     /**
      * @brief Retorna a descrição do item.
      * @return A descrição do item.
      */
     std::string GetDescricao();
+
+    /**
+     * @brief Seta a descrição do item.
+     * @param descricao A descrição do item.
+     */
+    void SetDescricao(std::string descricao);
 
     /**
      * @brief Retorna o tipo do item.
@@ -74,6 +86,12 @@ public:
      * @return O preço base do item.
      */
     double GetPrecoBase();
+
+    /**
+     * @brief Seta o preço base do item.
+     * @param preco O preço base do item.
+     */
+    void SetPrecoBase(double preco);
 
     /**
      * @brief Retorna o preço atual do item. Esse método considera possíveis descontos aplicados.

@@ -23,6 +23,11 @@ private:
     RestauranteRepositorio* _restauranteRepositorio;
     ItemRepositorio* _itemRepositorio;
 
+    /**
+     * @brief Editar um item do restaurante.
+    */
+    void EditarItemUnico(int id);
+
 public:
     /**
      * @brief Construtor padrão.
@@ -53,6 +58,12 @@ public:
      * @param restaurante Ponteiro para o objeto do restaurante.
      */
     void removerItem(Restaurante* restaurante);
+
+    /**
+     * @brief Edita os itens do restaurante.
+     * @param restaurante Ponteiro para o objeto do restaurante.
+     */
+    void editarItens(Restaurante* restaurante);
 };
 
 #endif // RESTAURANTE_SERVICO_HPP
