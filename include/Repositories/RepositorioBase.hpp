@@ -10,6 +10,12 @@
 #include "EntidadeBase.hpp"
 #include "Sqlite/sqlite3.h"
 
+/**
+ * @class entidade_nao_encontrada_e
+ * @brief Exceção lançada quando uma entidade que não existe é buscada.
+ */
+class entidade_nao_encontrada_e {};
+
 template <class Tipo> 
 class RepositorioBase 
 {    
@@ -177,7 +183,10 @@ class RepositorioBase
             
             sqlite3_stmt* stmt = Select(query);
             
-            sqlite3_step(stmt);
+            auto linha = sqlite3_step(stmt);
+            if (linha != SQLITE_ROW)
+                throw entidade_nao_encontrada_e();
+            
             Tipo* entidade = ConverterParaEntidade(stmt);
             sqlite3_finalize(stmt);
 

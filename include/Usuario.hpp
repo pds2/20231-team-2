@@ -7,11 +7,6 @@
 #include "EntidadeBase.hpp"
 
 /**
- * @brief Exceção lançada quando um login não é encontrado.
- */
-class login_nao_encontrado_e {};
-
-/**
  * @enum TipoUsuario
  * Um enumerador representando os tipos de usuários disponíveis.
  */

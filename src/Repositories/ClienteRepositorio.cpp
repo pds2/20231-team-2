@@ -66,9 +66,6 @@ std::vector<Cliente*> ClienteRepositorio::ListarTodos()
 Cliente* ClienteRepositorio::BuscaPorId(int id)
 {
     Cliente* entidade = RepositorioBase::BuscaPorId(_tabela, id);
-    
-    if (entidade == nullptr)
-        throw login_nao_encontrado_e();
 
     CarregarDependencias(entidade);
 
@@ -89,7 +86,7 @@ Cliente* ClienteRepositorio::BuscaPorLogin(std::string login)
         } 
     }
 
-    throw login_nao_encontrado_e();
+    throw entidade_nao_encontrada_e();
 }
 
 void ClienteRepositorio::Inserir(Cliente* entidade)
