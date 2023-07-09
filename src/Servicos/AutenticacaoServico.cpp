@@ -1,6 +1,7 @@
 #include <iostream>
 #include <type_traits>
 
+#include "cores.hpp"
 #include "Cliente.hpp"
 #include "Restaurante.hpp"
 #include "Repositories/DatabaseManager.hpp"
@@ -15,8 +16,8 @@ AutenticacaoServico::AutenticacaoServico(DatabaseManager * dbManager)
 
 Usuario* AutenticacaoServico::MenuLogin()
 {
-    std::cout << "+------------------------+" << std::endl;
-    std::cout << "| MÓDULO DE AUTENTICAÇÃO |" << std::endl;
+    std::cout << "\n+------------------------+" << std::endl;
+    std::cout << "| " << CIANO << "MÓDULO DE AUTENTICAÇÃO" << RESET << " |" << std::endl;
     std::cout << "+------------------------+\n" << std::endl;
 
     int escolha = -1;
@@ -26,8 +27,9 @@ Usuario* AutenticacaoServico::MenuLogin()
         std::cout << "[0] Cancelar." << std::endl;
         std::cout << "[1] Cliente. " << std::endl;
         std::cout << "[2] Restaurante." << std::endl;
-        std::cout << "Escolha: " << std::endl;
+        std::cout << "Escolha: ";
         std::cin >> escolha;
+        std::cout << std::endl;
 
         switch (escolha)
         {
