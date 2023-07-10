@@ -36,7 +36,7 @@ Usuario* CadastroServico::MenuCadastro()
       case 1:
         std::cout << "Digite o nome do cliente: ";
         nome = InputManager::LerString();
-        std::cout << "Digite o CPF do cliente: ";
+        std::cout << "Digite o CPF(11 digitos) do cliente: ";
         cpf = InputManager::LerDocumento(TipoUsuario::CLIENTE);
         std::cout << "Digite o login do cliente: ";
         login = InputManager::LerString();
@@ -47,7 +47,7 @@ Usuario* CadastroServico::MenuCadastro()
       case 2:
         std::cout << "Digite o nome do restaurante: ";
         nome = InputManager::LerString();
-        std::cout << "Digite o CNPJ do restaurante: ";
+        std::cout << "Digite o CNPJ(14 digitos) do restaurante: ";
         cnpj = InputManager::LerDocumento(TipoUsuario::RESTAURANTE);
         std::cout << "Digite o login do restaurante: ";
         login = InputManager::LerString();
