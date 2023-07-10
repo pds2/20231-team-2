@@ -5,7 +5,9 @@
 
 Restaurante::Restaurante(std::string nome, std::string login, std::string senha, std::string CNPJ)
     :Usuario(nome, login, senha, CNPJ ,TipoUsuario::RESTAURANTE)
-{}
+{
+    SetDocumento(CNPJ);
+}
 
 void Restaurante::AdicionarItem(Item* novoItem)
 {
@@ -56,7 +58,6 @@ bool Restaurante::DocumentoValido(std::string documento)
         return false;
 
     return true;
-
 }
 
 std::string Restaurante::FormatarDocumento(std::string documento)
@@ -69,7 +70,7 @@ std::string Restaurante::FormatarDocumento(std::string documento)
     }
 
     std::string cnpjFormatado = "";
-
+    
     for (int i = 0; i < 14; i++) {
         cnpjFormatado += cnpjLimpo[i];
 

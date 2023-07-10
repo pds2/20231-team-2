@@ -9,8 +9,8 @@
 
 Cliente::Cliente(std::string nome, std::string login, std::string senha, std::string CPF)
     :Usuario(nome, login, senha, CPF, TipoUsuario::CLIENTE)
-{
-    _carteira = nullptr;
+{   
+    SetDocumento(CPF);
 }
 
 Carteira* Cliente::GetCarteira()
