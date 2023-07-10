@@ -2,24 +2,33 @@
 
 #include "Cupom.hpp"
 
-
-Cupom::Cupom(std::string codigo, double desconto, int idDoCliente)
+Cupom::Cupom(std::string etiqueta, double desconto, int idDoCliente, CupomType tipo)
 {
-  _codigo = codigo;
-  _desconto = desconto;
+
+  if(desconto <= 0){
+    throw impossivel_desconto_negativo_e();
+  }
+
+  _etiqueta = etiqueta;
+  _valor_desconto = desconto;
   _valido = true;
   _idDoCliente = idDoCliente;
-}
-    
-std::string Cupom::GetCodigo()
-{
-  return _codigo;
+  _tipo = tipo;
 }
 
 double Cupom::GetValor()
 {
-  return _desconto;
-}  
+  return _valor_desconto;
+}
+
+std::string Cupom::GetEtiqueta()
+{
+  return _etiqueta;
+}
+
+CupomType Cupom::GetTipoCupom(){
+  return _tipo;
+}
     
 bool Cupom::EstaValido(){
   return _valido;
