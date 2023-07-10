@@ -156,7 +156,7 @@ std::string InputManager::LerString()
 void ImprimeFalhaDocumento(std::string flag)
 {
     std::cout << "\nA string informada é " << VERMELHO << "inválida" << RESET << "." << std::endl;
-    std::cout << "Informe novamente uma " << VERDE << flag << RESET << "." << std::endl;
+    std::cout << "Informe novamente o " << VERDE << flag << RESET << "." << std::endl;
     std::cout << "Nova entrada: ";
 }
 
@@ -171,7 +171,7 @@ std::string InputManager::LerDocumento(TipoUsuario tipo)
         documento = LerString();
 
         if (tipo == TipoUsuario::CLIENTE)
-            leitura_com_sucesso = ValidadorDeDocumentos::ValidarCNPJ(documento);
+            leitura_com_sucesso = ValidadorDeDocumentos::ValidarCPF(documento);
         else
             leitura_com_sucesso = ValidadorDeDocumentos::ValidarCNPJ(documento);
 
@@ -179,5 +179,12 @@ std::string InputManager::LerDocumento(TipoUsuario tipo)
             ImprimeFalhaDocumento(flag);
     }
 
-    return documento;
+    std::string documentoLimpo = "";
+    for (char c : documento) 
+    {
+        if (isdigit(c))
+            documentoLimpo += c;
+    }
+
+    return documentoLimpo;
 }

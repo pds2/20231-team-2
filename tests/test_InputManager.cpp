@@ -218,3 +218,87 @@ TEST_CASE("14 - Teste de leitura de double com erro anterior com string com espa
 
     RestaurarSaidaPadrao(original_cout);
 }
+
+TEST_CASE("15 - Teste de leitura de CPF.")
+{
+    std::streambuf* original_cout = AlterarSaidaPadrao();
+
+    std::istringstream input("12345678910\n");
+    std::cin.rdbuf(input.rdbuf());
+
+    std::string result = InputManager::LerDocumento(TipoUsuario::CLIENTE);
+
+    assert(result == "12345678910");
+
+    RestaurarSaidaPadrao(original_cout);
+}
+
+TEST_CASE("16 - Teste de leitura de CPF com falhas anteriores.")
+{
+    std::streambuf* original_cout = AlterarSaidaPadrao();
+
+    std::istringstream input("adadada\n \n12345678910\n");
+    std::cin.rdbuf(input.rdbuf());
+
+    std::string result = InputManager::LerDocumento(TipoUsuario::CLIENTE);
+
+    assert(result == "12345678910");
+
+    RestaurarSaidaPadrao(original_cout);
+}
+
+TEST_CASE("17 - Teste de leitura de CPF com caracteres aleatórios que devem ser descartados.")
+{
+    std::streambuf* original_cout = AlterarSaidaPadrao();
+
+    std::istringstream input("adasd123dasda456ada78910\n");
+    std::cin.rdbuf(input.rdbuf());
+
+    std::string result = InputManager::LerDocumento(TipoUsuario::CLIENTE);
+
+    assert(result == "12345678910");
+
+    RestaurarSaidaPadrao(original_cout);
+}
+
+TEST_CASE("18 - Teste de leitura de CNPJ.")
+{
+    std::streambuf* original_cout = AlterarSaidaPadrao();
+
+    std::istringstream input("21.241.369/0001-66\n");
+    std::cin.rdbuf(input.rdbuf());
+
+    std::string result = InputManager::LerDocumento(TipoUsuario::RESTAURANTE);
+
+    assert(result == "21241369000166");
+
+    RestaurarSaidaPadrao(original_cout);
+}
+
+TEST_CASE("19 - Teste de leitura de CNPJ com falhas anteriores.")
+{
+    std::streambuf* original_cout = AlterarSaidaPadrao();
+
+    std::istringstream input("adadada\n 21.241.369/0001-66\n");
+    std::cin.rdbuf(input.rdbuf());
+
+    std::string result = InputManager::LerDocumento(TipoUsuario::RESTAURANTE);
+
+    assert(result == "21241369000166");
+
+    RestaurarSaidaPadrao(original_cout);
+}
+
+TEST_CASE("20 - Teste de leitura de CNPJ com caracteres aleatórios que devem ser descartados.")
+{
+    std::streambuf* original_cout = AlterarSaidaPadrao();
+
+    std::istringstream input("2as1.24adasdsd1.369/ada000adasda1-66\n");
+    std::cin.rdbuf(input.rdbuf());
+
+    std::string result = InputManager::LerDocumento(TipoUsuario::RESTAURANTE);
+
+    assert(result == "21241369000166");
+
+    RestaurarSaidaPadrao(original_cout);
+}
