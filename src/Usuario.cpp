@@ -11,6 +11,11 @@ std::string Usuario::GetLogin()
     return _login;
 };
 
+void Usuario::SetLogin(std::string login)
+{
+    _login = login;
+}
+
 std::string Usuario::GetSenha()
 {
     return _senha;
@@ -25,6 +30,11 @@ std::string Usuario::GetNome()
 {
     return _nome;
 };
+
+void Usuario::SetNome(std::string nome)
+{
+    _nome = nome;
+}
 
 std::string Usuario::GetDocumento()
 {

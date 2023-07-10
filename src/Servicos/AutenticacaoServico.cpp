@@ -140,34 +140,3 @@ bool AutenticacaoServico::SenhaValida(Usuario* usuario)
 
     return false;
 }
-
-void AutenticacaoServico::EditarSenha(Usuario* usuario)
-{
-    ImprimeModulo();
-
-    std::cout << "Digite a senha antiga: ";
-    std::string antiga = InputManager::LerString();
-    
-    if (antiga != usuario->GetSenha())
-    {
-        std::cout << VERMELHO << "Senha incorreta. Alteração cancelada!" << RESET << std::endl;
-        return;
-    }
-
-    std::cout << "Digite a nova senha: ";
-    std::string nova = InputManager::LerString();
-    usuario->SetSenha(nova);
-
-    if (usuario->GetTipo() == TipoUsuario::CLIENTE)
-    {
-        Cliente* cliente = static_cast<Cliente*>(usuario);
-        _clienteRepositorio->Atualizar(cliente);
-    }
-    else
-    {
-        Restaurante* restaurante = static_cast<Restaurante*>(usuario);
-        _restauranteRepositorio->Atualizar(restaurante);
-    }
-
-    std::cout << "Senha atualizada com " << VERDE << "sucesso." << RESET << std::endl;
-}

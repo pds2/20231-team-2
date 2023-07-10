@@ -56,6 +56,12 @@ public:
     std::string GetLogin();
 
     /**
+     * @brief Altera o login do usuário.
+     * @param login O novo login do usuário.
+     */
+    void SetLogin(std::string login);
+
+    /**
      * @brief Retorna a senha do usuário.
      * @return A senha do usuário.
      */
@@ -72,6 +78,12 @@ public:
      * @return O nome do usuário.
      */
     std::string GetNome();
+
+    /**
+     * @brief Altera o nome do usuário.
+     * @param nome O novo nome do usuário.
+     */
+    void SetNome(std::string nome);
 
     /**
      * @brief Altera o documento do usuário.
