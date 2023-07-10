@@ -7,6 +7,12 @@
 #include "EntidadeBase.hpp"
 
 /**
+ * @class documento_invalido_e
+ * @brief Exceção lançada quando um documento não está no formato correto.
+ */
+class documento_invalido_e {};
+
+/**
  * @enum TipoUsuario
  * Um enumerador representando os tipos de usuários disponíveis.
  */
@@ -29,6 +35,7 @@ protected:
     std::string _nome;
     std::string _login;
     std::string _senha;
+    std::string _documento;
     TipoUsuario _tipo;
 
 public:
@@ -39,7 +46,7 @@ public:
      * @param senha A senha do usuário.
      * @param tipo O tipo do usuário.
      */
-    Usuario(std::string nome, std::string login, std::string senha, TipoUsuario tipo);
+    Usuario(std::string nome, std::string login, std::string senha, std::string documento, TipoUsuario tipo);
 
     /**
      * @brief Retorna o login do usuário.
@@ -70,6 +77,32 @@ public:
      * @return O tipo do usuário.
      */
     virtual TipoUsuario GetTipo() = 0;
+
+    /**
+     * @brief Altera o documento do usuário.
+     * @param documento Novo documento.
+    */
+    void SetDocumento(std::string documento);
+
+    /**
+     * @brief Retorna o documento do usuário.
+     * @return O documento.
+    */
+    std::string GetDocumento();
+
+    /**
+     * @brief Responsável por validar o formato de um documento informado.
+     * @param documento Documento a ser validado.
+     * @returns true caso sejá válido.
+    */
+    virtual bool DocumentoValido(std::string documento) = 0;
+
+    /**
+     * @brief Responsável por formatar o documento informado.
+     * @param documento Documento a ser formatado.
+     * @returns Documento com a formatação correta.
+    */
+    virtual std::string FormatarDocumento(std::string documento) = 0;
 };
 
 #endif // USUARIO_HPP

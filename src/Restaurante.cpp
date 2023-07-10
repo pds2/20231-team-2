@@ -1,15 +1,11 @@
+#include <regex>
 #include <string>
 
 #include "Restaurante.hpp"
 
 Restaurante::Restaurante(std::string nome, std::string login, std::string senha, std::string CNPJ)
-    :Usuario(nome, login, senha, TipoUsuario::RESTAURANTE), _CNPJ(CNPJ)
+    :Usuario(nome, login, senha, CNPJ ,TipoUsuario::RESTAURANTE)
 {}
-
-std::string Restaurante::GetCNPJ()
-{
-    return _CNPJ;
-};
 
 void Restaurante::AdicionarItem(Item* novoItem)
 {
@@ -39,6 +35,51 @@ std::vector<Item*> Restaurante::GetItens()
     return _itens;
 }
 
-TipoUsuario Restaurante::GetTipo(){
+TipoUsuario Restaurante::GetTipo()
+{
     return _tipo;
+}
+
+bool Restaurante::DocumentoValido(std::string documento)
+{
+    std::string cnpjLimpo = "";
+    for (char c : documento) 
+    {
+        if (isdigit(c))
+            cnpjLimpo += c;
+    }
+
+    if (cnpjLimpo.length() != 14)
+        return false;
+
+    if (!std::regex_match(cnpjLimpo, std::regex("\\d+"))) 
+        return false;
+
+    return true;
+
+}
+
+std::string Restaurante::FormatarDocumento(std::string documento)
+{
+    std::string cnpjLimpo = "";
+    for (char c : documento) 
+    {
+        if (isdigit(c)) 
+            cnpjLimpo += c;
+    }
+
+    std::string cnpjFormatado = "";
+
+    for (int i = 0; i < 14; i++) {
+        cnpjFormatado += cnpjLimpo[i];
+
+        if (i == 1 || i == 4)
+            cnpjFormatado += '.';
+        if (i == 7)
+            cnpjFormatado += '/';
+        if (i == 11) 
+            cnpjFormatado += '-';
+    }
+
+    return cnpjFormatado;
 }

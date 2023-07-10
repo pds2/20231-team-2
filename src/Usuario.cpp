@@ -2,9 +2,12 @@
 
 #include "Usuario.hpp"
 
-Usuario::Usuario(std::string nome, std::string login, std::string senha, TipoUsuario tipo)
-    : _nome(nome), _login(login), _senha(senha), _tipo(tipo)
-{   }
+Usuario::Usuario(std::string nome, std::string login, std::string senha, std::string documento, TipoUsuario tipo)
+    : _nome(nome), _login(login), _senha(senha), _documento(documento), _tipo(tipo)
+{   
+    if (!DocumentoValido(documento))
+        throw documento_invalido_e();
+}
 
 std::string Usuario::GetLogin()
 {
@@ -25,3 +28,16 @@ std::string Usuario::GetNome()
 {
     return _nome;
 };
+
+std::string Usuario::GetDocumento()
+{
+    return _documento;
+}
+
+void Usuario::SetDocumento(std::string documento)
+{
+    if (!DocumentoValido(documento))
+        throw documento_invalido_e();
+
+    _documento = documento;
+}

@@ -26,7 +26,6 @@ class cupom_nao_existe_e {};
  */
 class Cliente : public Usuario {
 private:
-    std::string _CPF;
     Carteira* _carteira;
     std::vector<Carrinho*> _carrinhos;
     std::vector<Cupom*> _cupons;
@@ -40,12 +39,6 @@ public:
      * @param CPF O CPF do cliente.
      */
     Cliente(std::string nome, std::string login, std::string senha, std::string CPF);
-
-    /**
-     * @brief Retorna o CPF do cliente.
-     * @return O CPF do cliente.
-     */
-    std::string GetCPF();
 
     /**
      * @brief Retorna um ponteiro para a carteira desse cliente.
@@ -113,6 +106,20 @@ public:
      * @return Ponteiro para cupom.
     */
     Cupom* GetCupom(int id);
+
+    /**
+     * @brief Responsável por validar se o CPF informado é válido.
+     * @param documento CPF a ser validado.
+     * @returns true caso sejá válido.
+    */
+    bool DocumentoValido(std::string documento) override;
+
+    /**
+     * @brief Responsável por formatar o CPF informado.
+     * @param documento CPF a ser formatado.
+     * @returns CPF com a formatação correta.
+    */
+    std::string FormatarDocumento(std::string documento) override;
 };
 
 #endif // CLIENTE_HPP

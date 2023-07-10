@@ -1,3 +1,4 @@
+#include <regex>
 #include <string>
 
 #include "Cliente.hpp"
@@ -7,14 +8,10 @@
 #include "Cupom.hpp"
 
 Cliente::Cliente(std::string nome, std::string login, std::string senha, std::string CPF)
-    :Usuario(nome, login, senha, TipoUsuario::CLIENTE), _CPF(CPF)
+    :Usuario(nome, login, senha, CPF, TipoUsuario::CLIENTE)
 {
     _carteira = nullptr;
 }
-
-std::string Cliente::GetCPF(){
-    return _CPF;
-};
 
 Carteira* Cliente::GetCarteira()
 {
@@ -25,7 +22,6 @@ void Cliente::SetCarteira(Carteira* carteira)
 {
     _carteira = carteira;
 }
-
 
 void Cliente::AdicionarCarrinho(Carrinho* carrinho)
 {
@@ -54,15 +50,18 @@ void Cliente::SetCarrinhos(std::vector<Carrinho*> carrinhos)
     _carrinhos = carrinhos;
 }
 
-TipoUsuario Cliente::GetTipo(){
+TipoUsuario Cliente::GetTipo()
+{
     return _tipo;
 }
 
-void Cliente::AdicionaCupom(Cupom* cupom){
+void Cliente::AdicionaCupom(Cupom* cupom)
+{
     _cupons.push_back(cupom);
 }
 
-std::vector<Cupom*> Cliente::GetCupons(){
+std::vector<Cupom*> Cliente::GetCupons()
+{
     return _cupons;
 }
 
@@ -71,11 +70,55 @@ void Cliente::SetCupons(std::vector<Cupom*> cupons)
     _cupons = cupons;
 }
 
-Cupom* Cliente::GetCupom(int id){
-    for(auto it : _cupons){
-        if(it->GetId() == id){
+Cupom* Cliente::GetCupom(int id)
+{
+    for(auto it : _cupons)
+    {
+        if(it->GetId() == id)
             return it;
-        }
     }
+
     throw cupom_nao_existe_e();
+}
+
+bool Cliente::DocumentoValido(std::string documento)
+{
+    std::string cpfLimpo = "";
+    for (char c : documento) 
+    {
+        if (isdigit(c))
+            cpfLimpo += c;
+    }
+
+    if (cpfLimpo.length() != 11)
+        return false;
+
+    if (!std::regex_match(cpfLimpo, std::regex("\\d+")))
+        return false;
+
+    return true;
+}
+
+std::string Cliente::FormatarDocumento(std::string documento)
+{
+    std::string cpfLimpo = "";
+    for (char c : documento) 
+    {
+        if (isdigit(c)) 
+            cpfLimpo += c;
+    }
+
+    std::string cpfFormatado = "";
+
+    for (int i = 0; i < 11; i++) 
+    {
+        cpfFormatado += cpfLimpo[i];
+
+        if (i == 2 || i == 5)
+            cpfFormatado += '.';
+        if (i == 8) 
+            cpfFormatado += '-';
+    }
+
+    return cpfFormatado;
 }
