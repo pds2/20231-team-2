@@ -29,7 +29,7 @@ void EdicaoServico::AtualizarCliente(Cliente* cliente)
     _clienteRepositorio->Atualizar(cliente);
 }
 
-void ImprimeModulo()
+void ImprimeModuloEdicao()
 {
     std::cout << "+------------------+" << std::endl;
     std::cout << "| " << CIANO << "MÓDULO DE EDIÇÃO" << RESET << " |" << std::endl;
@@ -38,7 +38,7 @@ void ImprimeModulo()
 
 void EdicaoServico::EditarUsuarioAtual(Usuario* usuario)
 {
-    ImprimeModulo();
+    ImprimeModuloEdicao();
 
     TipoUsuario tipo = usuario->GetTipo();
     std::string descricaoTipo = (tipo == TipoUsuario::CLIENTE) ? "cliente" : "restaurante";

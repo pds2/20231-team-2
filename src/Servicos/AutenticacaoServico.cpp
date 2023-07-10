@@ -14,7 +14,7 @@ AutenticacaoServico::AutenticacaoServico(DatabaseManager * dbManager)
     _restauranteRepositorio = dbManager->GetRestauranteRepositorio();
 }
 
-void ImprimeModulo()
+void ImprimeModuloAutenticacao()
 {
     std::cout << "+------------------------+" << std::endl;
     std::cout << "| " << CIANO << "MÓDULO DE AUTENTICAÇÃO" << RESET << " |" << std::endl;
@@ -23,7 +23,7 @@ void ImprimeModulo()
 
 Usuario* AutenticacaoServico::MenuLogin()
 {
-    ImprimeModulo();
+    ImprimeModuloAutenticacao();
 
     int escolha = -1;
     while (escolha != 0)
