@@ -4,6 +4,8 @@
 
 #include "Cupom.hpp"
 #include "Cliente.hpp"
+#include "CupomBasico.hpp"
+#include "CupomCustomizado.hpp"
 #include "Sqlite/sqlite3.h"
 #include "Repositories/CupomRepositorio.hpp"
 
@@ -17,13 +19,28 @@ Cupom* CupomRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
     int id = sqlite3_column_int(stmt, 0);
     int idCliente = sqlite3_column_int(stmt, 1);
 
-    std::string criacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 4)));
-    std::string atualizacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 5)));
-    std::string codigo(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2)));
+    std::string criacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 7)));
+    std::string atualizacao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 8)));
+    
+    int valido = sqlite3_column_int(stmt, 2);
+    double desconto = sqlite3_column_double(stmt, 3);
 
-    float desconto = sqlite3_column_double(stmt, 3);
+    std::string descricao(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 4)));
+    std::string etiqueta(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 5)));
 
-    Cupom* entidade = new Cupom(codigo, desconto, idCliente);
+    CupomType tipo = static_cast<CupomType>(sqlite3_column_int(stmt, 6));
+
+    Cupom* entidade;
+
+    if (tipo == CupomType::BASICO)
+    {
+        entidade = new CupomBasico(etiqueta, desconto, idCliente);
+    }
+    else
+    {
+        entidade = new CupomCustomizado(etiqueta, desconto, idCliente, descricao);
+    }
+
     entidade->SetarDadosBase(criacao, atualizacao, id);
 
     return entidade;
@@ -69,16 +86,18 @@ Cupom* CupomRepositorio::BuscaPorId(int id)
 
 void CupomRepositorio::Inserir(Cupom* entidade)
 {
-    std::string query = "INSERT INTO " + _tabela + " (idCliente, valido, codigo, desconto, dataDeCriacao, dataUltimaAtualizacao) VALUES ({0}, {1}, '{2}', {3}, '{4}', '{5}');";
-
+    std::string query = "INSERT INTO " + _tabela + " (idCliente, valido, valor_desconto, descricao, etiqueta, tipo, dataDeCriacao, dataUltimaAtualizacao) VALUES ({0}, {1}, {2}, '{3}', '{4}', {5} ,'{6}', '{7}');";
+    
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
         { "{0}", entidade->GetIdDoCliente() },
-        { "{1}", entidade->EstaValido() },
-        { "{2}", entidade->GetCodigo() },
-        { "{3}", entidade->GetValor() },
-        { "{4}", entidade->GetDataDeCriacao() },
-        { "{5}", entidade->GetDataUltimaAtualizacao() }
+        { "{1}", static_cast<int>(entidade->EstaValido()) },
+        { "{2}", entidade->GetValor() },
+        { "{3}", entidade->Descricao() },
+        { "{4}", entidade->GetEtiqueta() },
+        { "{5}", static_cast<int>(entidade->GetTipoCupom()) },
+        { "{6}", entidade->GetDataDeCriacao() },
+        { "{7}", entidade->GetDataUltimaAtualizacao() }
     };
 
     ExecuteSQLReplace(query, values);
@@ -88,15 +107,16 @@ void CupomRepositorio::Inserir(Cupom* entidade)
 void CupomRepositorio::Atualizar(Cupom* entidade)
 {
     entidade->AtualizarAgora();
-    
-    std::string query = "UPDATE " + _tabela + " SET codigo = '{0}', desconto = {1}, valido = {2} dataUltimaAtualizacao = '{3}' WHERE id = {4};";
+
+    std::string query = "UPDATE " + _tabela + " SET valido = {0}, valor_desconto = {1}, descricao = '{2}', etiqueta = '{3}', dataUltimaAtualizacao = '{4}' WHERE id = {5};";
     std::map<std::string, std::variant<int, double, std::string>> values = 
     {
-        { "{0}", entidade->GetCodigo() },
+        { "{0}", entidade->EstaValido() },
         { "{1}", entidade->GetValor() },
-        { "{2}", entidade->EstaValido() },
-        { "{3}", entidade->GetDataUltimaAtualizacao() },
-        { "{4}", entidade->GetId() }
+        { "{2}", entidade->Descricao() },
+        { "{3}", entidade->GetEtiqueta() },
+        { "{4}", entidade->GetDataUltimaAtualizacao() },
+        { "{5}", entidade->GetId() },
     };
 
     ExecuteSQLReplace(query, values);
@@ -113,8 +133,10 @@ void CupomRepositorio::CreateTable()
                         "id INTEGER PRIMARY KEY AUTOINCREMENT,"
                         "idCliente INTEGER,"
                         "valido INT,"
-                        "codigo TEXT,"
-                        "desconto REAL,"
+                        "valor_desconto REAL,"
+                        "descricao TEXT,"
+                        "etiqueta TEXT,"
+                        "tipo INT,"
                         "dataDeCriacao TEXT,"
                         "dataUltimaAtualizacao TEXT);";
 
