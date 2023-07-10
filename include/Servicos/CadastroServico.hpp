@@ -20,6 +20,22 @@ private:
   ClienteRepositorio *_clienteRepositorio;
   RestauranteRepositorio *_restauranteRepositorio;
 
+
+  /**
+   * @brief Valida se um login está disponível.
+   * @param tipo Tipo do usuário.
+   * @param login Login a ser verificado.
+   * @param ignorar Id que será ignorado na verificação
+   * @returns true se estiver dispinível.
+  */
+  bool LoginDisponivel(TipoUsuario tipo, std::string login, int ignorar);
+
+  /**
+   * @brief Le um login do usuário, até que ele seja disponível.
+   * @param tipo Tipo do usuário.
+   * @returns O login válido.
+  */
+  std::string LerLogin(TipoUsuario tipo);
 public:
   /**
   * @brief Construtor padrão.

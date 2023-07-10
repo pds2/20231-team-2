@@ -10,12 +10,13 @@
 #include "Repositories/DatabaseManager.hpp"
 
 // Inclusão dos serviços.
+#include "Servicos/EdicaoServico.hpp"
 #include "Servicos/PedidoServico.hpp"
 #include "Servicos/RemocaoServico.hpp"
 #include "Servicos/CadastroServico.hpp"
 #include "Servicos/CarteiraServico.hpp"
-#include "Servicos/AutenticacaoServico.hpp"
 #include "Servicos/RestauranteServico.hpp"
+#include "Servicos/AutenticacaoServico.hpp"
 
 int main()
 {
@@ -29,6 +30,7 @@ int main()
     PedidoServico pedidoServico = PedidoServico(dbManager);
     CarteiraServico carteiraServico = CarteiraServico(dbManager);
     RestauranteServico restauranteServico = RestauranteServico(dbManager);
+    EdicaoServico edicaoServico = EdicaoServico(dbManager);
 
     // Usuário atual.
     Usuario* usuario_logado = nullptr;
@@ -45,7 +47,7 @@ int main()
         if (usuario_logado != nullptr)
         {
             std::cout << "[3] Logout." << std::endl;
-            std::cout << "[4] Alterar sua senha." << std::endl;
+            std::cout << "[4] Editar suas informações." << std::endl;
             std::cout << "[5] " << VERMELHO << "Deletar" << RESET << " o usuário atual." << std::endl;
         }
             
@@ -73,7 +75,7 @@ int main()
             case 4:
                 if (usuario_logado != nullptr)
                 {
-                    autenticacaoServico.EditarSenha(usuario_logado);
+                    edicaoServico.EditarUsuarioAtual(usuario_logado);
                     break;
                 }
             case 5:

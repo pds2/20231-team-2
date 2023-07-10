@@ -43,6 +43,7 @@ class RemocaoServico
         /**
          * @brief Função que deleta o usuário atual do sistema.
          * @param usuario usuário logado.
+         * @returns Um ponteiro pro usuário atual, ou nulo caso a operação não seja cancelada.
          */
         Usuario* RemoverUsuarioAtual(Usuario* usuario);
 };

@@ -61,11 +61,6 @@ class AutenticacaoServico
          *      do tipo(restaurante ou cliente) correto.
         */
         Usuario* MenuLogin();
-
-        /**
-         * @brief Responsável por gerenciar a mudança de senhas do usuário logado.
-        */
-        void EditarSenha(Usuario* usuario);
 };
 
 #endif
