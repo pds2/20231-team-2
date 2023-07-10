@@ -18,7 +18,6 @@
  */
 class Restaurante : public Usuario {
 private:
-    std::string _CNPJ;
     std::vector<Item*> _itens;
 
 public:
@@ -30,12 +29,6 @@ public:
      * @param CNPJ O CNPJ do restaurante.
      */
     Restaurante(std::string nome, std::string login, std::string senha, std::string CNPJ);
-
-    /**
-     * @brief Retorna o CNPJ do restaurante.
-     * @return O CNPJ do restaurante.
-     */
-    std::string GetCNPJ();
 
     /**
      * @brief Adiciona um item a esse restaurante.
@@ -60,6 +53,20 @@ public:
      * @return O tipo do usuário.
      */
     TipoUsuario GetTipo() override;
+
+    /**
+     * @brief Responsável por validar se o CNPJ informado é válido.
+     * @param documento CNPJ a ser validado.
+     * @returns true caso sejá válido.
+    */
+    bool DocumentoValido(std::string documento) override;
+
+    /**
+     * @brief Responsável por formatar o CNPJ informado.
+     * @param documento CNPJ a ser formatado.
+     * @returns CNPJ com a formatação correta.
+    */
+    std::string FormatarDocumento(std::string documento) override;
 };
 
 #endif // RESTAURANTE_HPP

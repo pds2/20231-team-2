@@ -4,7 +4,9 @@
 #include <stdexcept>
 
 #include "cores.hpp"
+#include "Usuario.hpp"
 #include "Utils/InputManager.hpp"
+#include "Utils/ValidadorDeDocumentos.hpp"
 
 void ImprimeFalhaNumeros(std::string flag)
 {
@@ -149,4 +151,40 @@ std::string InputManager::LerString()
     }
 
     return texto;
+}
+
+void ImprimeFalhaDocumento(std::string flag)
+{
+    std::cout << "\nA string informada é " << VERMELHO << "inválida" << RESET << "." << std::endl;
+    std::cout << "Informe novamente o " << VERDE << flag << RESET << "." << std::endl;
+    std::cout << "Nova entrada: ";
+}
+
+std::string InputManager::LerDocumento(TipoUsuario tipo)
+{
+    std::string flag = (tipo == TipoUsuario::CLIENTE) ? "CPF" : "CNPJ";
+    std::string documento;
+
+    bool leitura_com_sucesso = false;
+    while(!leitura_com_sucesso)
+    {
+        documento = LerString();
+
+        if (tipo == TipoUsuario::CLIENTE)
+            leitura_com_sucesso = ValidadorDeDocumentos::ValidarCPF(documento);
+        else
+            leitura_com_sucesso = ValidadorDeDocumentos::ValidarCNPJ(documento);
+
+        if (!leitura_com_sucesso)
+            ImprimeFalhaDocumento(flag);
+    }
+
+    std::string documentoLimpo = "";
+    for (char c : documento) 
+    {
+        if (isdigit(c))
+            documentoLimpo += c;
+    }
+
+    return documentoLimpo;
 }

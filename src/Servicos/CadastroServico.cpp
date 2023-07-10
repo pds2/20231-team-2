@@ -18,7 +18,8 @@ CadastroServico::CadastroServico(DatabaseManager *dbManager) {
   _restauranteRepositorio = dbManager->GetRestauranteRepositorio();
 }
 
-Usuario* CadastroServico::MenuCadastro(){
+Usuario* CadastroServico::MenuCadastro()
+{
     int opcao;
     std::cout << CIANO << "Escolha o tipo de cadastro! Pressione" << RESET <<std::endl;
     std::cout << "[0] Se você quiser sair" << std::endl;
@@ -35,8 +36,8 @@ Usuario* CadastroServico::MenuCadastro(){
       case 1:
         std::cout << "Digite o nome do cliente: ";
         nome = InputManager::LerString();
-        std::cout << "Digite o CPF do cliente: ";
-        cpf = InputManager::LerString();
+        std::cout << "Digite o CPF(11 digitos) do cliente: ";
+        cpf = InputManager::LerDocumento(TipoUsuario::CLIENTE);
         std::cout << "Digite o login do cliente: ";
         login = InputManager::LerString();
         std::cout << "Digite a senha do cliente: ";
@@ -46,8 +47,8 @@ Usuario* CadastroServico::MenuCadastro(){
       case 2:
         std::cout << "Digite o nome do restaurante: ";
         nome = InputManager::LerString();
-        std::cout << "Digite o CNPJ do restaurante: ";
-        cnpj = InputManager::LerString();
+        std::cout << "Digite o CNPJ(14 digitos) do restaurante: ";
+        cnpj = InputManager::LerDocumento(TipoUsuario::RESTAURANTE);
         std::cout << "Digite o login do restaurante: ";
         login = InputManager::LerString();
         std::cout << "Digite a senha do restaurante: ";

@@ -82,7 +82,7 @@ void RestauranteRepositorio::Inserir(Restaurante* entidade)
         { "{0}", entidade->GetNome() },
         { "{1}", entidade->GetDataDeCriacao() },
         { "{2}", entidade->GetDataUltimaAtualizacao() },
-        { "{3}", entidade->GetCNPJ() },
+        { "{3}", entidade->GetDocumento() },
         { "{4}", entidade->GetNome() },
         { "{5}", entidade->GetLogin() },
         { "{6}", entidade->GetSenha() },
@@ -104,7 +104,7 @@ void RestauranteRepositorio::Atualizar(Restaurante* entidade)
     {
         { "{0}", entidade->GetNome() },
         { "{1}", entidade->GetDataUltimaAtualizacao() },
-        { "{2}", entidade->GetCNPJ() },
+        { "{2}", entidade->GetDocumento() },
         { "{3}", entidade->GetLogin() },
         { "{4}", entidade->GetSenha() },
         { "{5}", entidade->GetId() },
