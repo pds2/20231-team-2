@@ -37,6 +37,7 @@ Usuario* RemocaoServico::RemoverUsuarioAtual(Usuario* usuario)
     std::cout << "\nOlá " << usuario->GetNome() << "." << std::endl;
     std::cout << "Informações do " << descricaoTipo << " atual: " << std::endl;
     std::cout << "Login: " << usuario->GetLogin() << std::endl; 
+    std::cout << "Documento: " << usuario->GetDocumento() << std::endl;
     std::cout << "Data de criação: " << usuario->GetDataDeCriacao() << std::endl; 
     std::string dataUltimaAtualizacao = usuario->GetDataUltimaAtualizacao();
     if (dataUltimaAtualizacao !=  "00:00 01/01/0001")
