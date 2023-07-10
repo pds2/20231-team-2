@@ -1,6 +1,9 @@
 #include "../third_party/doctest.h"
 #include "../include/Cliente.hpp"
 
+#include "CupomBasico.hpp"
+#include "CupomCustomizado.hpp"
+
 TEST_CASE("Teste GetCPF") {
     Cliente cliente("nome", "login", "senha", "142.663.400-52");
     CHECK(cliente.GetDocumento() == "142.663.400-52");
@@ -37,7 +40,7 @@ TEST_CASE("Teste AdicionarRemoverCarrinho") {
 
 TEST_CASE("Testa adição e remoção de cupons"){
     Cliente cliente("Nome", "login", "senha", "169.105.950-17");
-    Cupom* Dez = new Cupom("1", 5, 1);
+    Cupom* Dez = new CupomCustomizado("10PORCENTO", 5, 1, "5PORCENTO");
     cliente.AdicionaCupom(Dez);
 
     CHECK(cliente.GetCupons().size() == 1);
