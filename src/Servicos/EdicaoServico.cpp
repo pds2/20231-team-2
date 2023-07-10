@@ -54,7 +54,7 @@ void EdicaoServico::EditarUsuarioAtual(Usuario* usuario)
 
     std::cout << std::endl;
 
-    std::cout << "Digite as " << VERDE << " novas " << RESET << "informações:" << std::endl;
+    std::cout << "Digite as " << VERDE << "novas" << RESET << " informações:" << std::endl;
     int escolha = -1;
     while(escolha != 0)
     {
@@ -84,10 +84,10 @@ void EdicaoServico::EditarUsuarioAtual(Usuario* usuario)
                     AtualizarRestaurante(restaurante);
                 }
                 std::cout << VERDE << "Alterações salvas com sucesso!" <<  RESET << std::endl;
-                break;
+                return;
             case 1:
                 std::cout << VERDE << "Alterações descartadas com sucesso!" <<  RESET << std::endl;
-                break;
+                return;
             case 2:
                 std::cout << "Digite o novo nome: ";
                 nome = InputManager::LerString();
