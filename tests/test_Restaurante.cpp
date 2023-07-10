@@ -3,12 +3,15 @@
 #include "Item.hpp"
 
 TEST_CASE("Teste GetCNPJ"){
-    Restaurante restaurante("nome", "login", "senha", "123456789");
-    CHECK(restaurante.GetCNPJ() == "123456789");
+    Restaurante restaurante("nome", "login", "senha", "84.649.274/0001-04");
+    CHECK(restaurante.GetDocumento() == "84.649.274/0001-04");
+
+    Restaurante restaurante2("nome", "login", "senha", "84649274000104");
+    CHECK(restaurante2.GetDocumento() == "84.649.274/0001-04");
 }
 
 TEST_CASE("Teste AdicionarItens"){
-    Restaurante restaurante("nome", "login", "senha", "123456789");
+    Restaurante restaurante("nome", "login", "senha", "11.331.309/0001-80");
     
     Item item1("Item 1", "Descrição 1", ItemType::DOCES, 10.0, 1);
     Item item2("Item 2", "Descrição 2", ItemType::BEBIDAS_ALCOLICAS, 35.0, 1);
@@ -25,7 +28,7 @@ TEST_CASE("Teste AdicionarItens"){
 }
 
 TEST_CASE("Teste RemoverItens"){
-    Restaurante restaurante("nome", "login", "senha", "123456789");
+    Restaurante restaurante("nome", "login", "senha", "11.331.309/0001-80");
     
     Item item1("Item 1", "Descrição 1", ItemType::DOCES, 10.0, 1);
     Item item2("Item 2", "Descrição 2", ItemType::BEBIDAS_ALCOLICAS, 35.0, 1);
