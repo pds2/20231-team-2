@@ -77,12 +77,6 @@ public:
     void SetCarrinhos(std::vector<Carrinho*> carrinhos);
 
     /**
-     * @brief Retorna o tipo do usuário, neste caso, cliente.
-     * @return O tipo do usuário.
-     */
-    TipoUsuario GetTipo() override;
-
-    /**
      * @brief Adiciona um cupom aos cupons do cliente.
      * @param cupom O ponteiro para os cupons do cliente.
     */
@@ -106,6 +100,12 @@ public:
      * @return Ponteiro para cupom.
     */
     Cupom* GetCupom(int id);
+
+    /**
+     * @brief Retorna o tipo do usuário, neste caso, cliente.
+     * @return O tipo do usuário.
+     */
+    TipoUsuario GetTipo() override;
 
     /**
      * @brief Responsável por validar se o CPF informado é válido.

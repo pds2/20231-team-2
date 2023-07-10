@@ -73,12 +73,6 @@ public:
     std::string GetNome();
 
     /**
-     * @brief Método virtual que retorna o tipo do usuário.
-     * @return O tipo do usuário.
-     */
-    virtual TipoUsuario GetTipo() = 0;
-
-    /**
      * @brief Altera o documento do usuário.
      * @param documento Novo documento.
     */
@@ -89,6 +83,12 @@ public:
      * @return O documento.
     */
     std::string GetDocumento();
+
+    /**
+     * @brief Método virtual que retorna o tipo do usuário.
+     * @return O tipo do usuário.
+     */
+    virtual TipoUsuario GetTipo() = 0;
 
     /**
      * @brief Responsável por validar o formato de um documento informado.
