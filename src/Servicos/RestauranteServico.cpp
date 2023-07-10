@@ -55,12 +55,38 @@ void RestauranteServico::escolherAcao(Restaurante *restaurante)
     }
 }
 
+std::string DescricaoTipoItem(ItemType tipo)
+{
+    switch (tipo)
+    {
+        case ItemType::BEBIDAS:
+            return "Bebidas";
+
+        case ItemType::BEBIDAS_ALCOLICAS:
+            return "Bebidas Alcólicas";
+
+        case ItemType::FAST_FOOD:
+            return "Fast Food";
+
+        case ItemType::PRATO_FEITO:
+            return "Prato feito";
+        
+        case ItemType::DOCES:
+            return "Doces";
+
+        default:
+            break;
+    }
+
+    return "Indefinido";
+}
+
 void ImprimirItem(Item* item)
 {
     std::cout << "ID: " << item->GetId() << std::endl;
     std::cout << "Nome: " << item->GetNome() << std::endl;
     std::cout << "Descrição: " << item->GetDescricao() << std::endl;
-    std::cout << "Tipo: " << static_cast<int>(item->GetTipo()) << std::endl;
+    std::cout << "Tipo: " << DescricaoTipoItem(item->GetTipo()) << std::endl;
     std::cout << "Preço Base: " << VERDE << item->GetPrecoBase() << RESET << std::endl;
     std::cout << "Preço Atual: " << VERDE << item->GetPrecoAtual() << RESET << std::endl;
     std::cout << std::endl;
