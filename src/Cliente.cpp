@@ -1,4 +1,3 @@
-#include <regex>
 #include <string>
 
 #include "Cliente.hpp"
@@ -6,6 +5,7 @@
 #include "Carteira.hpp"
 #include "Carrinho.hpp"
 #include "Cupom.hpp"
+#include "Utils/ValidadorDeDocumentos.hpp"
 
 Cliente::Cliente(std::string nome, std::string login, std::string senha, std::string CPF)
     :Usuario(nome, login, senha, CPF, TipoUsuario::CLIENTE)
@@ -83,20 +83,7 @@ Cupom* Cliente::GetCupom(int id)
 
 bool Cliente::DocumentoValido(std::string documento)
 {
-    std::string cpfLimpo = "";
-    for (char c : documento) 
-    {
-        if (isdigit(c))
-            cpfLimpo += c;
-    }
-
-    if (cpfLimpo.length() != 11)
-        return false;
-
-    if (!std::regex_match(cpfLimpo, std::regex("\\d+")))
-        return false;
-
-    return true;
+    return ValidadorDeDocumentos::ValidarCPF(documento);
 }
 
 std::string Cliente::FormatarDocumento(std::string documento)

@@ -1,7 +1,7 @@
-#include <regex>
 #include <string>
 
 #include "Restaurante.hpp"
+#include "Utils/ValidadorDeDocumentos.hpp"
 
 Restaurante::Restaurante(std::string nome, std::string login, std::string senha, std::string CNPJ)
     :Usuario(nome, login, senha, CNPJ ,TipoUsuario::RESTAURANTE)
@@ -44,20 +44,7 @@ TipoUsuario Restaurante::GetTipo()
 
 bool Restaurante::DocumentoValido(std::string documento)
 {
-    std::string cnpjLimpo = "";
-    for (char c : documento) 
-    {
-        if (isdigit(c))
-            cnpjLimpo += c;
-    }
-
-    if (cnpjLimpo.length() != 14)
-        return false;
-
-    if (!std::regex_match(cnpjLimpo, std::regex("\\d+"))) 
-        return false;
-
-    return true;
+    return ValidadorDeDocumentos::ValidarCNPJ(documento);
 }
 
 std::string Restaurante::FormatarDocumento(std::string documento)
