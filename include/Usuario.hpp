@@ -44,6 +44,7 @@ public:
      * @param nome O nome do usuário.
      * @param login O login do usuário.
      * @param senha A senha do usuário.
+     * @param documento Documento do cliente.
      * @param tipo O tipo do usuário.
      */
     Usuario(std::string nome, std::string login, std::string senha, std::string documento, TipoUsuario tipo);

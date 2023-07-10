@@ -3,7 +3,7 @@
 #include "Usuario.hpp"
 
 Usuario::Usuario(std::string nome, std::string login, std::string senha, std::string documento, TipoUsuario tipo)
-    : _nome(nome), _login(login), _senha(senha), _tipo(tipo), _documento(documento)
+    : _nome(nome), _login(login), _senha(senha), _documento(documento), _tipo(tipo)
 {   }
 
 std::string Usuario::GetLogin()
