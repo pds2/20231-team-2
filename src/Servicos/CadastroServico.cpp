@@ -22,12 +22,19 @@ bool CadastroServico::LoginDisponivel(TipoUsuario tipo, std::string login, int i
 {
     Usuario* usuario = nullptr;
 
-    if (tipo == TipoUsuario::RESTAURANTE)
+    try
+    {
+      if (tipo == TipoUsuario::RESTAURANTE)
         usuario = _restauranteRepositorio->BuscaPorLogin(login);
-    else if (tipo == TipoUsuario::CLIENTE)
+      else if (tipo == TipoUsuario::CLIENTE)
         usuario =  _clienteRepositorio->BuscaPorLogin(login);
-
-    return (usuario != nullptr) ? usuario->GetId() != ignorar : true;
+    }
+    catch(entidade_nao_encontrada_e)
+    {
+      return true;
+    }
+    
+    return usuario->GetId() == ignorar;
 }
 
 std::string CadastroServico::LerLogin(TipoUsuario tipo)
