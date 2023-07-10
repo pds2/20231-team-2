@@ -19,6 +19,18 @@ EdicaoServico::EdicaoServico(DatabaseManager* dbManager)
     _restauranteRepositorio = dbManager->GetRestauranteRepositorio();
 }
 
+bool EdicaoServico::LoginDisponivel(TipoUsuario tipo, std::string login, int ignorar)
+{
+    Usuario* usuario = nullptr;
+
+    if (tipo == TipoUsuario::RESTAURANTE)
+        usuario = _restauranteRepositorio->BuscaPorLogin(login);
+    else if (tipo == TipoUsuario::CLIENTE)
+        usuario =  _clienteRepositorio->BuscaPorLogin(login);
+
+    return (usuario != nullptr) ? usuario->GetId() != ignorar : true;
+}
+
 void EdicaoServico::AtualizarRestaurante(Restaurante* restaurante)
 {
     _restauranteRepositorio->Atualizar(restaurante);
@@ -96,6 +108,13 @@ void EdicaoServico::EditarUsuarioAtual(Usuario* usuario)
             case 3:
                 std::cout << "Digite o novo login: ";
                 login = InputManager::LerString();
+
+                if (!LoginDisponivel(usuario->GetTipo(), login, usuario->GetId()))
+                {
+                    std::cout << VERMELHO << "Login indisponível. Tente outro!" <<  RESET << std::endl;
+                    break;
+                }
+
                 usuario->SetLogin(login);
                 break;
             case 4:

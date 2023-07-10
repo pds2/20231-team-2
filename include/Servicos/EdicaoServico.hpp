@@ -34,6 +34,15 @@ class EdicaoServico
         */
         void AtualizarCliente(Cliente* cliente);
 
+        /**
+         * @brief Valida se um login está disponível.
+         * @param tipo Tipo do usuário.
+         * @param login Login a ser verificado.
+         * @param ignorar Id que será ignorado na verificação
+         * @returns true se estiver dispinível.
+         */
+        bool LoginDisponivel(TipoUsuario tipo, std::string login, int ignorar);
+
     public:
         /**
          * @brief Construtor padrão.

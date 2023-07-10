@@ -18,6 +18,42 @@ CadastroServico::CadastroServico(DatabaseManager *dbManager) {
   _restauranteRepositorio = dbManager->GetRestauranteRepositorio();
 }
 
+bool CadastroServico::LoginDisponivel(TipoUsuario tipo, std::string login, int ignorar)
+{
+    Usuario* usuario = nullptr;
+
+    if (tipo == TipoUsuario::RESTAURANTE)
+        usuario = _restauranteRepositorio->BuscaPorLogin(login);
+    else if (tipo == TipoUsuario::CLIENTE)
+        usuario =  _clienteRepositorio->BuscaPorLogin(login);
+
+    return (usuario != nullptr) ? usuario->GetId() != ignorar : true;
+}
+
+std::string CadastroServico::LerLogin(TipoUsuario tipo)
+{
+  std::string flag = (tipo == TipoUsuario::CLIENTE) ? "cliente" : "restaurante";
+  std::string login;
+  bool loginValido = false;
+
+  while(!loginValido)
+  {
+    std::cout << "Digite o login do " << flag << ": ";
+    login = InputManager::LerString();
+
+    if(!LoginDisponivel(tipo, login, 0))
+    {
+      std::cout << VERMELHO << "Login indisponível. Tente outro!" <<  RESET << std::endl;
+    }
+    else
+    {
+      loginValido = true;
+    }
+  }
+    
+  return login;
+}
+
 Usuario* CadastroServico::MenuCadastro()
 {
     int opcao;
@@ -38,8 +74,7 @@ Usuario* CadastroServico::MenuCadastro()
         nome = InputManager::LerString();
         std::cout << "Digite o CPF(11 digitos) do cliente: ";
         cpf = InputManager::LerDocumento(TipoUsuario::CLIENTE);
-        std::cout << "Digite o login do cliente: ";
-        login = InputManager::LerString();
+        login = LerLogin(TipoUsuario::CLIENTE);
         std::cout << "Digite a senha do cliente: ";
         senha = InputManager::LerString();
         return CadastrarCliente(nome, cpf, login, senha);
@@ -49,8 +84,7 @@ Usuario* CadastroServico::MenuCadastro()
         nome = InputManager::LerString();
         std::cout << "Digite o CNPJ(14 digitos) do restaurante: ";
         cnpj = InputManager::LerDocumento(TipoUsuario::RESTAURANTE);
-        std::cout << "Digite o login do restaurante: ";
-        login = InputManager::LerString();
+        login = LerLogin(TipoUsuario::RESTAURANTE);
         std::cout << "Digite a senha do restaurante: ";
         senha = InputManager::LerString();
         return CadastrarRestaurante(nome, cnpj, login, senha);
