@@ -1,11 +1,10 @@
-#ifndef INPUTMANAGER_SERVICO_HPP
-#define INPUTMANAGER_SERVICO_HPP
+#ifndef INPUTMANAGER_HPP
+#define INPUTMANAGER_HPP
 
 #include <string>
-#include <iostream>
 
 /**
- * Classe responsável por tratar os erros den entrada do usuário.
+ * Classe responsável por tratar os erros de entrada do usuário.
 */
 class InputManager
 {
