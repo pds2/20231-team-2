@@ -65,3 +65,28 @@ SistemaUfmgfood é uma aplicação em terminal que permite aos usuários realiza
 
 ### Limpeza
 - Para limpar os arquivos objeto e binários gerados durante a compilação, execute o seguinte comando: `make clean`
+
+### Usuários e Senhas de Teste:
+Aqui estão as informações de login para os clientes e restaurantes já cadastrados no banco de dados:
+
+Clientes:
+Login: maria_silva
+Senha: cliente1_senha
+
+Login: joao_santos
+Senha: cliente2_senha
+
+Login: ana_oliveira
+Senha: cliente3_senha
+
+Restaurantes:
+Login: restaurante1_login
+Senha: restaurante1_senha
+
+Login: restaurante2_login
+Senha: restaurante2_senha
+
+Login: restaurante3_login
+Senha: restaurante3_senha
+
+# Utilize essas informações para realizar testes no sistema.
