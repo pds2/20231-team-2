@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 
+#include "Servicos/CupomServico.hpp"
 #include "Servicos/PedidoServico.hpp"
 #include "Repositories/DatabaseManager.hpp"
 #include "Repositories/CarteiraRepositorio.hpp"
@@ -15,13 +16,14 @@
 #include "Restaurante.hpp"
 #include "Utils/InputManager.hpp"
 
-PedidoServico::PedidoServico(DatabaseManager *dbManager)
+PedidoServico::PedidoServico(DatabaseManager *dbManager, CupomServico *cupom)
 {
   _itemRepositorio = dbManager->GetItemRepositorio();
   _carrinhoRepositorio = dbManager->GetCarrinhoRepositorio();
   _carteiraRepositorio = dbManager->GetCarteiraRepositorio();
   _cupomRepositorio = dbManager->GetCupomRepositorio();
   _RestaurantesRepositorio = dbManager->GetRestauranteRepositorio();
+  _cupom = cupom;
 }
 
 void ImprimeInformacoesIniciais(int &verMenu)
@@ -72,6 +74,10 @@ void PedidoServico::AplicaCupom(std::string &aplicarCupom, Cliente *cliente, Car
   aplicarCupom = InputManager::LerString();
   if (aplicarCupom == "s")
   {
+    _cupom->listarCupomDoCliente(cliente);
+    if(cliente->GetCupons().empty()){
+      return;
+    }
     int id;
     std::cout << "Por favor, digite o id do Cupom." << std::endl;
     id = InputManager::LerInt();
@@ -109,6 +115,7 @@ void ImprimeListaDeItensNoCarrinho(Carrinho *carrinho)
 void ImprimeComprasAnteriores(Cliente *cliente){
   for(Carrinho *carrinho: cliente->GetCarrinhos()){
     if(carrinho->EstaEncerrado()){
+      std::cout << AMARELO << "Carrinho" << RESET << std::endl;
       ImprimeListaDeItensNoCarrinho(carrinho);
     }     
     ImprimeValorFinalDoCarrinho(carrinho);
@@ -239,8 +246,8 @@ void PedidoServico::MenuDoCarrinho(Cliente *cliente){
       break;
     }else if(editarCarrinho == "s"){
       break;
-    }
-      std::cout << "Opção Inválida. Digite novamente" << std::endl;
+    }else
+    std::cout << "Opção Inválida. Digite novamente" << std::endl;
   }while(editarCarrinho != "s" || editarCarrinho !="f");
 }
 

@@ -26,6 +26,7 @@ class PedidoServico{
   CarrinhoRepositorio *_carrinhoRepositorio;
   CarteiraRepositorio *_carteiraRepositorio;
   CupomRepositorio *_cupomRepositorio;
+  CupomServico *_cupom;
 
   public:
 
@@ -33,7 +34,7 @@ class PedidoServico{
   * @brief Construtor padrão.
   * @param dbManager Um ponteiro para o Database.
   */
-  PedidoServico(DatabaseManager *dbManager);
+  PedidoServico(DatabaseManager *dbManager, CupomServico *cupom);
 
   /**
    * @brief Esse método é um menu que apresenta as opções 
