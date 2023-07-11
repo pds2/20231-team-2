@@ -8,10 +8,16 @@
 
 #include "Restaurante.hpp"
 #include "Item.hpp"
+#include "Cupom.hpp"
+#include "CupomBasico.hpp"
+#include "CupomCustomizado.hpp"
+#include "Cliente.hpp"
 #include "EntidadeBase.hpp"
 #include "Repositories/RestauranteRepositorio.hpp"
 #include "Repositories/ItemRepositorio.hpp"
 #include "Repositories/DatabaseManager.hpp"
+#include "Repositories/CupomRepositorio.hpp"
+#include "Repositories/ClienteRepositorio.hpp"
 
 /**
     @class RestauranteServico
@@ -22,6 +28,8 @@ class RestauranteServico
 private:
     RestauranteRepositorio* _restauranteRepositorio;
     ItemRepositorio* _itemRepositorio;
+    CupomRepositorio* _cupomRepositorio;
+    ClienteRepositorio* _clienteRepositorio;
 
     /**
      * @brief Editar um item do restaurante.
@@ -64,6 +72,11 @@ public:
      * @param restaurante Ponteiro para o objeto do restaurante.
      */
     void editarItens(Restaurante* restaurante);
+
+    /**
+     * @brief Adiciona um novo cupom que passará a estar disponível a todos os clientes.
+     */
+    void adicionarCupom();
 };
 
 #endif // RESTAURANTE_SERVICO_HPP
