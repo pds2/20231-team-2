@@ -113,6 +113,10 @@ void ImprimeListaDeItensNoCarrinho(Carrinho *carrinho)
 }
 
 void ImprimeComprasAnteriores(Cliente *cliente){
+  if(cliente->GetCarrinhos().empty()){
+    std::cout << VERMELHO << "Você não possui compras anteriores." << RESET << std::endl;
+    return;
+  }
   for(Carrinho *carrinho: cliente->GetCarrinhos()){
     if(carrinho->EstaEncerrado()){
       std::cout << AMARELO << "Carrinho" << RESET << std::endl;
@@ -171,10 +175,12 @@ void PedidoServico::EditarCarrinho(Carrinho *carrinho, int idDoItem, std::string
       catch (carrinho_vazio_e)
       {
         std::cout << VERMELHO << "Seu carrinho está vazio." << RESET << std::endl;
+        std::cout <<"\n";
       }
       catch (item_nao_existe_no_carrinho_e)
       {
         std::cout << VERMELHO << "Este item não está no seu Carrinho." << RESET << std::endl;
+        std::cout <<"\n";
       }
     }
   }
@@ -212,6 +218,7 @@ void PedidoServico::EncerrarCarrinho(Carrinho *carrinho, Cliente *cliente)
     std::cout << VERDE << "Por favor, feche o Menu, e adicione mais saldo para finalizar o pedido!" << RESET << std::endl;
   }catch(impossivel_remover_saldo_negativo_ou_igual_a_zero_e){
     std::cout << VERMELHO << "Seu carrinho está vazio" << RESET << std::endl;
+    std::cout << "\n";
   }
 }
 

@@ -45,9 +45,11 @@ void CupomServico::listarCupomDoCliente(Cliente* cliente){
             std::vector<Cupom*> vetor_cupons = cliente->GetCupons();
         
             for(auto it = vetor_cupons.begin(); it != vetor_cupons.end(); it++){
-                std::cout << VERDE << (**it).GetEtiqueta() << RESET << std::endl;
-                std::cout << (**it).GetId() << " ・ " << (**it).Descricao() << std::endl;
-                std::cout << std::endl;
+                if((**it).EstaValido()){
+                    std::cout << VERDE << (**it).GetEtiqueta() << RESET << std::endl;
+                    std::cout << (**it).GetId() << " ・ " << (**it).Descricao() << std::endl;
+                    std::cout << std::endl;
+                }
             }
         }else{
             std::cout << "Não existem cupons de compra ativos." << std::endl;
