@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 
+#include "Servicos/CupomServico.hpp"
 #include "Servicos/PedidoServico.hpp"
 #include "Repositories/DatabaseManager.hpp"
 #include "Repositories/CarteiraRepositorio.hpp"
@@ -15,13 +16,14 @@
 #include "Restaurante.hpp"
 #include "Utils/InputManager.hpp"
 
-PedidoServico::PedidoServico(DatabaseManager *dbManager)
+PedidoServico::PedidoServico(DatabaseManager *dbManager, CupomServico *cupom)
 {
   _itemRepositorio = dbManager->GetItemRepositorio();
   _carrinhoRepositorio = dbManager->GetCarrinhoRepositorio();
   _carteiraRepositorio = dbManager->GetCarteiraRepositorio();
   _cupomRepositorio = dbManager->GetCupomRepositorio();
   _RestaurantesRepositorio = dbManager->GetRestauranteRepositorio();
+  _cupom = cupom;
 }
 
 void ImprimeInformacoesIniciais(int &verMenu)
@@ -30,7 +32,8 @@ void ImprimeInformacoesIniciais(int &verMenu)
   std::cout << "[1]  Para ver nossos restaurantes" << std::endl;
   std::cout << "[2]  Para visualizar um Restaurante e ver seus itens disponíveis" << std::endl;
   std::cout << "[3]  Para criar/editar um carrinho de Compras" << std::endl;
-  std::cout << "[4]  Para sair do Menu" << std::endl;
+  std::cout << "[4]  Para ver suas compras anteriores" << std::endl;
+  std::cout << "[5]  Para sair do Menu" << std::endl;  
   std::cout << "Opção escolhida: ";
   verMenu = InputManager::LerInt();
   std::cout << std::endl;
@@ -71,6 +74,10 @@ void PedidoServico::AplicaCupom(std::string &aplicarCupom, Cliente *cliente, Car
   aplicarCupom = InputManager::LerString();
   if (aplicarCupom == "s")
   {
+    _cupom->listarCupomDoCliente(cliente);
+    if(cliente->GetCupons().empty()){
+      return;
+    }
     int id;
     std::cout << "Por favor, digite o id do Cupom." << std::endl;
     id = InputManager::LerInt();
@@ -91,6 +98,11 @@ void PedidoServico::AplicaCupom(std::string &aplicarCupom, Cliente *cliente, Car
   }
 }
 
+void ImprimeValorFinalDoCarrinho(Carrinho *carrinho){
+  std::cout << AMARELO << "O valor total do seu pedido é: R$ " << carrinho->GetValorTotal() << RESET << std::endl;
+  std::cout << std::endl;
+}
+
 void ImprimeListaDeItensNoCarrinho(Carrinho *carrinho)
 {
   std::cout << "Sua lista de compras é:" << std::endl;
@@ -98,10 +110,18 @@ void ImprimeListaDeItensNoCarrinho(Carrinho *carrinho)
   {
     std::cout << it->GetNome() << " - Preço: R$ " << it->GetPrecoAtual() << std::endl;
   }
-  std::cout << std::endl;
-  std::cout << AMARELO << "O valor total do seu pedido é: R$ " << carrinho->GetValorTotal() << RESET << std::endl;
-  std::cout << std::endl;
 }
+
+void ImprimeComprasAnteriores(Cliente *cliente){
+  for(Carrinho *carrinho: cliente->GetCarrinhos()){
+    if(carrinho->EstaEncerrado()){
+      std::cout << AMARELO << "Carrinho" << RESET << std::endl;
+      ImprimeListaDeItensNoCarrinho(carrinho);
+    }     
+    ImprimeValorFinalDoCarrinho(carrinho);
+  }
+}
+
 
 void PedidoServico::ListarRestaurantes()
 {
@@ -110,8 +130,7 @@ void PedidoServico::ListarRestaurantes()
 
   for (auto it : _RestaurantesRepositorio->ListarTodos())
   {
-    std::cout << it->GetNome() << ", "
-              << ". O id do Restaurante é: " << it->GetId() << std::endl;
+    std::cout << it->GetNome() << ". O id do Restaurante é: " << it->GetId() << std::endl;
   }
 }
 
@@ -191,6 +210,8 @@ void PedidoServico::EncerrarCarrinho(Carrinho *carrinho, Cliente *cliente)
   {
     std::cout << VERMELHO << "Saldo Insuficiente" << RESET << std::endl;
     std::cout << VERDE << "Por favor, feche o Menu, e adicione mais saldo para finalizar o pedido!" << RESET << std::endl;
+  }catch(impossivel_remover_saldo_negativo_ou_igual_a_zero_e){
+    std::cout << VERMELHO << "Seu carrinho está vazio" << RESET << std::endl;
   }
 }
 
@@ -212,15 +233,21 @@ void PedidoServico::MenuDoCarrinho(Cliente *cliente){
     }
     else if(editarCarrinho == "v"){
       ImprimeListaDeItensNoCarrinho(carrinho);
+      ImprimeValorFinalDoCarrinho(carrinho);
     }
     else if (editarCarrinho == "f")
     {
       std::string aplicarCupom;
       AplicaCupom(aplicarCupom, cliente, carrinho);
       EncerrarCarrinho(carrinho, cliente);
-      _carrinhoRepositorio->Inserir(carrinho);
-    }else 
-      std::cout << "Opção Inválida. Digite novamente" << std::endl;
+      ImprimeValorFinalDoCarrinho(carrinho);
+      _carrinhoRepositorio->Inserir(carrinho); 
+      cliente->AdicionarCarrinho(carrinho);     
+      break;
+    }else if(editarCarrinho == "s"){
+      break;
+    }else
+    std::cout << "Opção Inválida. Digite novamente" << std::endl;
   }while(editarCarrinho != "s" || editarCarrinho !="f");
 }
 
@@ -249,6 +276,9 @@ void PedidoServico::ImprimeMenu(Cliente *cliente)
         break;
       }
       case 4:
+        ImprimeComprasAnteriores(cliente);
+        break;
+      case 5:
         break;
       default:
         std::cout << VERMELHO << "Opção Inválida. Digite novamente" << RESET << std::endl;
