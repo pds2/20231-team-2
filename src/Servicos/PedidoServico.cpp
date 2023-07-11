@@ -30,7 +30,8 @@ void ImprimeInformacoesIniciais(int &verMenu)
   std::cout << "[1]  Para ver nossos restaurantes" << std::endl;
   std::cout << "[2]  Para visualizar um Restaurante e ver seus itens disponíveis" << std::endl;
   std::cout << "[3]  Para criar/editar um carrinho de Compras" << std::endl;
-  std::cout << "[4]  Para sair do Menu" << std::endl;
+  std::cout << "[4]  Para ver suas compras anteriores" << std::endl;
+  std::cout << "[5]  Para sair do Menu" << std::endl;  
   std::cout << "Opção escolhida: ";
   verMenu = InputManager::LerInt();
   std::cout << std::endl;
@@ -101,6 +102,14 @@ void ImprimeListaDeItensNoCarrinho(Carrinho *carrinho)
   std::cout << std::endl;
   std::cout << AMARELO << "O valor total do seu pedido é: R$ " << carrinho->GetValorTotal() << RESET << std::endl;
   std::cout << std::endl;
+}
+
+void ImprimeComprasAnteriores(Cliente *cliente){
+  for(auto it: cliente->GetCarrinhos()){
+    if(it->EstaEncerrado() == true){
+      ImprimeListaDeItensNoCarrinho(it);
+    }
+  }
 }
 
 void PedidoServico::ListarRestaurantes()
@@ -249,6 +258,9 @@ void PedidoServico::ImprimeMenu(Cliente *cliente)
         break;
       }
       case 4:
+        ImprimeComprasAnteriores(cliente);
+        break;
+      case 5:
         break;
       default:
         std::cout << VERMELHO << "Opção Inválida. Digite novamente" << RESET << std::endl;
