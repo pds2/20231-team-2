@@ -60,7 +60,7 @@ public:
     /**
      * @brief Define o status do cupom como válido.
      */
-    void SetaValido();
+    void SetaInvalido();
 
     /**
      * @brief REtorna o id do cliente.
