@@ -46,7 +46,7 @@ void CupomServico::listarCupomDoCliente(Cliente* cliente){
         
             for(auto it = vetor_cupons.begin(); it != vetor_cupons.end(); it++){
                 std::cout << VERDE << (**it).GetEtiqueta() << RESET << std::endl;
-                std::cout << (**it).Descricao() << std::endl;
+                std::cout << (**it).GetId() << " ・ " << (**it).Descricao() << std::endl;
                 std::cout << std::endl;
             }
         }else{
