@@ -320,7 +320,7 @@ void RestauranteServico::adicionarCupom(){
             std::cout << "[0] Não." << std::endl;
             std::cout << "[1] Sim." << std::endl;
             std::cout << "Escolha: ";
-            int escolha = InputManager::LerInt();
+            escolha = InputManager::LerInt();
             std::cout << std::endl;
         }
 
@@ -359,7 +359,7 @@ void RestauranteServico::adicionarCupom(){
             std::cout << "[0] Não." << std::endl;
             std::cout << "[1] Sim." << std::endl;
             std::cout << "Escolha: ";
-            int escolha = InputManager::LerInt();
+            escolha = InputManager::LerInt();
             std::cout << std::endl;
         }
 
