@@ -92,6 +92,11 @@ void PedidoServico::AplicaCupom(std::string &aplicarCupom, Cliente *cliente, Car
   }
 }
 
+void ImprimeValorFinalDoCarrinho(Carrinho *carrinho){
+  std::cout << AMARELO << "O valor total do seu pedido é: R$ " << carrinho->GetValorTotal() << RESET << std::endl;
+  std::cout << std::endl;
+}
+
 void ImprimeListaDeItensNoCarrinho(Carrinho *carrinho)
 {
   std::cout << "Sua lista de compras é:" << std::endl;
@@ -99,18 +104,17 @@ void ImprimeListaDeItensNoCarrinho(Carrinho *carrinho)
   {
     std::cout << it->GetNome() << " - Preço: R$ " << it->GetPrecoAtual() << std::endl;
   }
-  std::cout << std::endl;
-  std::cout << AMARELO << "O valor total do seu pedido é: R$ " << carrinho->GetValorTotal() << RESET << std::endl;
-  std::cout << std::endl;
 }
 
 void ImprimeComprasAnteriores(Cliente *cliente){
-  for(auto it: cliente->GetCarrinhos()){
-    if(it->EstaEncerrado() == true){
-      ImprimeListaDeItensNoCarrinho(it);
-    }
+  for(Carrinho *carrinho: cliente->GetCarrinhos()){
+    if(carrinho->EstaEncerrado()){
+      ImprimeListaDeItensNoCarrinho(carrinho);
+    }     
+    ImprimeValorFinalDoCarrinho(carrinho);
   }
 }
+
 
 void PedidoServico::ListarRestaurantes()
 {
@@ -119,8 +123,7 @@ void PedidoServico::ListarRestaurantes()
 
   for (auto it : _RestaurantesRepositorio->ListarTodos())
   {
-    std::cout << it->GetNome() << ", "
-              << ". O id do Restaurante é: " << it->GetId() << std::endl;
+    std::cout << it->GetNome() << ". O id do Restaurante é: " << it->GetId() << std::endl;
   }
 }
 
@@ -200,6 +203,8 @@ void PedidoServico::EncerrarCarrinho(Carrinho *carrinho, Cliente *cliente)
   {
     std::cout << VERMELHO << "Saldo Insuficiente" << RESET << std::endl;
     std::cout << VERDE << "Por favor, feche o Menu, e adicione mais saldo para finalizar o pedido!" << RESET << std::endl;
+  }catch(impossivel_remover_saldo_negativo_ou_igual_a_zero_e){
+    std::cout << VERMELHO << "Seu carrinho está vazio" << RESET << std::endl;
   }
 }
 
@@ -221,14 +226,20 @@ void PedidoServico::MenuDoCarrinho(Cliente *cliente){
     }
     else if(editarCarrinho == "v"){
       ImprimeListaDeItensNoCarrinho(carrinho);
+      ImprimeValorFinalDoCarrinho(carrinho);
     }
     else if (editarCarrinho == "f")
     {
       std::string aplicarCupom;
       AplicaCupom(aplicarCupom, cliente, carrinho);
       EncerrarCarrinho(carrinho, cliente);
-      _carrinhoRepositorio->Inserir(carrinho);
-    }else 
+      ImprimeValorFinalDoCarrinho(carrinho);
+      _carrinhoRepositorio->Inserir(carrinho); 
+      cliente->AdicionarCarrinho(carrinho);     
+      break;
+    }else if(editarCarrinho == "s"){
+      break;
+    }
       std::cout << "Opção Inválida. Digite novamente" << std::endl;
   }while(editarCarrinho != "s" || editarCarrinho !="f");
 }
