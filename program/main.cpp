@@ -10,6 +10,7 @@
 #include "Repositories/DatabaseManager.hpp"
 
 // Inclusão dos serviços.
+#include "Servicos/CupomServico.hpp"
 #include "Servicos/EdicaoServico.hpp"
 #include "Servicos/PedidoServico.hpp"
 #include "Servicos/RemocaoServico.hpp"
@@ -27,7 +28,8 @@ int main()
     AutenticacaoServico autenticacaoServico = AutenticacaoServico(dbManager);
     CadastroServico cadastroServico = CadastroServico(dbManager);
     RemocaoServico remocaoServico = RemocaoServico(dbManager);
-    PedidoServico pedidoServico = PedidoServico(dbManager);
+    CupomServico cupomServico = CupomServico(dbManager);
+    PedidoServico pedidoServico = PedidoServico(dbManager, &cupomServico);
     CarteiraServico carteiraServico = CarteiraServico(dbManager);
     RestauranteServico restauranteServico = RestauranteServico(dbManager);
     EdicaoServico edicaoServico = EdicaoServico(dbManager);
