@@ -57,7 +57,7 @@ void ItemCarrinhoRepositorio::CarregarItensNoCarrinho(Carrinho* carrinho)
     for(auto pair : _entidades)
     {
         ItemCarrinho* relacao = pair.second;
-        if (relacao->GetId() == idCarrinho) 
+        if (relacao->_idCarrinho == idCarrinho) 
         {
             Item* item = _itemRepositorio->BuscaPorId(relacao->_idItem);
             if (item)

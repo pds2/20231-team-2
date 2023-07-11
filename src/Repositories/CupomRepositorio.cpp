@@ -43,6 +43,9 @@ Cupom* CupomRepositorio::ConverterParaEntidade(sqlite3_stmt* stmt)
 
     entidade->SetarDadosBase(criacao, atualizacao, id);
 
+    if(!valido)
+        entidade->SetaInvalido();
+
     return entidade;
 }
 

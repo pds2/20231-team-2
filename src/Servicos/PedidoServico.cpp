@@ -79,7 +79,7 @@ void PedidoServico::AplicaCupom(std::string &aplicarCupom, Cliente *cliente, Car
     {
       Cupom *cupom = cliente->GetCupom(id);
       carrinho->AplicarDesconto(cupom);
-      cupom->SetaValido();
+      cupom->SetaInvalido();
       _cupomRepositorio->Atualizar(cupom);
     }
     catch (um_cupom_ja_foi_usado_e)

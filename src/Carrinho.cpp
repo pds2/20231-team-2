@@ -22,7 +22,7 @@ void Carrinho::AplicarDesconto(Cupom *cupom){
   if(_descontoAplicado == false){
      _valorTotal = _valorTotal * (100-cupom->GetValor())/100;
     SetValorTotal(_valorTotal);
-    cupom->SetaValido();
+    cupom->SetaInvalido();
     _descontoAplicado = true;
   }else{
     throw um_cupom_ja_foi_usado_e();

@@ -34,7 +34,7 @@ bool Cupom::EstaValido(){
   return _valido;
 }
 
-void Cupom::SetaValido(){
+void Cupom::SetaInvalido(){
   _valido = false;
 }
 

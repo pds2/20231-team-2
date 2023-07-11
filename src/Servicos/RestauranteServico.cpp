@@ -16,6 +16,8 @@ RestauranteServico::RestauranteServico(DatabaseManager *dbManager)
 {
     _restauranteRepositorio = dbManager->GetRestauranteRepositorio();
     _itemRepositorio = dbManager->GetItemRepositorio();
+    _cupomRepositorio = dbManager->GetCupomRepositorio();
+    _clienteRepositorio = dbManager->GetClienteRepositorio();
 }
 
 void RestauranteServico::escolherAcao(Restaurante *restaurante)
@@ -29,6 +31,7 @@ void RestauranteServico::escolherAcao(Restaurante *restaurante)
         std::cout << "[2] Adicionar um novo item." << std::endl;
         std::cout << "[3] Remover um item existente." << std::endl;
         std::cout << "[4] Editar itens atuais." << std::endl;
+        std::cout << "[5] Adicionar um cupom de desconto." << std::endl;
         std::cout << "Opção: ";
         opcao = InputManager::LerInt();
         std::cout << std::endl;
@@ -48,6 +51,9 @@ void RestauranteServico::escolherAcao(Restaurante *restaurante)
             break;
         case 4:
             editarItens(restaurante);
+            break;
+        case 5:
+            adicionarCupom();
             break;
         default:
              std::cout << VERMELHO << "Opção inválida! Tente novamente." <<  RESET << std::endl;
@@ -256,6 +262,113 @@ void RestauranteServico::editarItens(Restaurante* restaurante)
                 break;
             default:
                 std::cout << VERMELHO << "Opção inválida! Tente novamente." <<  RESET << std::endl;
+        }
+    }
+}
+
+void RestauranteServico::adicionarCupom(){
+
+    std::cout << std::endl;
+    std::cout << "Qual tipo de cupom deseja criar?" << std::endl;
+    std::cout << VERMELHO << "[0] CUPOM BÁSICO" << RESET << "  Basta apenas declarar um valor de desconto e uma etiqueta." << std::endl;
+    std::cout << std::endl;
+    std::cout << VERDE << "[1] CUPOM CUSTOMIZADO" << RESET << "  Crie um slogan customizado para o seu cupom, além do valor de desconto e etiqueta." << std::endl;
+    std::cout << "Escolha: ";
+    int escolha = InputManager::LerInt();
+
+    while(escolha != 0 && escolha != 1){
+        std::cout << "Opção inválida!" << std::endl;
+        std::cout << std::endl;
+        std::cout << "Qual tipo de cupom deseja criar?" << std::endl;
+        std::cout << VERMELHO << "[0] CUPOM BÁSICO" << RESET << "  Basta apenas declarar um valor de desconto e uma etiqueta." << std::endl;
+        std::cout << std::endl;
+        std::cout << VERDE << "[1] CUPOM CUSTOMIZADO" << RESET << "  Crie um slogan customizado para o seu cupom, além do valor de desconto e etiqueta." << std::endl;
+        std::cout << "Escolha: ";
+        escolha = InputManager::LerInt();
+    }
+
+    //Lendo etiqueta
+    std::cout << std::endl;
+    std::cout << "Insira uma etiqueta para o cupom: (Ex: DIADASMAES15)" << std::endl;
+    std::string etiqueta = InputManager::LerString();
+    std::cout << std::endl;
+
+    //Lendo valor do desconto
+    std::cout << "Insira o valor do desconto em porcentagem. Por exemplo, caso queira dar um desconto de 10%, escreva '10', e não '0.1'. " << std::endl;
+    double valor_desconto = InputManager::LerDouble();
+    std::cout << std::endl;
+
+    std::vector<Cliente*> clientes = _clienteRepositorio->ListarTodos();
+
+    if(escolha == 0){
+
+        //Criando cupom básico
+        std::cout << "Confirma a criação do seguinte cupom?" << std::endl;
+        std::cout << std::endl;
+        std::cout << "ETIQUETA: " << etiqueta << std::endl;
+        std::cout << "DESCONTO: " << valor_desconto << "%" << std::endl;
+        std::cout << std::endl;
+        std::cout << "[0] Não." << std::endl;
+        std::cout << "[1] Sim." << std::endl;
+        std::cout << "Escolha: ";
+        escolha = InputManager::LerInt();
+        std::cout << std::endl;
+
+        while(escolha != 0 && escolha != 1){
+            std::cout << "Opção inválida!" << std::endl;
+            std::cout << std::endl;
+            std::cout << "[0] Não." << std::endl;
+            std::cout << "[1] Sim." << std::endl;
+            std::cout << "Escolha: ";
+            escolha = InputManager::LerInt();
+            std::cout << std::endl;
+        }
+
+        if(escolha == 1){
+            
+            for(auto cliente : clientes){
+                Cupom* novo_cupom = new CupomBasico(etiqueta, valor_desconto, cliente->GetId());
+                _cupomRepositorio->Inserir(novo_cupom);
+            }
+        }
+
+    }else{
+        
+        //Criando cupom customizado
+
+        //Lendo descrição customizada
+        std::cout << "Insira uma descrição personalizada para o seu cupom." << std::endl;
+        std::string descricao = InputManager::LerString();
+        std::cout << std::endl;
+
+        std::cout << "Confirma a criação do seguinte cupom?" << std::endl;
+        std::cout << std::endl;
+        std::cout << "ETIQUETA: " << etiqueta << std::endl;
+        std::cout << "DESCONTO: " << valor_desconto << "%" << std::endl;
+        std::cout << "DESCRIÇÃO: " << descricao << std::endl;
+        std::cout << std::endl;
+        std::cout << "[0] Não." << std::endl;
+        std::cout << "[1] Sim." << std::endl;
+        std::cout << "Escolha: ";
+        escolha = InputManager::LerInt();
+        std::cout << std::endl;
+
+        while(escolha != 0 && escolha != 1){
+            std::cout << "Opção inválida!" << std::endl;
+            std::cout << std::endl;
+            std::cout << "[0] Não." << std::endl;
+            std::cout << "[1] Sim." << std::endl;
+            std::cout << "Escolha: ";
+            escolha = InputManager::LerInt();
+            std::cout << std::endl;
+        }
+
+        if(escolha == 1){
+            
+            for(auto cliente : clientes){
+                Cupom* novo_cupom = new CupomCustomizado(etiqueta, valor_desconto, cliente->GetId(), descricao);
+                _cupomRepositorio->Inserir(novo_cupom);
+            }
         }
     }
 }
